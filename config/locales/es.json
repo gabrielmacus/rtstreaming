@@ -1,0 +1,12 @@
+{
+  "Welcome": "Bienvenido",
+  "A brand new app.": "Una nueva aplicación.",
+
+  "login.claveLabel":"Ingrese su clave de acceso",
+  "login.submitBtn":"Ingresar",
+  "login.queryError":"Error al intentar ingresar. Inténtelo más tarde",
+  "login.noPassword":"No se ingresó ninguna contraseña",
+  "login.wrongParams":"Los datos de ingreso son incorrectos. Verifíquelos y vuelva a intentar",
+
+  "usuario.noAutenticado":"Debe ingresar a su cuenta para realizar dicha acción"
+}
