@@ -33,9 +33,16 @@ module.exports.routes = {
   ***************************************************************************/
 
   'GET /':'PagesController.index',
-  
+
   'GET /ingresar':'PagesController.login',
-  
+
+  'GET /admin/ingresar':'PagesController.loginAdmin',
+
+  'GET /admin':'PagesController.admin',
+  'GET /admin/usuarios':'PagesController.usuarios',
+
+  'GET /salir':"UserController.salir",
+
   'POST /ingresar':'UserController.login'
 
   /***************************************************************************

@@ -2,11 +2,27 @@
   "Welcome": "Bienvenido",
   "A brand new app.": "Una nueva aplicación.",
 
+
+  "login.contrasenaLabel":"Contraseña",
+  "login.usuarioLabel":"Usuario",
+  "login.noUsername":"No se ingresó un nombre de usuario",
+  "login.codigoLabel":"Ingrese el código de acceso",
   "login.claveLabel":"Ingrese su clave de acceso",
   "login.submitBtn":"Ingresar",
   "login.queryError":"Error al intentar ingresar. Inténtelo más tarde",
   "login.noPassword":"No se ingresó ninguna contraseña",
   "login.wrongParams":"Los datos de ingreso son incorrectos. Verifíquelos y vuelva a intentar",
 
-  "usuario.noAutenticado":"Debe ingresar a su cuenta para realizar dicha acción"
+  "navbar.salir":"Salir",
+  "navbar.cerrarSesion":"Cerrar sesión",
+  "navbar.irTransmision":"Ir a la transmisión",
+  "navbar.irHome":"Inicio",
+  "navbar.gestionUsuarios":"Gestionar usuarios",
+
+  "usuario.noAutenticado":"Debe ingresar a su cuenta para realizar dicha acción",
+  "usuario.bienvenida":"Bienvenido, {{username}}",
+
+  "usuarios.listado":"Listado de usuarios",
+  "usuarios.errorListar":"Error al listar los usuarios. Inténtelo más tarde"
+
 }

@@ -3,5 +3,6 @@
  */
 function error(e) {
   console.log(e);
-  
+  alert(e.responseJSON);
+
 }

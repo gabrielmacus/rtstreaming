@@ -1,2 +1,28 @@
+<script>
 
-<%- partial('objetos/login-form.ejs') %>
+  $(document).on('submit', '#login-form',function (e) {
+
+    e.preventDefault();
+    $.ajax(
+
+      {
+        url:'/ingresar',
+        method:'post',
+        dataType:'json',
+        data:$("#login-form").serialize(),
+        success:function () {
+
+          location.reload();
+
+        },
+        error:error
+      }
+    )
+
+  });
+
+
+
+</script>
+
+<%- partial(form) %>

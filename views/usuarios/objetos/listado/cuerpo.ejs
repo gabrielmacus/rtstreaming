@@ -1,0 +1,29 @@
+
+
+
+  <ul>
+    <% for(var k in users)
+    {
+      var usuario=users[k];
+    %>
+    <li class="usuario nivel-<%= usuario.level %>  <% if (usuario.id==user.id){ %> me <% } %> ">
+      <% if (usuario.level>1)
+      {
+      %>
+      <span class="nombre"><%= usuario.name %></span>
+      <span class="apellido"><%= usuario.surname %></span>
+      <span class="nombreUsuario"><%= usuario.username %></span>
+      <%
+      }
+      else
+      {
+      %>
+      <span class="nombreUsuario"><%= usuario.username %></span>
+      <%
+      }%>
+
+    </li>
+    <%
+    }
+    %>
+  </ul>

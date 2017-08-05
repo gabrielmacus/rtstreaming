@@ -1,39 +1,12 @@
 
 <form id="login-form" class="login-form" >
 
-  <script>
-    window.onload=function () {
-
-      $(document).on('submit', '#login-form',function (e) {
-
-        e.preventDefault();
-        $.ajax(
-
-          {
-            url:'/ingresar',
-            method:'post',
-            dataType:'json',
-            data:$("#login-form").serialize(),
-            success:function () {
-
-              location.reload();
-
-            },
-            error:error
-          }
-        )
-
-      });
-
-
-    }
-  </script>
 
 
     <div class="body">
         <div class="form-block">
-            <input name="password" type="password">
-            <label for="password"><%= __("login.claveLabel") %></label>
+            <input name="user" type="text">
+            <label for="user"><%= __("login.usuarioLabel") %></label>
 
         </div>
 

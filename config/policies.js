@@ -48,10 +48,14 @@ module.exports.policies = {
 		// before letting any users feed our rabbits
 		// feed : ['isNiceToAnimals', 'hasRabbitFood']
 	// }
-  
-   PagesController: 
+
+   PagesController:
   {
     index:['isLogged'],
-    ingresar:['isntLogged']
+    login:['isntLogged'],
+    loginAdmin:['isntLogged'],
+    //TODO requerir privilegios
+    admin:['isLogged'],
+    usuarios:['isLogged']
   }
 };

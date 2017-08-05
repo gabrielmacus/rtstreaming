@@ -4,7 +4,8 @@
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
-
+const crypto = require('crypto');
+const shortid = require('shortid');
 module.exports = {
 
   attributes: {
@@ -30,17 +31,43 @@ module.exports = {
     },
     password:
     {
-      type:'string',
-      required:true
+      type:'string'
     },
     email:
     {
       type:'string'
+      ,
+      unique: true
     },
     phones:
     {
       type:'json'
     }
   }
+  ,
+
+  beforeValidate:function(values,callback)
+  {
+    if(values.level==1)
+    {
+      //Si es nivel 1, genero el usuario
+
+      values.username=shortid.generate().toLowerCase();
+
+    }
+    callback();
+  },
+  beforeCreate:function (values,callback) {
+    if(values.password) {
+      var hash = crypto.createHash(sails.config.hashAlgo);
+      hash.update(values.password);
+      values.password = hash.digest('hex');
+    }
+
+    //calling cb() with an argument returns an error. Useful for canceling the entire operation if some criteria fails.
+    callback();
+
+  }
+
 };
 

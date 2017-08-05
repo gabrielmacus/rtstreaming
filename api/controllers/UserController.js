@@ -22,13 +22,19 @@ module.exports = {
         return res.json(result.code,res.i18n(result.error));
       }
 
-      res.cookie('user_tk',result);
+      var token=WebTokenService.generarToken(result[0]);
+      res.cookie('user_tk',token);
 
       return res.json(result);
 
 
     })
 
+  },
+  salir:function(req,res)
+  {
+    res.clearCookie("user_tk");
+    res.redirect("/");
   }
 
 

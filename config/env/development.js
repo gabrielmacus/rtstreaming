@@ -25,6 +25,13 @@ module.exports = {
   {
     connection:'sails-mongo'
   },
-  port:2000
-  
+  port:2000,
+  hashAlgo:'sha256',
+  salt:'qwerty',
+  publicData:
+  {
+    superAdminLevel:10
+  }
+
+
 };

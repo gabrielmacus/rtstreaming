@@ -31,10 +31,24 @@
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
+
+    <script
+      src="http://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+      crossorigin="anonymous"></script>
   </head>
 
   <body id="app" class="<%= bodyClasses.join(' ') %>" >
-    <%- body %>
+
+    <header>
+      <%- partial('../comun/navbar.ejs') %>
+    </header>
+
+    <section>
+      <%- body %>
+    </section>
+
+
 
 
 
@@ -90,7 +104,6 @@
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/utils.js"></script>
-    <script src="/js/zepto.js"></script>
     <!--SCRIPTS END-->
   </body >
 </html>

@@ -5,10 +5,11 @@
 module.exports = function(req, res, next) {
 
 
-  var token =req.cookies.user_token ||req.headers['x-access-token'];
+  var token =req.cookies.user_tk ||req.headers['x-access-token'];
 
   WebTokenService.verificarToken(token,function(err,result) {
 
+    req.session.user=result;
 
 
     if(err)
