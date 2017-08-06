@@ -1,7 +1,18 @@
 
+<% if(typeof top === "string")
+{%>
 
-<%- partial('objetos/listado/top.ejs') %>
+<%- partial(top) %>
+<%
+}%>
 
-<%- partial('objetos/listado/cuerpo.ejs') %>
+<%if( typeof cuerpo === "string")
+{%>
+<%- partial(cuerpo) %>
+<%}%>
 
-<%- partial('objetos/listado/bottom.ejs') %>
+<%if(typeof bottom === "string")
+{%>
+<%- partial(bottom) %>
+<%
+}%>

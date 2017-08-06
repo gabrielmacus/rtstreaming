@@ -9,7 +9,7 @@
 
 
   <% /* Solo si soy super administrador */%>
-  <% if(user.level >= publicData.superAdminLevel )
+  <% if(user.level >= publicData.userLevels.superAdminLevel )
   {
     %>
   <a href="/admin/usuarios" title="<%= __("navbar.gestionUsuarios")%>"><%= __("navbar.gestionUsuarios")%></a>

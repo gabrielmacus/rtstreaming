@@ -54,8 +54,8 @@ module.exports.policies = {
     index:['isLogged'],
     login:['isntLogged'],
     loginAdmin:['isntLogged'],
-    //TODO requerir privilegios
-    admin:['isLogged'],
-    usuarios:['isLogged']
+    admin:['isLogged','isPanelUser'],
+    usuarios:['isLogged','isSuperAdmin'],
+    usuario:['isLogged','isSuperAdmin']
   }
 };

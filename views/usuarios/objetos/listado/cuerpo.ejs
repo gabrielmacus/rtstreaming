@@ -21,7 +21,9 @@
       <span class="nombreUsuario"><%= usuario.username %></span>
       <%
       }%>
-
+      <a href="/admin/usuario/<%= usuario.id %>" class="edit-usuario">
+        <%= __("editar") %>
+      </a>
     </li>
     <%
     }

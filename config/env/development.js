@@ -30,7 +30,13 @@ module.exports = {
   salt:'qwerty',
   publicData:
   {
-    superAdminLevel:10
+    userLevels:
+    {
+      superAdminLevel:10,
+      panelLevel:4,
+      standardLevel:1
+    }
+
   }
 
 

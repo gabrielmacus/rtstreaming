@@ -19,8 +19,14 @@ module.exports = {
     username:
     {
       type:'string',
-      required:true
+      required:true,
+      unique:true
     },
+    /* Atributo solo para usuarios que se les autogenera el username cada cierto tiempo*/
+  autogenerateSpan:
+  {
+    type:'json'
+  },
     name:
     {
       type:'string'

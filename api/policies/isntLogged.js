@@ -11,17 +11,18 @@ module.exports = function(req, res, next) {
 
     if(err)
     {
+    //Si no estoy logueado, sigo al login
       return next();
 
     }
-    console.log(result);
-    if(result.nivel > 1)
+
+    if(result.level >= sails.config.publicData.panelLevel)
     {
-      return res.redirect('/');
+      return res.redirect('/admin');
     }
     else
     {
-      return res.redirect('/admin');
+      return res.redirect('/');
     }
 
   });

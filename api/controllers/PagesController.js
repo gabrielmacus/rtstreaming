@@ -4,7 +4,7 @@
  * @description :: Server-side logic for managing Homes
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
+const async = require('async');
 module.exports = {
 
   index: function(req,res){
@@ -41,10 +41,13 @@ module.exports = {
         var templateData=
         {
           layout: 'layouts/admin-layout',
-          bodyClasses: ["admin-usuarios"],
+          bodyClasses: ["admin-usuarios","listado"],
           user:req.session.user,
           users:results,
-          publicData:sails.config.publicData
+          publicData:sails.config.publicData,
+          top:'objetos/listado/top.ejs',
+          cuerpo:'objetos/listado/cuerpo.ejs',
+          bottom:'objetos/listado/bottom.ejs'
         };
 
         return res.view('usuarios/cuerpo',templateData)
@@ -52,5 +55,59 @@ module.exports = {
       });
 
   }
+  ,
+  usuario: function(req,res)
+  {
+
+    var templateData=
+    {
+      layout: 'layouts/admin-layout',
+      bodyClasses: ["admin-usuarios","guardar"],
+      user:req.session.user,
+      publicData:sails.config.publicData,
+      cuerpo:'objetos/guardar/cuerpo.ejs',
+      top:'objetos/guardar/top.ejs',
+      bottom:'objetos/guardar/bottom.ejs'
+    };
+
+    async.waterfall([
+      function(callback){
+
+        if(req.param("id"))
+        {
+          //Edicion de usuario
+
+          User.find({id:[req.param("id")]}).exec(
+            function(err,results){
+
+
+              if(err)
+              {   sails.log.error(err);
+              return  res.json(500,res.i18n("usuarios.errorEditar"));
+              }
+
+              templateData.editUser=results[0];
+
+              callback();
+            }
+          )
+
+        }
+        else
+        {
+          //Creacion de usuario
+          callback();
+        }
+
+
+      }
+    ], function (err, result) {
+      // result now equals 'done'
+      return res.view('usuarios/cuerpo',templateData)
+    });
+
+
+  }
+
 };
 

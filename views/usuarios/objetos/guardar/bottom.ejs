@@ -1,0 +1,66 @@
+<script>
+
+  var app = angular.module('app', [ "isteven-multi-select" ]);
+  app.controller('ctrl', function($rootScope,$http) {
+
+    $rootScope.usuario={};
+
+    <%
+if(typeof editUser === "object") {%>
+    $rootScope.usuario = <%- JSON.stringify(editUser) %>
+      $rootScope.usuario.level =  $rootScope.usuario.level.toString();
+//    $('.selDiv option[value="'+$rootScope.usuario.level+'"]').prop('selected', true);
+
+      <%
+      }%>
+
+    $rootScope.autogenerateSpan=
+      [
+        {dia:'<%= __("lun") %>',id:1},
+        {dia:'<%= __("mar") %>',id:2},
+        {dia:'<%= __("mie") %>',id:3},
+        {dia:'<%= __("jue") %>',id:4},
+        {dia:'<%= __("vie") %>',id:5},
+        {dia:'<%= __("sab") %>',id:6},
+        {dia:'<%= __("dom") %>',id:7}
+      ]
+    <%
+    var levels={};
+    for(k in publicData.userLevels)
+    {
+
+        levels[k]={nivel:publicData.userLevels[k],nombre:__("usuarios.niveles."+k)};
+    }
+
+    %>
+
+
+
+    $rootScope.levels= <%- JSON.stringify(levels)%>
+
+
+
+    $rootScope.saveUsuario=function(usuario)
+    {
+      console.log(usuario);
+
+      $http.post('/user', usuario).
+        then(function(res) {
+
+          console.log(res);
+        }, error);
+
+    }
+
+
+  });
+</script>
+<footer>
+  <div class="acciones">
+
+    <div class="btn-group">
+      <button data-ng-click="saveUsuario(usuario)" class="submit" >Guardar</button>
+    </div>
+
+  </div>
+</footer>

@@ -1,0 +1,58 @@
+<form id="guardar-usuario" data-ng-controller="ctrl">
+
+  <div data-ng-if="!usuario.level || usuario.level > 1" class="form-block">
+    <label for="nombreUsuario"><%= __("usuarios.username") %></label>
+    <input id="nombreUsuario" type="text" data-ng-model="usuario.username" name="username">
+  </div>
+
+  <div data-ng-if="usuario.level == 1" class="form-block">
+    <label for="autogenerado"><%= __("usuarios.username") %></label>
+    <input  id="autogenerado" readonly value="<%= __("usuarios.autogenerado")%>">
+  </div>
+
+  <div data-ng-if="usuario.level == 1" class="form-block">
+    <label for="generateEvery"><%= __("usuarios.generateEvery") %></label>
+
+    <div
+      isteven-multi-select
+      input-model="autogenerateSpan"
+      output-model="usuario.autogenerateSpan"
+      button-label="dia"
+      item-label="dia"
+      tick-property="ticked"
+      >
+    </div>
+
+  </div>
+
+
+  <div class="form-block"  data-ng-if="!usuario.level || usuario.level > 1">
+    <label for="contrasena"><%= __("usuarios.contrasena") %></label>
+    <input id="contrasena" type="password"   data-ng-model="usuario.password" name="password">
+  </div>
+
+  <div class="form-block">
+    <label for="email"><%= __("usuarios.email") %></label>
+    <input id="email" type="text"  data-ng-model="usuario.email" name="email">
+  </div>
+
+
+  <div class="form-block">
+    <label for="nombre"><%= __("usuarios.nombre") %></label>
+    <input id="nombre" type="text"  data-ng-model="usuario.name" name="name">
+  </div>
+
+  <div class="form-block">
+    <label for="apellido"><%= __("usuarios.apellido") %></label>
+    <input id="apellido" type="text"   data-ng-model="usuario.surname" name="surname">
+  </div>
+
+  <div class="form-block">
+    <label for="niveles"><%= __("usuarios.niveles") %></label>
+    <select
+              id="niveles"    data-ng-model="usuario.level" name="niveles">
+      <option data-ng-repeat="(k,v) in levels" value="{{v.nivel}}"  data-ng-selected="{{usuario.level == v.nivel}}">{{v.nombre}}</option>
+    </select>
+  </div>
+
+</form>

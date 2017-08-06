@@ -9,6 +9,7 @@ module.exports = function(req, res, next) {
 
   WebTokenService.verificarToken(token,function(err,result) {
 
+
     req.session.user=result;
 
 

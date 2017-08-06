@@ -39,7 +39,12 @@ module.exports.routes = {
   'GET /admin/ingresar':'PagesController.loginAdmin',
 
   'GET /admin':'PagesController.admin',
+
   'GET /admin/usuarios':'PagesController.usuarios',
+
+  'GET /admin/usuario/:id':'PagesController.usuario',
+
+  'GET /admin/usuario/':'PagesController.usuario',
 
   'GET /salir':"UserController.salir",
 
