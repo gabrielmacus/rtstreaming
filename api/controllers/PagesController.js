@@ -86,7 +86,11 @@ module.exports = {
               return  res.json(500,res.i18n("usuarios.errorEditar"));
               }
 
-              templateData.editUser=results[0];
+              var user=results[0];
+
+              console.log(user);
+              delete user.password;
+              templateData.editUser=user;
 
               callback();
             }

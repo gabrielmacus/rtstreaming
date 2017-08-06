@@ -22,7 +22,13 @@ module.exports = {
         return res.json(result.code,res.i18n(result.error));
       }
 
-      var token=WebTokenService.generarToken(result[0]);
+      var user=result[0];
+
+      delete user.password;
+
+      console.log(user);
+
+      var token=WebTokenService.generarToken(user);
       res.cookie('user_tk',token);
 
       return res.json(result);

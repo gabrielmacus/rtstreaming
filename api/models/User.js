@@ -13,8 +13,8 @@ module.exports = {
     level:
     {
       type:'integer',
-      required:true,
-      defaultsTo:1 //Usuario estandar
+      required:true
+     // defaultsTo:1 //Usuario estandar
     },
     username:
     {
@@ -69,11 +69,15 @@ module.exports = {
       hash.update(values.password);
       values.password = hash.digest('hex');
     }
-
     //calling cb() with an argument returns an error. Useful for canceling the entire operation if some criteria fails.
     callback();
 
   }
+  ,
+  beforeUpdate:function (values,callback) {
 
+    this.beforeCreate(values,callback);
+
+  }
 };
 

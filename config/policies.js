@@ -57,5 +57,9 @@ module.exports.policies = {
     admin:['isLogged','isPanelUser'],
     usuarios:['isLogged','isSuperAdmin'],
     usuario:['isLogged','isSuperAdmin']
+  },
+  UserController:
+  {
+    delete:['isLogged','isSuperAdmin','isntSelf']
   }
 };

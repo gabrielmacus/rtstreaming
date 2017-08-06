@@ -1,23 +1,23 @@
 
-<form id="login-form" class="login-form" >
+<form id="login-form" class="login-form w3-row w3-card-2 w3-padding" >
 
 
 
-    <div class="body">
-        <div class="form-block">
-            <input name="user" type="text">
-            <label for="user"><%= __("login.usuarioLabel") %></label>
+        <div class="form-block w3-col s12">
+
+          <label for="user"><%= __("login.usuarioLabel") %></label>
+            <input class="w3-input" name="user" type="text">
+
 
         </div>
 
-        <div class="form-btn-block">
+        <div class="form-block w3-col s12 ">
 
-            <div class="btn">
-                <button class="enviar"  type="submit"><%= __("login.submitBtn")%></button>
-            </div>
+
+                <button class="enviar w3-btn w3-margin-top w3-right"  type="submit"><%= __("login.submitBtn")%></button>
+
 
         </div>
-    </div>
 
 
 </form>

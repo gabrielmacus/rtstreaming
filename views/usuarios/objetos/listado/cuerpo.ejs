@@ -1,7 +1,7 @@
 
 
 
-  <ul>
+  <ul data-ng-controller="userListadoCtrl" class="w3-row ">
     <% for(var k in users)
     {
       var usuario=users[k];
@@ -21,11 +21,40 @@
       <span class="nombreUsuario"><%= usuario.username %></span>
       <%
       }%>
+
       <a href="/admin/usuario/<%= usuario.id %>" class="edit-usuario">
         <%= __("editar") %>
       </a>
+      <%if(usuario.id != user.id)
+      {
+        %>
+      <a data-ng-click="deleteUsuario(<%= JSON.stringify(usuario)%>)">
+        <%= __("eliminar") %>
+      </a><%
+      }%>
+
     </li>
     <%
     }
     %>
   </ul>
+
+  <script>
+
+    app.controller('userListadoCtrl', function($rootScope,$http) {
+      <%if(usuario.id != user.id)
+         {
+           %>
+      $rootScope.deleteUsuario=function(usuario)
+      {
+
+        $http.delete('/user/'+usuario.id)
+        .then(function(res) {
+
+            console.log(res);
+            location.reload();
+          }, error);
+      }
+      <%}%>
+    });
+  </script>

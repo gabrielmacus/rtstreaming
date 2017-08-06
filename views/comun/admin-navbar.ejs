@@ -1,21 +1,38 @@
 <nav>
-  <a title="<%= __("usuario.bienvenida",user) %>"><%= __("usuario.bienvenida",user) %></a>
 
 
-  <a href="/admin/" title="<%= __("navbar.irHome")%>"><%= __("navbar.irHome")%></a>
+    <a title="<%= __("usuario.bienvenida",user) %>">
+      <%= __("usuario.bienvenida",user) %>
+    </a>
+
+    <a href="/admin/" title="<%= __("navbar.irHome")%>">
+      <%= __("navbar.irHome")%>
+      <span class="line"></span>
+    </a>
 
 
-  <a href="/" title="<%= __("navbar.irTransmision")%>"><%= __("navbar.irTransmision")%></a>
+    <a href="/" title="<%= __("navbar.irTransmision")%>">
+      <%= __("navbar.irTransmision")%>
+      <span class="line"></span>
+    </a>
 
 
-  <% /* Solo si soy super administrador */%>
-  <% if(user.level >= publicData.userLevels.superAdminLevel )
-  {
+    <% /* Solo si soy super administrador */%>
+    <% if(user.level >= publicData.userLevels.superAdminLevel )
+    {
     %>
-  <a href="/admin/usuarios" title="<%= __("navbar.gestionUsuarios")%>"><%= __("navbar.gestionUsuarios")%></a>
-  <%
-  }%>
+    <a href="/admin/usuarios" title="<%= __("navbar.gestionUsuarios")%>">
+      <%= __("navbar.gestionUsuarios")%>
+      <span class="line"></span>
+    </a>
+    <%
+    }%>
 
-  <a href="/salir" title="<%= __("navbar.cerrarSesion")%>"><%= __("navbar.salir")%></a>
+    <a href="/salir" title="<%= __("navbar.cerrarSesion")%>">
+      <%= __("navbar.salir")%>
+      <span class="line"></span>
+    </a>
+
+
 
 </nav>

@@ -33,8 +33,9 @@
   "usuarios.niveles.panelLevel": "Operario",
   "usuarios.autogenerado":"Nombre generado automáticamente",
   "usuarios.generateEvery":"Generar cada",
+  "usuarios.cantDeleteSelf":"No puede eliminar su usuario",
 
-
+  "eliminar":"Eliminar",
   "editar":"Editar",
   "lun":"Lunes",
   "mar":"Martes",

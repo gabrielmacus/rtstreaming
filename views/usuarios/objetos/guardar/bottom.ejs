@@ -1,18 +1,13 @@
 <script>
 
-  var app = angular.module('app', [ "isteven-multi-select" ]);
-  app.controller('ctrl', function($rootScope,$http) {
+  app.controller('userGuardarCtrl', function($rootScope,$http) {
 
     $rootScope.usuario={};
 
-    <%
-if(typeof editUser === "object") {%>
-    $rootScope.usuario = <%- JSON.stringify(editUser) %>
-      $rootScope.usuario.level =  $rootScope.usuario.level.toString();
-//    $('.selDiv option[value="'+$rootScope.usuario.level+'"]').prop('selected', true);
 
-      <%
-      }%>
+
+
+    console.log(    $rootScope.usuario);
 
     $rootScope.autogenerateSpan=
       [
@@ -24,15 +19,41 @@ if(typeof editUser === "object") {%>
         {dia:'<%= __("sab") %>',id:6},
         {dia:'<%= __("dom") %>',id:7}
       ]
+
+
+    <%
+if(typeof editUser === "object") {%>
+    $rootScope.usuario = <%- JSON.stringify(editUser) %>
+      $rootScope.usuario.level =  $rootScope.usuario.level.toString();
+//    $('.selDiv option[value="'+$rootScope.usuario.level+'"]').prop('selected', true);
+
+    if( $rootScope.usuario.autogenerateSpan)
+    {
+      for(k in $rootScope.usuario.autogenerateSpan)
+      {
+      var autogenerateSpanIdx=  $rootScope.autogenerateSpan.findIndex(function(el){{ return el.id==  $rootScope.usuario.autogenerateSpan[k].id}});
+
+        $rootScope.autogenerateSpan[autogenerateSpanIdx]["ticked"]=true;
+
+
+      }
+    }
+
+      <%
+      }%>
+
     <%
     var levels={};
     for(k in publicData.userLevels)
     {
 
         levels[k]={nivel:publicData.userLevels[k],nombre:__("usuarios.niveles."+k)};
+
     }
 
     %>
+
+
 
 
 
@@ -42,12 +63,12 @@ if(typeof editUser === "object") {%>
 
     $rootScope.saveUsuario=function(usuario)
     {
-      console.log(usuario);
 
-      $http.post('/user', usuario).
+
+      $http.post('/user<%if(typeof editUser === "object"){%>/<%= editUser.id%><%}%>', usuario).
         then(function(res) {
 
-          console.log(res);
+         location.href="/admin/usuarios";
         }, error);
 
     }
