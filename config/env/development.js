@@ -28,13 +28,18 @@ module.exports = {
   port:2000,
   hashAlgo:'sha256',
   salt:'qwerty',
+
   publicData:
-  {
+  {  //Niveles minimos
+    canDeleteUserLevel:10,
+    canCreateUserLevel:6,
+    canReadUserLevel:6,
     userLevels:
     {
-      superAdminLevel:10,
+      standardLevel:1,
       panelLevel:4,
-      standardLevel:1
+      superAdminLevel:10,
+      testLevel:6
     }
 
   }

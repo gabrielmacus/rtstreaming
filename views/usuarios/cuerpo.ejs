@@ -1,18 +1,23 @@
+<div class="main-container">
 
-<% if(typeof top === "string")
-{%>
+  <% if(typeof top === "string")
+  {%>
 
-<%- partial(top) %>
-<%
-}%>
+  <%- partial(top) %>
+  <%
+  }%>
 
-<%if( typeof cuerpo === "string")
-{%>
-<%- partial(cuerpo) %>
-<%}%>
+  <%if( typeof cuerpo === "string")
+  {%>
+  <%- partial(cuerpo) %>
+  <%}%>
 
-<%if(typeof bottom === "string")
-{%>
-<%- partial(bottom) %>
-<%
-}%>
+  <div class="line"></div>
+
+  <%if(typeof bottom === "string")
+  {%>
+  <%- partial(bottom) %>
+  <%
+  }%>
+
+</div>

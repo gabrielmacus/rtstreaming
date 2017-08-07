@@ -21,7 +21,7 @@ module.exports = {
   }
   ,admin: function(req,res)
   {
-    var templateData={layout: 'layouts/admin-layout', bodyClasses: ["admin"], user:req.session.user, publicData:sails.config.publicData};
+    var templateData={home:'active',layout: 'layouts/admin-layout', bodyClasses: ["admin"], user:req.session.user, publicData:sails.config.publicData};
     res.view('admin/cuerpo',templateData)
   },
   usuarios: function(req,res)
@@ -44,6 +44,8 @@ module.exports = {
           bodyClasses: ["admin-usuarios","listado"],
           user:req.session.user,
           users:results,
+          gestionUsuarios:'active',
+
           publicData:sails.config.publicData,
           top:'objetos/listado/top.ejs',
           cuerpo:'objetos/listado/cuerpo.ejs',
@@ -65,6 +67,7 @@ module.exports = {
       bodyClasses: ["admin-usuarios","guardar"],
       user:req.session.user,
       publicData:sails.config.publicData,
+      gestionUsuarios:'active',
       cuerpo:'objetos/guardar/cuerpo.ejs',
       top:'objetos/guardar/top.ejs',
       bottom:'objetos/guardar/bottom.ejs'

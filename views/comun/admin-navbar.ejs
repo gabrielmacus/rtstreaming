@@ -1,38 +1,45 @@
+<div class="mobile-bar">
+<span class="hamburger">
+  <i class="material-icons">&#xE3C7;</i>
+</span>
+</div>
 <nav>
+<div class="wrapper">
 
 
-    <a title="<%= __("usuario.bienvenida",user) %>">
-      <%= __("usuario.bienvenida",user) %>
-    </a>
+  <a  title="<%= __("usuario.bienvenida",user) %>">
+    <%= __("usuario.bienvenida",user) %>
+  </a>
 
-    <a href="/admin/" title="<%= __("navbar.irHome")%>">
-      <%= __("navbar.irHome")%>
-      <span class="line"></span>
-    </a>
-
-
-    <a href="/" title="<%= __("navbar.irTransmision")%>">
-      <%= __("navbar.irTransmision")%>
-      <span class="line"></span>
-    </a>
+  <a class="<% if(typeof home !== 'undefined' && home=='active') {%> active <%} %>" href="/admin/" title="<%= __("navbar.irHome")%>">
+    <%= __("navbar.irHome")%>
+    <span class="line"></span>
+  </a>
 
 
-    <% /* Solo si soy super administrador */%>
-    <% if(user.level >= publicData.userLevels.superAdminLevel )
-    {
-    %>
-    <a href="/admin/usuarios" title="<%= __("navbar.gestionUsuarios")%>">
-      <%= __("navbar.gestionUsuarios")%>
-      <span class="line"></span>
-    </a>
-    <%
-    }%>
-
-    <a href="/salir" title="<%= __("navbar.cerrarSesion")%>">
-      <%= __("navbar.salir")%>
-      <span class="line"></span>
-    </a>
+  <a class="<% if(typeof irTransmision !=='undefined' && irTransmision=='active') {%> active <%} %>" href="/" title="<%= __("navbar.irTransmision")%>">
+    <%= __("navbar.irTransmision")%>
+    <span class="line"></span>
+  </a>
 
 
+  <% /* Solo si tengo los permisos suficientes */%>
+  <% if(user.level >= publicData.canReadUserLevel )
+  {
+  %>
+  <a class="<% if(typeof gestionUsuarios  !== 'undefined' && gestionUsuarios=='active') {%> active <%} %>" href="/admin/usuarios" title="<%= __("navbar.gestionUsuarios")%>">
+    <%= __("navbar.gestionUsuarios")%>
+    <span class="line"></span>
+  </a>
+  <%
+  }%>
+
+  <a href="/salir" title="<%= __("navbar.cerrarSesion")%>">
+    <%= __("navbar.salir")%>
+    <span class="line"></span>
+  </a>
+
+
+</div>
 
 </nav>

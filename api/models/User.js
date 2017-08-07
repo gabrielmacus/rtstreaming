@@ -1,6 +1,11 @@
 /**
  * User.js
  *
+ * Un usuario, por mas que tenga permisos de edicion/creacion, no puede:
+ * - Crear/Editar un usuario con mas o iguales permisos q el
+ *
+ *
+ *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
@@ -61,6 +66,8 @@ module.exports = {
       values.username=shortid.generate().toLowerCase();
 
     }
+
+
     callback();
   },
   beforeCreate:function (values,callback) {

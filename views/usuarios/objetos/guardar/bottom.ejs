@@ -4,10 +4,14 @@
 
     $rootScope.usuario={};
 
-
-
-
-    console.log(    $rootScope.usuario);
+$rootScope.autogenerateSpanTranslation=
+{
+  selectAll:'<%= __('usuarios.seleccionarTodo') %>',
+  selectNone:'<%= __('usuarios.deseleccionarTodo') %>',
+  reset:'<%= __('usuarios.resetear') %>',
+  search:'<%= __("usuarios.diaABuscar")%>',
+  nothingSelected:'<%= __("usuarios.nadaSeleccionado")%>'
+}
 
     $rootScope.autogenerateSpan=
       [
@@ -76,12 +80,10 @@ if(typeof editUser === "object") {%>
 
   });
 </script>
-<footer>
-  <div class="acciones">
+<footer class="w3-row">
+  <div class="acciones w3-col s12 w3-padding">
 
-    <div class="btn-group">
-      <button data-ng-click="saveUsuario(usuario)" class="submit" >Guardar</button>
-    </div>
+      <button data-ng-click="saveUsuario(usuario)" class="submit w3-btn w3-right" >Guardar</button>
 
   </div>
 </footer>

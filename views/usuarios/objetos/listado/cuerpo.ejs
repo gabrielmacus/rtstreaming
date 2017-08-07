@@ -1,52 +1,71 @@
 
 
 
-  <ul data-ng-controller="userListadoCtrl" class="w3-row ">
+  <div data-ng-controller="userListadoCtrl" class="w3-row ">
     <% for(var k in users)
     {
       var usuario=users[k];
     %>
-    <li class="usuario nivel-<%= usuario.level %>  <% if (usuario.id==user.id){ %> me <% } %> ">
+    <article class="usuario nivel-<%= usuario.level %>  <% if (usuario.id==user.id){ %> me <% } %> ">
+
       <% if (usuario.level>1)
       {
       %>
-      <span class="nombre"><%= usuario.name %></span>
-      <span class="apellido"><%= usuario.surname %></span>
-      <span class="nombreUsuario"><%= usuario.username %></span>
+
+      <% if(usuario.name){%><span class="nombre"><%= usuario.name %></span><%}%>
+      <% if(usuario.surname){%><span class="apellido"><%= usuario.surname %></span><%}%>
+
       <%
       }
-      else
-      {
       %>
       <span class="nombreUsuario"><%= usuario.username %></span>
-      <%
-      }%>
 
-      <a href="/admin/usuario/<%= usuario.id %>" class="edit-usuario">
-        <%= __("editar") %>
-      </a>
-      <%if(usuario.id != user.id)
-      {
+
+   <div class="actions">
+
+     <% if(user.level >= publicData.canCreateUserLevel)
+     {%>
+        <a title="<%= __("editar") %>" href="/admin/usuario/<%= usuario.id %>" class="edit-usuario">
+          <i class="material-icons">&#xE254;</i>
+        </a>
+    <%}%>
+
+     <%if(user.level >= publicData.canDeleteUserLevel)
+     {%>
+     <a  title="<%= __("eliminar") %>" class="delete-usuario"
+       <%
+        if(user.id != usuario.id)
+        {
         %>
-      <a data-ng-click="deleteUsuario(<%= JSON.stringify(usuario)%>)">
-        <%= __("eliminar") %>
-      </a><%
-      }%>
+         data-ng-click="deleteUsuario(<%= JSON.stringify(usuario)%>)"
+       <%
+       }
+       else
+       { %>
+       data-disabled
+       <%
+       }%>
+       >
+       <i class="material-icons">&#xE872;</i>
+     </a>
+  <%}%>
 
-    </li>
+   </div>
+
+
+    </article>
     <%
     }
     %>
-  </ul>
+  </div>
 
   <script>
 
     app.controller('userListadoCtrl', function($rootScope,$http) {
-      <%if(usuario.id != user.id)
-         {
-           %>
+
       $rootScope.deleteUsuario=function(usuario)
       {
+        console.log('delete');
 
         $http.delete('/user/'+usuario.id)
         .then(function(res) {
@@ -55,6 +74,6 @@
             location.reload();
           }, error);
       }
-      <%}%>
+
     });
   </script>

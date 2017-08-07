@@ -1,14 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+
+*:not(i)
+{
+  font-family: @font1!important;
+}
 
 @color1: #0084b4;
 
 @color3:white;
-@color4:rgba(43, 44, 44, 0.100);
-
+@color4:rgba(43, 44, 44, 1);
+@color5:rgba(219, 223, 223, 1);
+@fontSize1:20px;
+@font1: 'Roboto', sans-serif;
 @margin1:10px;
- input
+ input,select
  {
+   border-right: 0!important;;
+   border-left: 0!important;;
+   border-top: 0!important;;
+border-radius: 0px!important;
    border-bottom-color: @color1!important;
-   outline: none;
+   outline: none!important;
  }
  label
  {
@@ -46,6 +58,7 @@ body > header,body > header nav
 {
   width: 100%;
   float: left;
+  position: relative;
 
 }
 
@@ -59,6 +72,7 @@ body > header nav .user-welcome
 {
   float: left;
 }
+
 a
 {
   text-decoration: none;
@@ -85,7 +99,7 @@ body > header nav a .line
   -ms-transition: all 300ms;
   -o-transition: all 300ms;
   transition: all 300ms;
-  left: 50%;
+  left: 65%;
   width: 0%;
   height: 4px;
   background-color: @color3;
@@ -98,4 +112,196 @@ body > header nav a:hover .line,body > header nav a.active .line
 {
   width: 35%;
   left: 32.5%;
+}
+[isteven-multi-select] .multiSelect.inlineBlock > button
+{
+  width: 100%;
+  background: transparent;
+  border-radius: 0px;
+  border: 0;
+  border-bottom: solid @color1 1px;
+  color: @color4!important;
+}
+
+
+
+[isteven-multi-select]  .clearButton
+{
+
+outline: 0;
+  border: 0;
+  color: @color4;
+  background-color: @color1;
+  top: 3px;
+  border-radius: 0;
+right: 0px;
+}
+[isteven-multi-select]  .clearButton:hover
+{
+
+  outline: 0;
+  border: 0;
+  color: @color4;
+  background-color: @color1;
+  top: 3px;
+  border-radius: 0;
+  right: 0px;
+}
+[isteven-multi-select] .checkboxLayer
+{
+  position: relative!important;;
+  width: 100%!important;
+  min-width: inherit!important;;
+}
+[isteven-multi-select] .multiSelectItem
+{
+  position: relative!important;;
+  width: 100%!important;
+  min-width: inherit!important;;
+}
+
+.main-container
+{
+width: 50%;margin: auto;
+}
+
+@media screen and(max-width: 1023px){
+
+  .main-container
+  {
+    width: 75%;
+  }
+
+}
+
+@media screen and(max-width: 768px){
+
+  .main-container
+  {
+    width: 80%;
+  }
+
+}
+
+
+@media screen and(max-width: 600px){
+
+  .main-container
+  {
+    width: 95%;
+  }
+
+}
+
+.main-container > .line
+{
+  width: 100%;
+  background-color: @color5;
+  height: 1px;
+  margin-top: @margin1;
+  margin-bottom: @margin1;
+}
+
+.usuario
+{
+  padding-top: @margin1;
+  padding-bottom: @margin1;
+  width: 100%;
+  float: left;
+  position: relative;
+}
+
+.usuario .nombre,.usuario .apellido
+{
+  font-weight: 400;
+  font-size: @fontSize1;
+}
+.usuario .nombreUsuario
+{  font-weight: 300;
+  width: 100%;
+  float: left;
+
+
+}
+
+
+.usuario .actions
+{
+  position: absolute;
+  right: 10px;
+  top: 20px;
+
+}
+
+[data-disabled]
+{
+color: rgba(144, 144, 144, 0.5);
+}
+.mobile-bar
+{
+  background-color: @color1;
+  display: none;
+  position: fixed;
+  width: 100%;
+}
+.mobile-bar .hamburger i
+{
+  padding: 10px;
+  color:@color3;
+  font-size: 35px;
+}
+body > section
+{
+  -webkit-transition: all 400ms;
+  -moz-transition: all 400ms;;
+  -ms-transition: all 400ms;;
+  -o-transition: all 400ms;;
+  transition: all 400ms;;
+  position: relative;
+  left: 0%;
+
+}
+body > header nav,body > header .mobile-bar
+{
+  z-index: 1000;
+}
+@media screen and (max-width: 768px) {
+
+  body > section
+  {
+    margin-top: 55px;
+  }
+  .mobile-bar
+  {
+    display: block;
+  }
+  body > header nav
+  {
+    top: 55px;
+    position: fixed;
+    height: 100%;
+    width: 65%;
+    left: -65%;
+    -webkit-transition: all 400ms;
+    -moz-transition: all 400ms;;
+    -ms-transition: all 400ms;;
+    -o-transition: all 400ms;;
+    transition: all 400ms;;
+
+  }
+  body > header.active nav
+  {
+
+    left: 0%;
+  }
+  body > header.active + section
+  {
+    left: 65%;
+  }
+  body > header nav a
+  {
+    float: left;
+    width: 100%;
+
+  }
 }

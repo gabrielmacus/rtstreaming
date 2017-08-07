@@ -55,11 +55,14 @@ module.exports.policies = {
     login:['isntLogged'],
     loginAdmin:['isntLogged'],
     admin:['isLogged','isPanelUser'],
-    usuarios:['isLogged','isSuperAdmin'],
-    usuario:['isLogged','isSuperAdmin']
+    usuarios:['isLogged','canReadUser'],
+    usuario:['isLogged','canCreateUser']
   },
   UserController:
   {
-    delete:['isLogged','isSuperAdmin','isntSelf']
+    destroy:['isLogged','isntSelf','canDeleteUser'],
+    create:['isLogged','canCreateUser','isLessLevel'],
+    update:['isLogged','canCreateUser','isLessLevel'],
+    find:['isLogged','canReadUser']
   }
 };

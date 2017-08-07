@@ -3,6 +3,13 @@
  */
 function error(e) {
   console.log(e);
-  alert(e.responseJSON);
+  var responseText = e.responseJSON || e.data;
+  alert(responseText);
 
 }
+
+$(document).on("click",".hamburger",function(){
+
+  $("header").toggleClass("active");
+
+});
