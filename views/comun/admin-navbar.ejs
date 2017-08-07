@@ -8,17 +8,17 @@
 
 
   <a  title="<%= __("usuario.bienvenida",user) %>">
-    <%= __("usuario.bienvenida",user) %>
+    <span class="text"><%= __("usuario.bienvenida",user) %></span>
   </a>
 
   <a class="<% if(typeof home !== 'undefined' && home=='active') {%> active <%} %>" href="/admin/" title="<%= __("navbar.irHome")%>">
-    <%= __("navbar.irHome")%>
+    <span class="text"><%= __("navbar.irHome")%></span>
     <span class="line"></span>
   </a>
 
 
   <a class="<% if(typeof irTransmision !=='undefined' && irTransmision=='active') {%> active <%} %>" href="/" title="<%= __("navbar.irTransmision")%>">
-    <%= __("navbar.irTransmision")%>
+    <span class="text"><%= __("navbar.irTransmision")%></span>
     <span class="line"></span>
   </a>
 
@@ -28,14 +28,14 @@
   {
   %>
   <a class="<% if(typeof gestionUsuarios  !== 'undefined' && gestionUsuarios=='active') {%> active <%} %>" href="/admin/usuarios" title="<%= __("navbar.gestionUsuarios")%>">
-    <%= __("navbar.gestionUsuarios")%>
+    <span class="text"><%= __("navbar.gestionUsuarios")%></span>
     <span class="line"></span>
   </a>
   <%
   }%>
 
   <a href="/salir" title="<%= __("navbar.cerrarSesion")%>">
-    <%= __("navbar.salir")%>
+    <span class="text"><%= __("navbar.salir")%></span>
     <span class="line"></span>
   </a>
 

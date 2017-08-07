@@ -48,6 +48,9 @@ module.exports.routes = {
 
   'GET /salir':"UserController.salir",
 
+  
+  'GET /streaming/:ts':'StreamingController.index',
+  
   'POST /ingresar':'UserController.login'
 
   /***************************************************************************
