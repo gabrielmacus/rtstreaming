@@ -1,0 +1,14 @@
+
+<div class="form-block">
+  <label>{{modal.label}}</label>
+</div>
+
+<div class="form-block">
+  <button class="w3-btn w3-right" data-ng-click="modal.show=false">
+    <%= __("cancelar") %>
+  </button>
+  <button class="w3-btn w3-right" data-ng-click="fireAction(modal.action)" >
+    <%= __("aceptar") %>
+  </button>
+
+</div>

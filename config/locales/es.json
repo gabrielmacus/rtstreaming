@@ -19,6 +19,7 @@
   "usuario.bienvenida": "Bienvenido, {{username}}",
   "usuario.areaNotAuthorized": "No tiene los permisos para ingresar a esta área",
   "usuario.shouldBeLessLevel":"No puede crear o editar un usuario con permisos menores o iguales a los suyos",
+  "usuario.errorConectar":"Error al conectar al usuario. Es posible que funciones como el chat, no estén disponibles",
 
   "usuarios.listado": "Listado de usuarios",
   "usuarios.errorEditar":"Error ingresar a edición de usuario",
@@ -41,6 +42,8 @@
   "usuarios.resetear":"Resetear",
   "usuarios.diaABuscar":"Día a buscar...",
   "usuarios.nadaSeleccionado":"Ningun día seleccionado",
+  "usuarios.deletePrompt":"Confirmar eliminación de usuario",
+  "usuarios.areYouSure":"¿Seguro que desea eliminar el usuario {{username}}?",
 
   "stream.noUrl":"No se especifico la url de la transmisión",
 
@@ -54,5 +57,10 @@
   "sab":"Sábado",
   "dom":"Domingo",
 
-  "transmision.titulo":"Transmisión en vivo..."
+  "aceptar":"Aceptar",
+  "cancelar":"Cancelar",
+
+  "transmision.titulo":"Transmisión en vivo...",
+
+  "areYouSure":"¿Está seguro?"
 }

@@ -10,9 +10,12 @@
 @color3:white;
 @color4:rgba(43, 44, 44, 1);
 @color5:rgba(219, 223, 223, 1);
+@color6:rgba(0, 0, 0, 0.49);
+
 @fontSize1:20px;
 @font1: 'Roboto', sans-serif;
 @margin1:10px;
+@padding1:10px;
  input,select
  {
    border-right: 0!important;;
@@ -43,11 +46,8 @@ border-radius: 0px!important;
 .form-block
 {
   margin-top: @margin1;
-}
-
-.form-block:last-child
-{
   margin-bottom: @margin1;
+
 }
 
 body{
@@ -126,6 +126,18 @@ body > header nav a:hover .line,body > header nav a.active .line
   color: @color4!important;
 }
 
+[isteven-multi-select] .multiSelectItem:hover
+{
+  background-color: @color1!important;
+
+  border:none!important;
+  background-image: none!important;
+}
+
+[isteven-multi-select] .multiSelectItem:hover label
+{
+  color:@color3!important;
+}
 
 
 [isteven-multi-select]  .clearButton
@@ -157,19 +169,74 @@ right: 0px;
   min-width: inherit!important;;
 }
 [isteven-multi-select] .multiSelectItem
-{
+{ -webkit-transition: all 100ms;
+  -moz-transition: all 100ms;
+  -ms-transition: all 100ms;
+  -o-transition: all 100ms;
+  transition: all 100ms;
   position: relative!important;;
   width: 100%!important;
   min-width: inherit!important;;
 }
-
+[isteven-multi-select] .multiSelectItem.selected
+{
+  background-color: @color5;
+  background-image: none!important;
+}
 .main-container
 {
 width: 50%;margin: auto;
 }
 
+@keyframes showModal {
+  0%{ opacity: 0;}
+  100%{opacity: 1}
+}
+.modal-wrapper
+{
+
+  z-index: 10000;
+  position: fixed;
+  display: none;
+
+
+  -webkit-animation:showModal 200ms linear;
+  -o-animation:showModal 200ms linear;
+  animation:showModal 200ms linear;
+
+
+width: 100%;
+  height: 100%;
+  top:0;
+  background-color: @color6;
+  right:0;
+
+}
+.modal-wrapper.active{
+  display: flex;
+  align-items: center;
+}
+
+.modal-wrapper .modal
+{
+  background-color: @color3;
+  padding: @padding1;
+  margin: auto;
+}
+.modal-wrapper .modal
+{
+  width: 25%;
+}
+.modal-wrapper .modal .w3-btn:nth-child(2)
+{
+  margin-right: @margin1;
+}
 @media screen and(max-width: 1023px){
 
+  .modal-wrapper .modal
+  {
+    width: 35%;
+  }
   .main-container
   {
     width: 75%;
@@ -179,6 +246,11 @@ width: 50%;margin: auto;
 
 @media screen and(max-width: 768px){
 
+
+  .modal-wrapper .modal
+  {
+    width: 50%;
+  }
   .main-container
   {
     width: 80%;
@@ -188,7 +260,10 @@ width: 50%;margin: auto;
 
 
 @media screen and(max-width: 600px){
-
+  .modal-wrapper .modal
+  {
+    width: 85%;
+  }
   .main-container
   {
     width: 95%;
@@ -201,6 +276,7 @@ width: 50%;margin: auto;
   width: 100%;
   background-color: @color5;
   height: 1px;
+  float: left;
   margin-top: @margin1;
   margin-bottom: @margin1;
 }
@@ -272,10 +348,15 @@ body > header nav > .wrapper
 {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
 }
 
 @media screen and (max-width: 768px) {
-
+  body > header nav > .wrapper
+  {
+    width: 100%;
+    display: block;
+  }
   body > section
   {
     margin-top: 55px;
@@ -316,7 +397,9 @@ body > header nav > .wrapper
 
 }
 
-.video-container
+
+h1,h2,h3,h4,h5,h6
 {
   margin-top: @margin1;
+  font-weight: 300;
 }

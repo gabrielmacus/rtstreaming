@@ -31,6 +31,10 @@ module.exports = {
       var token=WebTokenService.generarToken(user);
       res.cookie('user_tk',token);
 
+
+
+
+
       return res.json(result);
 
 
@@ -41,6 +45,28 @@ module.exports = {
   {
     res.clearCookie("user_tk");
     res.redirect("/");
+  },
+  connect:function(req,res)
+  {
+    // Make sure this is a socket request (not traditional HTTP)
+    if (!req.isSocket) {
+      return res.badRequest();
+    }
+    //Busco todos los usuarios, me sirve para mas adelante, si tengo amigos por ej, solo enviarle el msg de conexion a ellos y no a todos los sockets
+    User.find({}).exec(
+      function (err,result) {
+        if(err)
+        {
+          res.json(500,res.i18n("usuario.errorConectar"));
+        }
+
+
+
+
+      }
+    );
+
+
   }
 
 

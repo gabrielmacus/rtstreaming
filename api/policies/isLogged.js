@@ -9,14 +9,11 @@ module.exports = function(req, res, next) {
 
   WebTokenService.verificarToken(token,function(err,result) {
 
-
-
     req.session.user=result;
 
 
     if(err)
     {
-
 
       if(req.method=='POST')
       {
@@ -24,7 +21,16 @@ module.exports = function(req, res, next) {
       }
       else
       {
-        return      res.redirect("/ingresar");
+
+        if(req.path=='/')
+        {
+
+          return      res.redirect("/ingresar");
+        }
+        else
+        {
+          return      res.redirect("/admin/ingresar");
+        }
       }
 
 

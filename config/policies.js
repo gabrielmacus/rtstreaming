@@ -63,6 +63,7 @@ module.exports.policies = {
     destroy:['isLogged','isntSelf','canDeleteUser'],
     create:['isLogged','canCreateUser','isLessLevel'],
     update:['isLogged','canCreateUser','isLessLevel'],
-    find:['isLogged','canReadUser']
+    find:['isLogged','canReadUser'],
+    connect:['isLogged']
   }
 };

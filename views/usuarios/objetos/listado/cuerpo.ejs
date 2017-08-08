@@ -1,7 +1,7 @@
 
 
 
-  <div data-ng-controller="userListadoCtrl" class="w3-row ">
+  <div data-ng-controller="userListadoCtrl" class="w3-col s12">
     <% for(var k in users)
     {
       var usuario=users[k];
@@ -10,16 +10,9 @@
 
 
 
-      <% if (usuario.level>1)
-      {
-      %>
-
       <% if(usuario.name){%><span class="nombre"><%= usuario.name %></span><%}%>
       <% if(usuario.surname){%><span class="apellido"><%= usuario.surname %></span><%}%>
 
-      <%
-      }
-      %>
 
       <% if (!usuario.nombre && !usuario.apellido)
       {
@@ -46,12 +39,13 @@
 
      <%if(user.level >= publicData.canDeleteUserLevel)
      {%>
+     <!--deleteUsuario(<%= JSON.stringify(usuario)%>)-->
      <a  title="<%= __("eliminar") %>" class="delete-usuario"
        <%
         if(user.id != usuario.id)
         {
         %>
-         data-ng-click="deleteUsuario(<%= JSON.stringify(usuario)%>)"
+         data-ng-click="showModal('<%- __('usuarios.deletePrompt') %>','<%- __( "usuarios.areYouSure",usuario) %>','deleteUsuario(\'<%= usuario.id %>\')')"
        <%
        }
        else
@@ -77,11 +71,11 @@
 
     app.controller('userListadoCtrl', function($rootScope,$http) {
 
-      $rootScope.deleteUsuario=function(usuario)
+      $rootScope.deleteUsuario=function(id)
       {
-        console.log('delete');
 
-        $http.delete('/user/'+usuario.id)
+
+        $http.delete('/user/'+id)
         .then(function(res) {
 
             console.log(res);

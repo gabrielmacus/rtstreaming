@@ -1,5 +1,5 @@
 
-<div class="video-container w3-col s12  w3-padding">
+<div class="video-container w3-col s12  ">
 
   <video  class="w3-col s12 " id="video"></video>
 </div>
@@ -8,7 +8,7 @@
   if(Hls.isSupported()) {
     var video = document.getElementById('video');
     var hls = new Hls();
-    hls.loadSource('http://190.188.45.129:2000/streaming/out.m3u8');
+    hls.loadSource('http://localhost:2000/streaming/out.m3u8');
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED,function() {
       video.play();

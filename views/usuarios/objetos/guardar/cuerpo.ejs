@@ -1,16 +1,16 @@
-<form id="guardar-usuario" class="w3-row" data-ng-controller="userGuardarCtrl">
+<form id="guardar-usuario" class="w3-col s12" data-ng-controller="userGuardarCtrl">
 
-  <div data-ng-if="!usuario.level || usuario.level > 1" class="form-block w3-padding  w3-col s12">
+  <div data-ng-if="!usuario.level || usuario.level > 1" class="form-block  w3-col s12">
     <label for="nombreUsuario"><%= __("usuarios.username") %></label>
     <input class="w3-input" id="nombreUsuario" type="text" data-ng-model="usuario.username" name="username">
   </div>
 
-  <div data-ng-if="usuario.level == 1" class="form-block w3-padding   w3-col s12">
+  <div data-ng-if="usuario.level == 1" class="form-block   w3-col s12">
     <label for="autogenerado"><%= __("usuarios.username") %></label>
     <input class="w3-input"  id="autogenerado" readonly value="<%= __("usuarios.autogenerado")%>">
   </div>
 
-  <div data-ng-if="usuario.level == 1" class="form-block w3-padding   w3-col s12">
+  <div data-ng-if="usuario.level == 1" class="form-block    w3-col s12">
     <label for="generateEvery"><%= __("usuarios.generateEvery") %></label>
 
     <div
@@ -27,28 +27,28 @@
   </div>
 
 
-  <div class="form-block w3-padding  w3-col s12"  data-ng-if="!usuario.level || usuario.level > 1">
+  <div class="form-block  w3-col s12"  data-ng-if="!usuario.level || usuario.level > 1">
     <label for="contrasena"><%= __("usuarios.contrasena") %></label>
     <input class="w3-input" id="contrasena" type="password"   data-ng-model="usuario.password" name="password">
   </div>
 
-  <div class="form-block w3-padding   w3-col s12">
+  <div class="form-block   w3-col s12">
     <label for="email"><%= __("usuarios.email") %></label>
     <input class="w3-input" id="email" type="text"  data-ng-model="usuario.email" name="email">
   </div>
 
 
-  <div class="form-block w3-padding  w3-col s12">
+  <div class="form-block  w3-col s12">
     <label for="nombre"><%= __("usuarios.nombre") %></label>
     <input class="w3-input" id="nombre" type="text"  data-ng-model="usuario.name" name="name">
   </div>
 
-  <div class="form-block w3-padding   w3-col s12">
+  <div class="form-block   w3-col s12">
     <label for="apellido"><%= __("usuarios.apellido") %></label>
     <input class="w3-input" id="apellido" type="text"   data-ng-model="usuario.surname" name="surname">
   </div>
 
-  <div class="form-block w3-padding   w3-col s12">
+  <div class="form-block   w3-col s12">
     <label for="niveles"><%= __("usuarios.niveles") %></label>
     <select
       class="w3-select"

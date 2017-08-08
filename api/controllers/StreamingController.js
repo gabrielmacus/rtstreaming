@@ -3,7 +3,7 @@
  */
 
 
-var http = require('http');
+//var http = require('http');
 var fs = require('fs');
 var url = require('url');
 var path = require('path');
@@ -15,7 +15,7 @@ module.exports = {
 
    // var streamingUrl = 'rtsp://jmarti.info.tm:555/user=admin&password=&channel=1&stream=0.sdp';
 
-    filename ="C:\\Users\\Puers\\rtstreaming\\tests\\"+req.param("ts");
+    filename ="C:\\Users\\Gabriel\\Downloads\\tests\\"+req.param("ts");
 
     fs.exists(filename, function (exists) {
 
@@ -55,8 +55,7 @@ module.exports = {
             stream.pipe(res);
             break;
           default:
-            console.log('unknown file type: ' +
-              path.extname(uri));
+
             res.writeHead(500);
             res.end();
         }

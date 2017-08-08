@@ -1,3 +1,52 @@
-<div>
+<div class="modal-wrapper" data-ng-controller="modalCtrl" data-ng-class="{ active: modal.show }">
+
+  <script>
+
+    /**
+     * Para manejar la ventana modal
+     * modal:
+     * {
+     *   action: almaceno la funcion que voy a llamar si acepto la operacion,
+     *   title: titulo de la ventana modal,
+     *   label: texto de la ventana modal,
+     *   show: indica si esta visible la ventana (true/false)
+     * }
+     */
+    app.controller('modalCtrl', function($rootScope,$http) {
+
+
+
+      if(!$rootScope.modal)
+      {
+        $rootScope.modal={};
+      }
+
+      $rootScope.fireAction=function (action) {
+
+        $rootScope.$eval(action);
+      }
+
+      $rootScope.showModal=function(title,label,action)
+      {
+        $rootScope.modal.title=title;
+        $rootScope.modal.label=label;
+        $rootScope.modal.action=action;
+        $rootScope.modal.show=true;
+      }
+
+    });
+  </script>
+
+
+  <div class="modal ">
+    <header data-ng-if="modal.title">
+      <h3>{{modal.title}}</h3>
+    </header>
+
+    <%- partial('objetos/yesNo.EJS') %>
+
+
+  </div>
+
 
 </div>

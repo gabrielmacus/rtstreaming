@@ -1,3 +1,23 @@
+
+
+
+<div class="mobile-bar">
+<span class="hamburger">
+  <i class="material-icons">&#xE3C7;</i>
+</span>
+</div>
 <nav>
-  <a href="/salir" alt="<%= __("navbar.cerrarSesion")%>"><%= __("navbar.salir")%></a>
+  <div class="wrapper">
+
+
+    <a  title="<%= __("usuario.bienvenida",user) %>">
+      <span class="text"><%= __("usuario.bienvenida",user) %></span>
+    </a>
+    <a href="/salir" alt="<%= __("navbar.cerrarSesion")%>">
+      <span class="text"><%= __("navbar.salir")%></span>
+      <span class="line"></span>
+    </a>
+
+  </div>
+
 </nav>
