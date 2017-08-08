@@ -13,16 +13,12 @@ module.exports = {
 
   index:function (req,res) {
 
-    var streamingUrl = 'rtsp://jmarti.info.tm:555/user=admin&password=&channel=1&stream=0.sdp';
+   // var streamingUrl = 'rtsp://jmarti.info.tm:555/user=admin&password=&channel=1&stream=0.sdp';
 
-
- 
-
-    filename ="C:\\Users\\Gabriel\\Downloads\\tests\\"+req.param("ts");
+    filename ="C:\\Users\\Puers\\rtstreaming\\tests\\"+req.param("ts");
 
     fs.exists(filename, function (exists) {
 
-        console.log('sending file: ' + filename);
         switch (path.extname(filename)) {
           case '.m3u8':
             fs.readFile(filename, function (err, contents) {

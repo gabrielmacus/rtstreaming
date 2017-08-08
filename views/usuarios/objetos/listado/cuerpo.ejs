@@ -8,6 +8,8 @@
     %>
     <article class="usuario nivel-<%= usuario.level %>  <% if (usuario.id==user.id){ %> me <% } %> ">
 
+
+
       <% if (usuario.level>1)
       {
       %>
@@ -18,6 +20,18 @@
       <%
       }
       %>
+
+      <% if (!usuario.nombre && !usuario.apellido)
+      {
+        %>
+     <span class="nombre">&nbsp;</span>
+     <span class="apellido">&nbsp;</span>
+
+
+      <%
+      }
+      %>
+
       <span class="nombreUsuario"><%= usuario.username %></span>
 
 
@@ -76,22 +90,4 @@
       }
 
     });
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <video id="video"></video>
-  <script>
-    if(Hls.isSupported()) {
-      var video = document.getElementById('video');
-      var hls = new Hls();
-      hls.loadSource('http://localhost:2000/streaming/out.m3u8');
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED,function() {
-        video.play();
-      });
-    }
-    else
-    {
-      alert("cant play hls");
-    }
   </script>

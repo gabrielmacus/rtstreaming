@@ -52,5 +52,7 @@
   "jue":"Jueves",
   "vie":"Viernes",
   "sab":"Sábado",
-  "dom":"Domingo"
+  "dom":"Domingo",
+
+  "transmision.titulo":"Transmisión en vivo..."
 }
