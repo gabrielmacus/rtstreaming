@@ -18,8 +18,9 @@
   "usuario.noAutenticado": "Debe ingresar a su cuenta para realizar dicha acción",
   "usuario.bienvenida": "Bienvenido, {{username}}",
   "usuario.areaNotAuthorized": "No tiene los permisos para ingresar a esta área",
-  "usuario.shouldBeLessLevel":"No puede crear o editar un usuario con permisos menores o iguales a los suyos",
-  "usuario.errorConectar":"Error al conectar al usuario. Es posible que funciones como el chat, no estén disponibles",
+  "usuario.shouldBeLessLevel": "No puede crear o editar un usuario con permisos menores o iguales a los suyos",
+  "usuario.errorConectar": "Error al conectar al usuario. Es posible que funciones como el chat, no estén disponibles",
+
 
   "usuarios.listado": "Listado de usuarios",
   "usuarios.errorEditar":"Error ingresar a edición de usuario",

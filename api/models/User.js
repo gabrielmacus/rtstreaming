@@ -52,6 +52,12 @@ module.exports = {
     },
     phones:
     {
+      type:'array'
+    },
+    /**
+     * Almaceno las conexiones del usuario, deberia usar redis ni bien tenga infraestructura
+     */
+    connections:{
       type:'json'
     }
   }

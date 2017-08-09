@@ -126,8 +126,32 @@ module.exports.sockets = {
   //   // By default: do nothing.
   //   return cb();
   // },
+
+
+  beforeConnect: function(session, socket, cb) {
+
+    console.log("CONNECTED");
+
+
+  },
   afterDisconnect: function(session, socket, cb) {
 
+    console.log(session);
+
+
+    if(session.user)
+    {
+      //Si estoy logueado, aviso a los usuarios pertinentes que me desconecte
+      UserService.cambiarEstadoDeConexion(session.user.id,false,function (result) {
+
+        if(result.error)
+        {
+
+          sails.log.error(result)
+        }
+
+      });
+    }
 
 
   },

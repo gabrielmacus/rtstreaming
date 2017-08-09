@@ -52,19 +52,26 @@ module.exports = {
     if (!req.isSocket) {
       return res.badRequest();
     }
-    //Busco todos los usuarios, me sirve para mas adelante, si tengo amigos por ej, solo enviarle el msg de conexion a ellos y no a todos los sockets
-    User.find({}).exec(
-      function (err,result) {
-        if(err)
-        {
-          res.json(500,res.i18n("usuario.errorConectar"));
-        }
 
+    if(req.session.user.id)
+    {
+      UserService.cambiarEstadoDeConexion(req.session.id,req.session.user.id,true,function (result) {
 
-
-
+      if(result.error)
+      {
+        return   res.json(result.code,res.i18n(result.error));
       }
-    );
+
+      return res.ok();
+
+    });
+
+    }
+    else
+    {
+      return res.json(403,res.__( "usuario.noAutenticado"));
+    }
+
 
 
   }

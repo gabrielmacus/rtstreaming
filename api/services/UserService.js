@@ -53,6 +53,80 @@ module.exports=
 
 
         });
-    }
+    },
+  /**
+   *
+   * @param connected Indico si mi estado es conectado/desconectado (true/false)
+   * @param callback
+     */
+    cambiarEstadoDeConexion:function (sessionId,userId,connected,callback) {
+      //Busco todos los usuarios, me sirve para mas adelante, si tengo amigos por ej, solo enviarle el msg de conexion a ellos y no a todos los sockets
+      User.find( {}).exec(
+        function (err,result) {
+          if(err)
+          {
+            sails.log.error(err);
+            callback({error:'usuario.errorConectar',code:500});
 
+          }
+          var type = (connected)?'connected':'disconnected';
+
+          /*** Guardo/Elimino mi conexion, por ahora en la db, deberia usar redis si tengo mejor infraestructura***/
+
+          var me  = result.filter(
+            function (el) {
+              return el.id == userId;
+            }
+          );
+
+
+          if(!me.connections[sessionId] && connected) {
+            //No existe la sesion
+
+            result.connections.push({id:sessionId});
+          }
+          else if(me.connections[sessionId] && !connected)
+          {
+            //Existe y me desconecto
+          }
+
+
+          User.update({id:userId},me).exec(
+            function (err,updatedUser) {
+              if(err)
+              {
+                sails.log.error(err);
+               return  callback({error:'usuario.errorConectar',code:500});
+
+              }
+
+
+              /*** **/
+              for(var k in result)
+              {//Notifico a los usuarios pertinentes de mi conexion (excepto a mi)
+                var user  = result[k];
+
+                if(user.id != userId)
+                {
+
+                  User.message(user.id, {type:type,user:userId});
+                }
+
+              }
+
+
+              if(callback)
+              {
+                callback({});
+              }
+
+
+
+            }
+          );
+
+
+        }
+      );
+    }
 }
