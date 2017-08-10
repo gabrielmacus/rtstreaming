@@ -32,26 +32,26 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'GET /':'PagesController.index',
+  'GET /':{controller:'PagesController',action:'index'},
 
-  'GET /ingresar':'PagesController.login',
+  'GET /ingresar':{controller:'PagesController',action:'login'},
 
-  'GET /admin/ingresar':'PagesController.loginAdmin',
+  'GET /admin/ingresar':{controller:'PagesController',action:'loginAdmin'},
 
-  'GET /admin':'PagesController.admin',
+  'GET /admin':{controller:'PagesController',action:'admin'},
 
-  'GET /admin/usuarios':'PagesController.usuarios',
+  'GET /admin/usuarios':{controller:'PagesController',action:'usuarios',permissions:'user'},
 
-  'GET /admin/usuario/:id':'PagesController.usuario',
+  'GET /admin/usuario/:id':{controller:'PagesController',action:'usuario',permissions:'user'},
 
-  'GET /admin/usuario/':'PagesController.usuario',
+  'GET /admin/usuario/':{controller:'PagesController',action:'usuario',permissions:'user'},
 
-  'GET /salir':"UserController.salir",
+  'GET /salir':{controller:'UserController',action:'salir'},
 
-  
-  'GET /streaming/:ts':'StreamingController.index',
-  
-  'POST /ingresar':'UserController.login'
+
+  'GET /streaming/:ts':{controller:'StreamingController',action:'index'},
+
+  'POST /ingresar':{controller:'UserController',action:'login'}
 
   /***************************************************************************
   *                                                                          *

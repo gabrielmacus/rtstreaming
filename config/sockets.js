@@ -130,7 +130,7 @@ module.exports.sockets = {
 
   beforeConnect: function(session, socket, cb) {
 
-    console.log("CONNECTED");
+    //console.log("CONNECTED");
 
 
   },

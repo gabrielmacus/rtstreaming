@@ -7,6 +7,28 @@
 <div class="wrapper">
 
 
+
+  <%  for(var k in publicData.navbar)
+  {
+    var item=publicData.navbar[k];
+
+    if(item.level <= user.level)
+    {
+
+    %>
+
+  <a class="<%  if(item.class){ %> <%= item.class.join(" ") %> <% }%>" href="<%= item.url%>" title="<%= __(item.text)%>">
+    <span class="text"><%= __(item.text)%></span>
+    <span class="line"></span>
+  </a>
+
+
+  <%
+  }
+  }%>
+
+<!--
+
   <a  title="<%= __("usuario.bienvenida",user) %>">
     <span class="text"><%= __("usuario.bienvenida",user) %></span>
   </a>
@@ -24,7 +46,7 @@
 
 
   <% /* Solo si tengo los permisos suficientes */%>
-  <% if(user.level >= publicData.canReadUserLevel )
+  <% if(1==1 || user.level >= publicData.minimumLevels.read.user )
   {
   %>
   <a class="<% if(typeof gestionUsuarios  !== 'undefined' && gestionUsuarios=='active') {%> active <%} %>" href="/admin/usuarios" title="<%= __("navbar.gestionUsuarios")%>">
@@ -38,7 +60,7 @@
     <span class="text"><%= __("navbar.salir")%></span>
     <span class="line"></span>
   </a>
-
+-->
 
 </div>
 
