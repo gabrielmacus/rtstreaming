@@ -43,16 +43,6 @@
 
   <body data-ng-app="app" id="app" class="<%= bodyClasses.join(' ') %>" >
 
-    <header>
-      <%- partial('../comun/navbar.ejs') %>
-    </header>
-
-    <section>
-      <%- body %>
-    </section>
-
-    <%- partial('../modal/cuerpo.ejs') %>
-
 
 
 
@@ -108,10 +98,20 @@
 
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/controllers/UserController.js"></script>
     <script src="/js/utils.js"></script>
     <!--SCRIPTS END-->
 
-    <script src="/js/dependencies/sails.io.js" autoConnect="false"></script>
+    <header>
+      <%- partial('../comun/navbar.ejs') %>
+    </header>
+
+    <section>
+      <%- body %>
+    </section>
+
+    <%- partial('../modal/cuerpo.ejs') %>
+
 
 
   </body >

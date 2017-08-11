@@ -9,8 +9,6 @@ module.exports = {
 
   index: function(req,res){
 
-
-
     res.view('home/cuerpo', {layout: 'layouts/layout', bodyClasses: ["home"],user:req.session.user});
    },
   login: function(req,res)
@@ -42,15 +40,35 @@ module.exports = {
 
         }
 
+        var usuarios=[];
+
+
+        for (var k in results)
+        {
+          var usuario ={};
+
+          usuario.p1= results[k].name || "&nbsp;";
+          usuario.p2= results[k].surname || "&nbsp;";
+          usuario.p3 = results[k].username;
+          usuario.id=results[k].id;
+          usuario.type='user';
+
+          usuarios.push(usuario);
+
+        }
+
+
+
+
         var templateData=
         {
           layout: 'layouts/admin-layout',
           bodyClasses: ["admin-usuarios","listado"],
           user:req.session.user,
-          users:results,
-          top:'objetos/listado/top.ejs',
-          cuerpo:'objetos/listado/cuerpo.ejs',
-          bottom:'objetos/listado/bottom.ejs'
+          items:usuarios,
+          top:'../templates/listado/top.ejs',
+          cuerpo:'../templates/listado/cuerpo.ejs',
+          bottom:'../templates/listado/bottom.ejs'
           ,
           active:'usuarios'
         };
@@ -92,8 +110,6 @@ module.exports = {
               }
 
               var user=results[0];
-
-              console.log(user);
               delete user.password;
               templateData.editUser=user;
 
@@ -140,7 +156,8 @@ module.exports = {
           cuerpo:'objetos/listado/cuerpo.ejs',
           top:'objetos/listado/top.ejs',
           bottom:'objetos/listado/bottom.ejs',
-          active:'transmision'
+          active:'transmision',
+          transmisiones:results
         };
         return res.view('transmisiones/cuerpo',templateData)
 
@@ -149,6 +166,27 @@ module.exports = {
 
 
   }
+  /*,
+  test:function (req,res) {
+
+        var items=
+      [
+        {
+          type:'user',
+          p1:'Martin',
+          p2:'Martinez',
+          p3:'tinchoou2'
+        },
+        {
+          type:'user',
+          p1:'Gabriel',
+          p2:'Macs',
+          p3:'gamac'
+        }
+      ];
+    res.view('templates/listado/cuerpo', {layout: 'layouts/admin-layout', bodyClasses: ["home"],user:req.session.user,items:items});
+
+  }*/
 
 };
 

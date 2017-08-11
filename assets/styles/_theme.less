@@ -271,7 +271,7 @@ width: 100%;
 
 }
 
-section .line
+.main-container > .line
 {
   width: 100%;
   background-color: @color5;
@@ -281,7 +281,36 @@ section .line
   margin-bottom: @margin1;
 }
 
+.usuario
+{
+  padding-top: @margin1;
+  padding-bottom: @margin1;
+  width: 100%;
+  float: left;
+  position: relative;
+}
 
+.usuario .nombre,.usuario .apellido
+{
+  font-weight: 400;
+  font-size: @fontSize1;
+}
+.usuario .nombreUsuario
+{  font-weight: 300;
+  width: 100%;
+  float: left;
+
+
+}
+
+
+.usuario .actions
+{
+  position: absolute;
+  right: 10px;
+  top: 20px;
+
+}
 
 [data-disabled]
 {
@@ -379,39 +408,3 @@ h1,h2,h3,h4,h5,h6
 {
   display: none;
 }
-
-
-/** Listados **/
-
-.item
-{
-  padding-top: @margin1;
-  padding-bottom: @margin1;
-  width: 100%;
-  float: left;
-  position: relative;
-}
-
-.item .p1,.item .p2
-{
-  font-weight: 400;
-  font-size: @fontSize1;
-}
-.item .p3
-{  font-weight: 300;
-  width: 100%;
-  float: left;
-
-
-}
-
-
-.item .actions
-{
-  position: absolute;
-  right: 10px;
-  top: 20px;
-
-}
-
-/** **/

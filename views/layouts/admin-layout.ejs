@@ -49,18 +49,6 @@
 
 <body data-ng-app="app"  id="app" class="<%= bodyClasses.join(' ') %>" >
 
-<header>
-  <%- partial('../comun/admin-navbar.ejs') %>
-</header>
-
-<section>
-  <%- body %>
-</section>
-
-<%- partial('../modal/cuerpo.ejs') %>
-
-
-
 
 <!--
     Client-side Templates
@@ -116,40 +104,23 @@
 
 <!--SCRIPTS-->
 <script src="/js/dependencies/sails.io.js"></script>
+<script src="/js/controllers/UserController.js"></script>
 <script src="/js/utils.js"></script>
 <!--SCRIPTS END-->
 
-<script src="/js/dependencies/sails.io.js" autoConnect="false"></script>
 
-<script type="text/javascript">
+<header>
+  <%- partial('../comun/admin-navbar.ejs') %>
+</header>
 
-  <% if(user)
-  {
-    %>
-  var socket = io.sails.connect();
+<section>
+  <%- body %>
+</section>
 
-
-  io.socket.on('connect', function(){
-
-    console.log("Connected!");
-
-  });
+<%- partial('../modal/cuerpo.ejs') %>
 
 
-  // The automatically-created socket is exposed as io.socket.
-  // Use .on() to subscribe to the 'user' event on the client.
-  // This event is sent by the Sails "create", "update",
-  // "delete", "add" and "remove" blueprints to any socket that
-  // is subscribed to one or more User model instances.
-  io.socket.on('user', function gotHelloMessage (data) {
-    console.log('User alert!', data);
-  });
 
-  <%
-  }%>
-
-
-</script>
 
 </body >
 </html>

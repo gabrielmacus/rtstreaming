@@ -26,7 +26,8 @@ module.exports = {
 
       delete user.password;
 
-      console.log(user);
+      //Guardo la ip del cliente en el token para mayor seguridad
+      user.ip=req.connection.remoteAddress;
 
       var token=WebTokenService.generarToken(user);
       res.cookie('user_tk',token);

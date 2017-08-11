@@ -50,7 +50,7 @@ module.exports = {
 
       "inicio":{text:"navbar.irHome",level:4,url:'/admin/'},
       "transmision":{text:"navbar.transmisiones",level:4,url:'/admin/transmisiones'},
-      "usuarios":{text:"navbar.gestionUsuarios",level:6,url:'/admin/usuarios'},
+      "usuarios":{text:"navbar.gestionUsuarios",level:6,url:'/admin/users'},
       "salir":{text:"navbar.salir",level:1,url:'/salir'}
 
     }

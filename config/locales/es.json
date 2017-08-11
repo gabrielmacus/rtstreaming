@@ -23,7 +23,11 @@
   "usuario.errorConectar": "Error al conectar al usuario. Es posible que funciones como el chat, no estén disponibles",
 
 
+  "listado.nuevoItem":"Agregar %s",
+  "listado.top":"Listado de %s",
 
+  "models.user.singular":"Usuario",
+  "models.user.plural":"Usuarios",
 
 
   "usuarios.listado": "Listado de usuarios",
@@ -37,7 +41,7 @@
   "usuarios.niveles": "Nivel de permisos",
   "usuarios.niveles.standardLevel":"Espectador",
   "usuarios.niveles.superAdminLevel": "Administrador",
-  "usuarios.niveles.panelLevel": "Operario",
+  "usuarios.niveles.operatorLevel": "Operario",
   "usuarios.niveles.testLevel": "Test",
   "usuarios.autogenerado":"Nombre generado automáticamente",
   "usuarios.generateEvery":"Generar cada",

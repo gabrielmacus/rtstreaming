@@ -1,0 +1,25 @@
+
+<% if(form && form.length)
+{%>
+
+<form id="<%= form.id %>" class="w3-col  <% if(typeof classes !== "undefined" && classes){ %><%= classes.join(" ") %><% }%>" data-ng-controller="<%= controller%>">
+
+  <%
+
+   for( k in form)
+   {
+     item = form[k];
+ %>
+  <%- partials('components/'+item.type+'.ejs'); %>
+  <%
+
+   }
+
+     %>
+
+</form>
+<%}
+
+  form=false;
+
+%>

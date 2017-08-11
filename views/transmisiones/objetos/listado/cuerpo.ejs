@@ -2,57 +2,33 @@
 
 
   <div data-ng-controller="userListadoCtrl" class="w3-col s12">
-    <% for(var k in users)
+    <% for(var k in transmisiones)
     {
-      var usuario=users[k];
+      var transmision=transmisiones[k];
     %>
-    <article class="usuario nivel-<%= usuario.level %>  <% if (usuario.id==user.id){ %> me <% } %> ">
+    <article class="usuario  ">
 
 
 
       <% if(usuario.name){%><span class="nombre"><%= usuario.name %></span><%}%>
-      <% if(usuario.surname){%><span class="apellido"><%= usuario.surname %></span><%}%>
-
-
-      <% if (!usuario.nombre && !usuario.apellido)
-      {
-        %>
-     <span class="nombre">&nbsp;</span>
-     <span class="apellido">&nbsp;</span>
-
-
-      <%
-      }
-      %>
-
-      <span class="nombreUsuario"><%= usuario.username %></span>
 
 
    <div class="actions">
 
-     <% if(user.level >= sails.config.minimumLevels.create.user)
+     <% if(user.level >= sails.config.minimumLevels.create.streaming)
      {%>
-        <a title="<%= __("editar") %>" href="/admin/usuario/<%= usuario.id %>" class="edit-usuario">
+        <a title="<%= __("editar") %>" href="/admin/transmision/<%= transmision.id %>" class="edit-usuario">
           <i class="material-icons">&#xE254;</i>
         </a>
     <%}%>
 
-     <%if(user.level >= sails.config.minimumLevels.delete.user)
+     <%if(user.level >= sails.config.minimumLevels.delete.streaming)
      {%>
-     <!--deleteUsuario(<%= JSON.stringify(usuario)%>)-->
      <a  title="<%= __("eliminar") %>" class="delete-usuario"
-       <%
-        if(user.id != usuario.id)
-        {
-        %>
-         data-ng-click="showModal('<%- __('usuarios.deletePrompt') %>','<%- __( "usuarios.areYouSure",usuario) %>','deleteUsuario(\'<%= usuario.id %>\')')"
-       <%
-       }
-       else
-       { %>
-       data-disabled
-       <%
-       }%>
+
+
+         data-ng-click="showModal('<%- __('usuarios.deletePrompt') %>','<%- __( "usuarios.areYouSure",transmision) %>','deleteTransmision(\'<%= transmision.id %>\')')"
+
        >
        <i class="material-icons">&#xE872;</i>
      </a>
@@ -69,13 +45,13 @@
 
   <script>
 
-    app.controller('userListadoCtrl', function($rootScope,$http) {
+    app.controller('transmisionListadoCtrl', function($rootScope,$http) {
 
-      $rootScope.deleteUsuario=function(id)
+      $rootScope.deleteTransmision=function(id)
       {
 
 
-        $http.delete('/user/'+id)
+        $http.delete('/streaming/'+id)
         .then(function(res) {
 
             console.log(res);

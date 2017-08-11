@@ -17,7 +17,7 @@
 
     %>
 
-  <a class="<%  if(item.class){ %> <%= item.class.join(" ") %> <% }%> <% if(k == active) { %>active<% } %>" href="<%= item.url%>" title="<%= __(item.text)%>">
+  <a class="<%  if(item.class){ %> <%= item.class.join(" ") %> <% }%> <% if(typeof active !== "undefined" && k == active) { %>active<% } %>" href="<%= item.url%>" title="<%= __(item.text)%>">
     <span class="text"><%= __(item.text)%></span>
   <span class="line"></span>
   </a>

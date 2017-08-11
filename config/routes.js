@@ -40,13 +40,22 @@ module.exports.routes = {
 
   'GET /admin':{controller:'PagesController',action:'admin',permissions:'panel'},
 
-  'GET /admin/usuarios':{controller:'PagesController',action:'usuarios',permissions:'user'},
+  /** Streamings **/
 
-  'GET /admin/usuario/:id':{controller:'PagesController',action:'usuario',permissions:'user'},
+  'GET /admin/streamings':{controller:'PagesController',action:'transmisiones',permissions:'streaming'},
 
-  'GET /admin/usuario/':{controller:'PagesController',action:'usuario',permissions:'user'},
+  /** **/
 
-  'GET /admin/transmisiones':{controller:'PagesController',action:'transmisiones',permissions:'streaming'},
+  /** Users **/
+
+  'GET /admin/users':{controller:'PagesController',action:'usuarios',permissions:'user'},
+
+  'GET /admin/user/:id':{controller:'PagesController',action:'usuario',permissions:'user'},
+
+  'GET /admin/user/':{controller:'PagesController',action:'usuario',permissions:'user'},
+
+  /** **/
+
 
   'GET /salir':{controller:'UserController',action:'salir'},
 
