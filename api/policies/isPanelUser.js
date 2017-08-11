@@ -11,7 +11,7 @@
 module.exports = function(req, res, next) {
 
 
-  if(req.session.user && req.session.user.level>=sails.config.publicData.userLevels.panelLevel)
+  if(req.session.user && req.session.user.level>=sails.config.minimumLevels.read.panel)
   {
   return  next();
   }

@@ -7,7 +7,7 @@ const async= require('async');
 module.exports=
   function(req, res, next) {
   //Si estoy creando un usuario con un rango menor al mio, o si soy superadmnistrador
-  var lessLevel= (req.session.user  && ( req.param("level") && req.param("level") < req.session.user.level ||req.session.user.level >= sails.config.publicData.userLevels.superAdminLevel));
+  var lessLevel= (req.session.user  && ( req.param("level") && req.param("level") < req.session.user.level ||req.session.user.level >= sails.config.userLevels.superAdminLevel));
     if(!lessLevel)
     {
       return res.json(400,res.i18n("usuario.shouldBeLessLevel"));
@@ -23,7 +23,7 @@ module.exports=
           {
 
             //Chequeo si el usuario que edito tiene menor nivel que el logueado o si soy administrador
-            var  canEdit=req.session.user && result[0].level< req.session.user.level  ||req.session.user.level >= sails.config.publicData.userLevels.superAdminLevel;
+            var  canEdit=req.session.user && result[0].level< req.session.user.level  ||req.session.user.level >= sails.config.userLevels.superAdminLevel;
 
             if(!canEdit)
             {

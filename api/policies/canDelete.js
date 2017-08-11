@@ -5,7 +5,7 @@ module.exports = function(req, res, next) {
 
   var permissions = req.options.model || req.options.permissions || false;
 
-  if(!permissions || req.session.user && req.session.user.level >= sails.config.publicData.minimumLevels.delete[permissions])
+  if(!permissions || req.session.user && req.session.user.level >= sails.config.minimumLevels.delete[permissions])
   {
     return  next();
   }

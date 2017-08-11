@@ -12,9 +12,10 @@
   "login.wrongParams": "Los datos de ingreso son incorrectos. Verifíquelos y vuelva a intentar",
   "navbar.salir": "Salir",
   "navbar.cerrarSesion": "Cerrar sesión",
-  "navbar.irTransmision": "Ir a la transmisión",
+  "navbar.irTransmision": "Transmisión",
+  "navbar.transmisiones":"Transmisiones",
   "navbar.irHome": "Inicio",
-  "navbar.gestionUsuarios": "Gestionar usuarios",
+  "navbar.gestionUsuarios": "Usuarios",
   "usuario.noAutenticado": "Debe ingresar a su cuenta para realizar dicha acción",
   "usuario.bienvenida": "Bienvenido, {{username}}",
   "usuario.areaNotAuthorized": "No tiene los permisos para ingresar a esta área",
@@ -50,6 +51,7 @@
   "usuarios.areYouSure":"¿Seguro que desea eliminar el usuario {{username}}?",
 
   "stream.noUrl":"No se especifico la url de la transmisión",
+  "stream.errorListar":"Error al listar las transmisiones",
 
   "eliminar":"Eliminar",
   "editar":"Editar",

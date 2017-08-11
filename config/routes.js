@@ -38,13 +38,15 @@ module.exports.routes = {
 
   'GET /admin/ingresar':{controller:'PagesController',action:'loginAdmin'},
 
-  'GET /admin':{controller:'PagesController',action:'admin'},
+  'GET /admin':{controller:'PagesController',action:'admin',permissions:'panel'},
 
   'GET /admin/usuarios':{controller:'PagesController',action:'usuarios',permissions:'user'},
 
   'GET /admin/usuario/:id':{controller:'PagesController',action:'usuario',permissions:'user'},
 
   'GET /admin/usuario/':{controller:'PagesController',action:'usuario',permissions:'user'},
+
+  'GET /admin/transmisiones':{controller:'PagesController',action:'transmisiones',permissions:'streaming'},
 
   'GET /salir':{controller:'UserController',action:'salir'},
 

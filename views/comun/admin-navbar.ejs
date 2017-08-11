@@ -8,18 +8,18 @@
 
 
 
-  <%  for(var k in publicData.navbar)
+  <%  for(var k in sails.config.navbar)
   {
-    var item=publicData.navbar[k];
+    var item=sails.config.navbar[k];
 
     if(item.level <= user.level)
     {
 
     %>
 
-  <a class="<%  if(item.class){ %> <%= item.class.join(" ") %> <% }%>" href="<%= item.url%>" title="<%= __(item.text)%>">
+  <a class="<%  if(item.class){ %> <%= item.class.join(" ") %> <% }%> <% if(k == active) { %>active<% } %>" href="<%= item.url%>" title="<%= __(item.text)%>">
     <span class="text"><%= __(item.text)%></span>
-    <span class="line"></span>
+  <span class="line"></span>
   </a>
 
 
@@ -27,40 +27,7 @@
   }
   }%>
 
-<!--
 
-  <a  title="<%= __("usuario.bienvenida",user) %>">
-    <span class="text"><%= __("usuario.bienvenida",user) %></span>
-  </a>
-
-  <a class="<% if(typeof home !== 'undefined' && home=='active') {%> active <%} %>" href="/admin/" title="<%= __("navbar.irHome")%>">
-    <span class="text"><%= __("navbar.irHome")%></span>
-    <span class="line"></span>
-  </a>
-
-
-  <a class="<% if(typeof irTransmision !=='undefined' && irTransmision=='active') {%> active <%} %>" href="/" title="<%= __("navbar.irTransmision")%>">
-    <span class="text"><%= __("navbar.irTransmision")%></span>
-    <span class="line"></span>
-  </a>
-
-
-  <% /* Solo si tengo los permisos suficientes */%>
-  <% if(1==1 || user.level >= publicData.minimumLevels.read.user )
-  {
-  %>
-  <a class="<% if(typeof gestionUsuarios  !== 'undefined' && gestionUsuarios=='active') {%> active <%} %>" href="/admin/usuarios" title="<%= __("navbar.gestionUsuarios")%>">
-    <span class="text"><%= __("navbar.gestionUsuarios")%></span>
-    <span class="line"></span>
-  </a>
-  <%
-  }%>
-
-  <a href="/salir" title="<%= __("navbar.cerrarSesion")%>">
-    <span class="text"><%= __("navbar.salir")%></span>
-    <span class="line"></span>
-  </a>
--->
 
 </div>
 

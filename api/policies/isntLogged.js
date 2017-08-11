@@ -16,7 +16,7 @@ module.exports = function(req, res, next) {
 
     }
 
-    if(result.level >= sails.config.publicData.userLevels.panelLevel)
+    if(result.level >= sails.config.minimumLevels.read.panel)
     {
       return res.redirect('/admin');
     }

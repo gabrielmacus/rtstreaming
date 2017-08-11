@@ -139,6 +139,7 @@ module.exports.sockets = {
     console.log(session);
 
 
+    /*
     if(session.user)
     {
       //Si estoy logueado, aviso a los usuarios pertinentes que me desconecte
@@ -151,10 +152,10 @@ module.exports.sockets = {
         }
 
       });
-    }
+    }*/
 
 
-  },
+  }
   /***************************************************************************
   *                                                                          *
   * `transports`                                                             *

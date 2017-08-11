@@ -29,19 +29,18 @@ module.exports = {
   hashAlgo:'sha256',
   salt:'qwerty',
 
-  publicData:
-  {  //Niveles minimos segun modelo
+  //Niveles minimos segun modelo
     minimumLevels:
     {
-      create:{user:6},
-      read:{user:6},
-      delete:{user:10}
+      create:{user:6,streaming:10},
+      read:{user:6,panel:4,streaming:4},
+      delete:{user:10,streaming:10}
     },
     //Niveles de usuario existentes
     userLevels:
     {
       standardLevel:1,
-      panelLevel:4,
+      operatorLevel:4,
       superAdminLevel:10,
       testLevel:6
     },
@@ -49,15 +48,14 @@ module.exports = {
     navbar:
     {
 
-      "bienvenido":{text:'Bienvenido, {nombre}',level:1,class:['no-line']},
       "inicio":{text:"navbar.irHome",level:4,url:'/admin/'},
-      "transmision":{text:"navbar.irTransmision",level:4,url:'/'},
-      "usuarios":{text:"navbar.gestionUsuarios",level:6,url:'/usuarios'},
+      "transmision":{text:"navbar.transmisiones",level:4,url:'/admin/transmisiones'},
+      "usuarios":{text:"navbar.gestionUsuarios",level:6,url:'/admin/usuarios'},
       "salir":{text:"navbar.salir",level:1,url:'/salir'}
 
     }
 
-  }
+
 
 
 };

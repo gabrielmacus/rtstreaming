@@ -54,9 +54,10 @@ module.exports.policies = {
     index:['isLogged'],
     login:['isntLogged'],
     loginAdmin:['isntLogged'],
-    admin:['isLogged','isPanelUser'],
+    admin:['isLogged','canRead'],
     usuarios:['isLogged','canRead'],
-    usuario:['isLogged','canCreate']
+    usuario:['isLogged','canCreate'],
+    transmisiones:['isLogged','canRead']
   },
   UserController:
   {

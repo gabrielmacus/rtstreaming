@@ -14,7 +14,7 @@
 module.exports = function(req, res, next) {
 
 
-  if(req.session.user && req.session.user.level>=sails.config.publicData.userLevels.superAdminLevel)
+  if(req.session.user && req.session.user.level>=sails.config.userLevels.superAdminLevel)
   {
     return  next();
   }
