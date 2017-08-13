@@ -3,16 +3,18 @@
   <% if(typeof top === "string")
   {%>
   <%- partial(top) %>
+  <div class="line"></div>
   <%
   }%>
 
-  <div class="line"></div>
+
   <%if( typeof cuerpo === "string")
   {%>
   <%- partial(cuerpo) %>
+  <div class="line"></div>
   <%}%>
 
-  <div class="line"></div>
+
 
   <%if(typeof bottom === "string")
   {%>

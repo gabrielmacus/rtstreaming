@@ -71,6 +71,10 @@
   "cancelar":"Cancelar",
 
   "transmision.titulo":"Transmisión en vivo...",
+  "transmision.errorEditar":"Error al ingresar a edición de transmisión",
+  "titulo":"Título",
+
+
 
   "areYouSure":"¿Está seguro?"
 }

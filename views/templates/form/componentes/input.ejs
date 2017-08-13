@@ -1,4 +1,4 @@
-<div class="form-block  w3-col  <%=  if(typeof item.classes !== "undefined" && item.classes){%>  <%= item.classes.join(" ") %> <% } %>"  data-ng-if="<%= item.ngIf %>">
+<div class="form-block  w3-col  <%  if(typeof item.classes !== "undefined" && item.classes){%>  <%= item.classes.join(" ") %> <% } %>"  <% if(typeof item.ngIf  !== "undefined" ){%>data-ng-if="<%= item.ngIf %>"<%}%>>
   <label for="<%= item.id %>"><%= __(item.label) %></label>
   <input class="w3-input" id="<%= item.id %>" type="<%= item.type %>"   data-ng-model="<%= item.model %>" >
 </div>

@@ -58,6 +58,7 @@ module.exports.policies = {
     usuarios:['isLogged','canRead'],
     usuario:['isLogged','canCreate'],
     transmisiones:['isLogged','canRead'],
+    transmision:['isLogged','canCreate'],
     test:['isLogged']
   },
   UserController:

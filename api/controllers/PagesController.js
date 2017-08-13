@@ -165,6 +165,75 @@ module.exports = {
 
 
 
+  },
+  transmision: function(req,res)
+  {
+    var templateData=
+    {
+      layout: 'layouts/admin-layout',
+      bodyClasses: ["admin-transmision","guardar"],
+      user:req.session.user,
+      cuerpo:'../templates/form/cuerpo.ejs',
+      active:'transmision',
+      top:'../templates/form/top.ejs',
+      form:
+          {
+
+            id:'save-streaming',
+            model:'streaming',
+            components: [
+
+              {
+                element: 'input',
+                type: 'text',
+                label: req.__("titulo"),
+                attribute: "titulo"
+              }
+
+            ]
+
+           }
+
+    };
+
+    async.waterfall([
+      function(callback){
+
+        if(req.param("id"))
+        {
+          //Edicion de usuario
+
+          Streaming.find({id:[req.param("id")]}).exec(
+            function(err,results){
+
+
+              if(err)
+              {   sails.log.error(err);
+                return  res.json(500,res.i18n("transmision.errorEditar"));
+              }
+
+              var streaming=results[0];
+
+              templateData.item=user;
+
+              callback();
+            }
+          )
+
+        }
+        else
+        {
+          //Creacion de usuario
+          callback();
+        }
+
+
+      }
+    ], function (err, result) {
+      // result now equals 'done'
+      return res.view('transmisiones/cuerpo',templateData)
+    });
+
   }
   /*,
   test:function (req,res) {

@@ -43,6 +43,8 @@ module.exports.routes = {
   /** Streamings **/
 
   'GET /admin/streamings':{controller:'PagesController',action:'transmisiones',permissions:'streaming'},
+  'GET /admin/streaming':{controller:'PagesController',action:'transmision',permissions:'streaming'},
+  'GET /admin/streaming/:id':{controller:'PagesController',action:'transmision',permissions:'streaming'},
 
   /** **/
 

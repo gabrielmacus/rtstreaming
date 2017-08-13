@@ -1,25 +1,41 @@
+<%
 
-<% if(form && form.length)
-{%>
+if(!form.controller)
+{
+form.controller='saveController'
+}
 
-<form id="<%= form.id %>" class="w3-col  <% if(typeof classes !== "undefined" && classes){ %><%= classes.join(" ") %><% }%>" data-ng-controller="<%= controller%>">
-
-  <%
-
-   for( k in form)
-   {
-     item = form[k];
- %>
-  <%- partials('components/'+item.type+'.ejs'); %>
-  <%
-
-   }
-
-     %>
-
-</form>
-<%}
-
-  form=false;
+  if(typeof item === "undefined" || !item)
+  {
+    item={}
+  }º
 
 %>
+
+<form data-ng-init="<%= form.model%>=<%= JSON.stringify(item)%>" data-ng-submit="save('<%= form.model %>')" id="<%= form.id %>" class="w3-col  <% if(typeof form.classes !== "undefined" && form.classes){ %><%= form.classes.join(" ") %><% }%>" data-ng-controller="<%= form.controller%>">
+
+  <%
+
+  for( k in form.components)
+  {
+    item = form.components[k];
+  item.model =form.model+"."+item.attribute;
+
+  %>
+
+
+  <%-
+
+    partial('componentes/'+item.element+'.ejs')
+  %>
+
+
+  <%
+
+  }
+
+  %>
+  <span class="line"></span>
+  <%- partial('bottom.ejs') %>
+
+</form>
