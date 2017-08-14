@@ -1,6 +1,28 @@
+
+<%
+/**
+ * Componente Input
+ *
+ * @param id : Id del elemento
+ * @param classes : Array de clases del elemento
+ * @param label : Label del elemento
+ * @param type : Atributo type del elemento
+ * @param attribute : Atributo del modelo del elemento, tiene que coincidir con el modelo del servidor
+ * @param ngIf : Condicional if que muestra o no el elemento, segun la condicion
+ * @param readOnly : Indico si el campo es de solo lectura
+ *
+ */
+
+
+  if(!item.id)
+  {
+    item.id="";
+  }
+%>
+
 <div class="form-block  w3-col  <%  if(typeof item.classes !== "undefined" && item.classes){%>  <%= item.classes.join(" ") %> <% } %>"  <% if(typeof item.ngIf  !== "undefined" ){%>data-ng-if="<%= item.ngIf %>"<%}%>>
   <label for="<%= item.id %>"><%= __(item.label) %></label>
-  <input class="w3-input" id="<%= item.id %>" type="<%= item.type %>"   data-ng-model="<%= item.model %>" >
+  <input <% if(item.readOnly){%>readonly<%}%> class="w3-input" id="<%= item.id %>" type="<%= item.type %>"   data-ng-model="<%= form.model %>.<%= item.attribute %>" >
 </div>
 
 <%

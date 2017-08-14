@@ -4,8 +4,8 @@
   <div class="acciones form-block ">
 
     <div class="btn-group">
-      <% var type= __("models." + items[0].type+".singular")  %>
-      <a class="w3-btn w3-right" href="/admin/<%= items[0].type%>/"><%= __("listado.nuevoItem",type)%></a>
+      <% var type= __("models." +model+".singular")  %>
+      <a class="w3-btn w3-right" href="/admin/<%= model%>/"><%= __("listado.nuevoItem",type)%></a>
     </div>
 
   </div>

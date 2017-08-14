@@ -1,1 +1,27 @@
 <!-- https://github.com/tamtakoe/oi.select -->
+
+<%
+
+  if(!item.multiple)
+  {
+    item.multiple=false;
+  }
+   %>
+
+<div class="form-block  w3-col  <%  if(typeof item.classes !== "undefined" && item.classes){%>  <%= item.classes.join(" ") %> <% } %>"  <% if(typeof item.ngIf  !== "undefined" ){%>data-ng-if="<%= item.ngIf %>"<%}%>>
+  <label for="<%= item.id %>"><%= __(item.label) %></label>
+
+<oi-select
+
+  class="w3-input"
+  oi-options="item<% if(item.saveId){%>.id<%}%> as item.<%= item.shownData %> for item in <%= JSON.stringify(item.options) %>"
+  ng-model="<%= form.model %>.<%= item.attribute %>"
+  multiple="<%= item.multiple %>"
+
+></oi-select>
+
+  </div>
+<%
+
+item=null;
+%>

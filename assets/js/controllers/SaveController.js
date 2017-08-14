@@ -17,7 +17,7 @@ app.controller('saveController', function($rootScope,$http) {
 var url='/'+model;
     if(object.id)
     {
-      url+=+'/'+object.id;
+      url+='/'+object.id;
     }
     $http.post(url,object)
       .then(function(res) {
@@ -26,5 +26,6 @@ var url='/'+model;
         location.reload();
       }, error);
   }
+
 
 });

@@ -25,6 +25,7 @@
 
   "listado.nuevoItem":"Agregar %s",
   "listado.top":"Listado de %s",
+  "listado.empty":"No hay %s para mostrar",
 
   "models.user.singular":"Usuario",
   "models.user.plural":"Usuarios",
@@ -34,6 +35,8 @@
   "editing":"Editando %s",
 
   "save":"Guardar",
+
+  "comandos":"Comandos",
 
   "creating":"Creando %s",
 
@@ -64,6 +67,7 @@
 
   "stream.noUrl":"No se especifico la url de la transmisión",
   "stream.errorListar":"Error al listar las transmisiones",
+  "stream.diasActiva":"Días que se activa la transmisión",
 
   "eliminar":"Eliminar",
   "editar":"Editar",

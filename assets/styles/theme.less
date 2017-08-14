@@ -15,6 +15,7 @@
 @fontSize1:20px;
 @font1: 'Roboto', sans-serif;
 @margin1:10px;
+@padding2:5px;
 @padding1:10px;
  input,select
  {
@@ -415,3 +416,71 @@ h1,h2,h3,h4,h5,h6
 }
 
 /** **/
+
+
+/****/
+oi-select:not(.multiple) .select-search-list > .btn-default
+{
+  margin: 0!important;
+  padding: 0px!important;
+}
+.select-search
+{
+  box-shadow: none!important;
+}
+.select-search-list li
+{
+
+  padding: 5px!important;
+  background: @color5!important;
+  box-shadow: none!important;
+  margin-right: 10px!important;
+}
+
+
+oi-select.open
+{
+  padding: 0!important;;;
+  margin: inherit!important;;;
+  outline: 0!important;;;
+  border: 0!important;;
+}
+
+.select-dropdown[ng-show='isOpen']
+{
+  max-height: 120px!important;
+  left: 0!important;
+  top: 32px!important;
+  border: 1px solid @color1;
+  box-shadow: none!important;
+}
+.select-search
+{
+  border:none!important;
+  border-right: 0!important;
+  border-left: 0!important;
+  border-top: 0!important;
+  border-radius: 0px!important;
+  outline: none!important;
+}
+.select-search-list
+{
+  padding: 0px!important;
+}
+oi-select
+{
+
+  border-bottom-color: #0084b4 !important;
+}
+
+/***/
+
+.empty > .text{
+  font-weight: 600;
+  font-size: 20px;
+  margin: 10px;
+}
+.select-search-list li
+{
+  background: transparent!important;
+}

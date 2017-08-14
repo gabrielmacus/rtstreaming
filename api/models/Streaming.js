@@ -8,7 +8,17 @@ module.exports=
      title:
      {
        type:'string',
-       size:60
-     }
+       size:60,
+       required:true
+     },
+    cmd:
+    {
+      type:'text',
+      required:true
+    },
+    startStreamingSpan:
+    {
+      type:'json'
+    }
   }
 }

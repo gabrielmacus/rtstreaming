@@ -45,7 +45,7 @@ module.exports.routes = {
   'GET /admin/streamings':{controller:'PagesController',action:'transmisiones',permissions:'streaming'},
   'GET /admin/streaming':{controller:'PagesController',action:'transmision',permissions:'streaming'},
   'GET /admin/streaming/:id':{controller:'PagesController',action:'transmision',permissions:'streaming'},
-  
+ // 'GET /streaming/:ts':{controller:'StreamingController',action:'index'},
 
   /** **/
 
@@ -63,7 +63,6 @@ module.exports.routes = {
   'GET /salir':{controller:'UserController',action:'salir'},
 
 
-  'GET /streaming/:ts':{controller:'StreamingController',action:'index'},
 
   'POST /ingresar':{controller:'UserController',action:'login'}
 

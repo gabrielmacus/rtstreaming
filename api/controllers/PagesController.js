@@ -63,13 +63,13 @@ module.exports = {
         var templateData=
         {
           layout: 'layouts/admin-layout',
-          bodyClasses: ["admin-usuarios","listado"],
+          bodyClasses: ["admin-usuarios","listado","user"],
           user:req.session.user,
           items:usuarios,
           top:'../templates/listado/top.ejs',
           cuerpo:'../templates/listado/cuerpo.ejs',
           bottom:'../templates/listado/bottom.ejs'
-          ,
+          ,model:'user',
           active:'usuarios'
         };
 
@@ -82,6 +82,7 @@ module.exports = {
   usuario: function(req,res)
   {
 
+    /*
     var templateData=
     {
       layout: 'layouts/admin-layout',
@@ -91,8 +92,100 @@ module.exports = {
       top:'objetos/guardar/top.ejs',
       bottom:'objetos/guardar/bottom.ejs',
       active:'usuarios'
-    };
+    };*/
+    var userLevels=[];
 
+    for (k in sails.config.userLevels)
+    {
+      var level={};
+
+      level.nombre = req.__("usuarios.niveles."+k);
+      level.id=req.__(sails.config.userLevels[k]);
+
+      userLevels.push(level);
+    }
+
+    var templateData=
+    {
+      layout: 'layouts/admin-layout',
+      bodyClasses: ["admin-usuarios","guardar"],
+      user:req.session.user,
+      cuerpo:'../templates/form/cuerpo.ejs',
+      active:'usuarios',
+      top:'../templates/form/top.ejs',
+      form:
+      {
+
+        id:'save-user',
+        model:'user',
+        components: [
+
+          {
+            element: 'input',
+            type: 'text',
+            label: req.__("usuarios.username"),
+            attribute: "username",
+            ngIf:"!user.level || user.level > 1"
+          },
+          {
+            ngIf:"user.level == 1",
+            element: 'select',
+            multiple:true,
+            options:
+              [
+                {dia: res.__("lun") ,id:1},
+                {dia: res.__("mar"),id:2},
+                {dia:res.__("mie"),id:3},
+                {dia: res.__("jue"),id:4},
+                {dia: res.__("vie"),id:5},
+                {dia: res.__("sab"),id:6},
+                {dia:res.__("dom"),id:7}
+              ],
+            shownData:'dia',
+            label: req.__("usuarios.generateEvery"),
+            attribute: "autogenerateSpan"
+          }
+          ,
+          {
+            element: 'input',
+            type: 'password',
+            label: req.__("usuarios.contrasena"),
+            attribute: "password",
+            ngIf:"user.level > 1"
+          }
+          ,
+          {
+            element: 'input',
+            type: 'email',
+            label: req.__("usuarios.email"),
+            attribute: "email"
+          }
+          ,
+          {
+            element: 'input',
+            type: 'text',
+            label: req.__("usuarios.nombre"),
+            attribute: "name"
+          }
+          ,
+          {
+            element: 'input',
+            type: 'text',
+            label: req.__("usuarios.apellido"),
+            attribute: "surname"
+          },
+          {
+            element: 'select',
+            options:userLevels,
+            shownData:'nombre',
+            label: req.__("usuarios.niveles"),
+            attribute: "level",
+            saveId:true
+          }
+        ]
+
+      }
+    };
     async.waterfall([
       function(callback){
 
@@ -111,7 +204,7 @@ module.exports = {
 
               var user=results[0];
               delete user.password;
-              templateData.editUser=user;
+              templateData.item=user;
 
               callback();
             }
@@ -148,16 +241,52 @@ module.exports = {
 
         }
 
+        var transmisiones=[];
+
+
+        for (var k in results)
+        {
+          var transmision ={};
+
+          transmision.p1= results[k].title || "&nbsp;";
+          transmision.p2= "&nbsp;";
+
+          var days="&nbsp;";
+
+          if(results[k].startStreamingSpan && results[k].startStreamingSpan.length)
+          {
+
+            days =results[k].startStreamingSpan.map(
+              function (el) {
+
+                return el.dia+",";
+              }
+            );
+          }
+
+          transmision.p3 =days;
+
+          transmision.id=results[k].id;
+          transmision.type='streaming';
+
+          transmisiones.push(transmision);
+
+        }
+
+
+
+
         var templateData=
         {
           layout: 'layouts/admin-layout',
-          bodyClasses: ["admin-usuarios","guardar"],
+          bodyClasses: ["admin-usuarios","listado","streaming"],
           user:req.session.user,
-          cuerpo:'objetos/listado/cuerpo.ejs',
-          top:'objetos/listado/top.ejs',
-          bottom:'objetos/listado/bottom.ejs',
+          top:'../templates/listado/top.ejs',
+          cuerpo:'../templates/listado/cuerpo.ejs',
+          bottom:'../templates/listado/bottom.ejs',
           active:'transmision',
-          transmisiones:results
+          items:transmisiones,
+          model:'streaming'
         };
         return res.view('transmisiones/cuerpo',templateData)
 
@@ -188,7 +317,31 @@ module.exports = {
                 type: 'text',
                 label: req.__("titulo"),
                 attribute: "title"
+              },
+              {
+                element: 'input',
+                type: 'text',
+                label: req.__("comandos"),
+                attribute: "cmd"
+              },
+              {
+                element: 'select',
+                multiple:true,
+                options:
+                  [
+                    {dia: res.__("lun") ,id:1},
+                    {dia: res.__("mar"),id:2},
+                    {dia:res.__("mie"),id:3},
+                    {dia: res.__("jue"),id:4},
+                    {dia: res.__("vie"),id:5},
+                    {dia: res.__("sab"),id:6},
+                    {dia:res.__("dom"),id:7}
+                  ],
+                shownData:'dia',
+                label: req.__("stream.diasActiva"),
+                attribute: "startStreamingSpan"
               }
+
 
             ]
 
@@ -214,7 +367,7 @@ module.exports = {
 
               var streaming=results[0];
 
-              templateData.item=user;
+              templateData.item=streaming;
 
               callback();
             }

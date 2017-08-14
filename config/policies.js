@@ -68,5 +68,13 @@ module.exports.policies = {
     update:['isLogged','canCreate','isLessLevel'],
     find:['isLogged','canRead'],
     connect:['isLogged']
+  },
+  StreamingController:
+  {
+    destroy:['isLogged','canDelete'],
+    create:['isLogged','canCreate'],
+    update:['isLogged','canCreate'],
+    find:['isLogged','canRead'],
+    
   }
 };

@@ -2,52 +2,21 @@
  /**
   * Template de listado
   * */
-%>
-<div data-ng-controller="listController" class="w3-col s12 listado">
-  <% for(var k in items)
+
+ console.log(typeof items !== "undefined" && items.length > 0);
+  if(typeof items !== "undefined" && items.length > 0)
   {
-    var item=items[k];
-  %>
-  <article class="item <%  if(item.class) {%> <%= item.class.join(" ") %> <% }%>">
+    %>
+<%-   partial('objetos/list.ejs') %>
+<%
 
 
 
-
-    <span class="p1"><%- item.p1 %></span>
-    <span class="p2"><%- item.p2 %></span>
-
-    <span class="p3"><%- item.p3 %></span>
-
-
-    <div class="actions">
-
-      <% if(user.level >= sails.config.minimumLevels.create[item.type])
-      {%>
-      <a title="<%= __("editar") %>" href="/admin/<%= item.type %>/<%= item.id %>" class="edit">
-        <i class="material-icons">&#xE254;</i>
-      </a>
-      <%}%>
-
-      <%if(user.level >= sails.config.minimumLevels.delete[item.type])
-      {%>
-
-
-      <a  title="<%= __("eliminar") %>" class="delete"
-
-          data-ng-click="showModal('<%- __('usuarios.deletePrompt') %>','<%- __( "usuarios.areYouSure",item) %>','delete(\'<%= item.id %>\',\'<%= item.type %>)')"
-
-      >
-        <i class="material-icons">&#xE872;</i>
-      </a>
-      <%}%>
-
-    </div>
-
-  </article>
-  <%
   }
-  %>
+else
+{
+ %>
+<%-  partial('objetos/empty.ejs') %>
+<%
 
-
-</div>
-
+}%>
