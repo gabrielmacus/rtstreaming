@@ -3,5 +3,12 @@
  */
 module.exports=
 {
-  
+  attributes:
+  {
+     title:
+     {
+       type:'string',
+       size:60
+     }
+  }
 }

@@ -8,11 +8,12 @@ form.controller='saveController'
   if(typeof item === "undefined" || !item)
   {
     item={}
-  }º
+  }
+
 
 %>
 
-<form data-ng-init="<%= form.model%>=<%= JSON.stringify(item)%>" data-ng-submit="save('<%= form.model %>')" id="<%= form.id %>" class="w3-col  <% if(typeof form.classes !== "undefined" && form.classes){ %><%= form.classes.join(" ") %><% }%>" data-ng-controller="<%= form.controller%>">
+<form data-ng-init="init('<%= form.model%>',<%= JSON.stringify(item)%>)" data-ng-submit="save('<%= form.model %>')" id="<%= form.id %>" class="w3-col  <% if(typeof form.classes !== "undefined" && form.classes){ %><%= form.classes.join(" ") %><% }%>" data-ng-controller="<%= form.controller%>">
 
   <%
 

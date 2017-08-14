@@ -187,7 +187,7 @@ module.exports = {
                 element: 'input',
                 type: 'text',
                 label: req.__("titulo"),
-                attribute: "titulo"
+                attribute: "title"
               }
 
             ]

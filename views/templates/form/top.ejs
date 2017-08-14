@@ -1,10 +1,13 @@
 <header class="w3-col s12 ">
   <h2>
     <%
-    if(typeof item === "object")
+    var type= __("models."+form.model+".singular");
+    if(typeof item === "object" && item && item.id)
     {
+
       %>
-    Editando usuario
+
+    <%= __("editing",type)%>
 
     <%
     }
@@ -12,7 +15,8 @@
     {
 
       %>
-    Creando usuario
+    <%= __("creating",type)%>
+
     <%
     }
     %>

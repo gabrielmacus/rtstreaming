@@ -10,7 +10,7 @@ var path = require('path');
 var zlib = require('zlib');
 module.exports = {
 
-
+/*
   index:function (req,res) {
 
    // var streamingUrl = 'rtsp://jmarti.info.tm:555/user=admin&password=&channel=1&stream=0.sdp';
@@ -62,7 +62,7 @@ module.exports = {
 
     });
 
-  }
+  }*/
 
 
 }

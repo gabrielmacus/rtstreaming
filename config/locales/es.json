@@ -28,6 +28,14 @@
 
   "models.user.singular":"Usuario",
   "models.user.plural":"Usuarios",
+  "models.streaming.singular":"Transmisión",
+  "models.streaming.plural":"Transmisiones",
+
+  "editing":"Editando %s",
+
+  "save":"Guardar",
+
+  "creating":"Creando %s",
 
 
   "usuarios.listado": "Listado de usuarios",
