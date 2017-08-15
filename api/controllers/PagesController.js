@@ -319,10 +319,20 @@ module.exports = {
                 attribute: "title"
               },
               {
-                element: 'input',
-                type: 'text',
+                element: 'select',
                 label: req.__("comandos"),
-                attribute: "cmd"
+                attribute: "cmd",
+                multiple:true,
+                oiOptions:{
+                  newItem: true
+                }
+              },
+
+              {
+                element: 'input',
+                type:'text',
+                label: req.__("stream.url"),
+                attribute: "url"
               },
               {
                 element: 'select',

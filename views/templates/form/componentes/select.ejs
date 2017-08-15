@@ -1,4 +1,28 @@
 <!-- https://github.com/tamtakoe/oi.select -->
+<%
+/**
+ * Componente Input
+ *
+ * @param id : Id del elemento
+ * @param classes : Array de clases del elemento
+ * @param label : Label del elemento
+ * @param type : Atributo type del elemento
+ * @param attribute : Atributo del modelo del elemento, tiene que coincidir con el modelo del servidor
+ * @param ngIf : Condicional if que muestra o no el elemento, segun la condicion
+ * @param readOnly : Indico si el campo es de solo lectura
+ * @param saveId : Si i es true, guardo solo los ids, no el objeto completo
+ * @param multiple : Si es select multiple o simple
+ * @param shownData : El atributo q muestro
+ * @param options : Las opciones del select
+ * @param oiOptions : Las opciones de funcionamiento del oi-options. Ver documentacion
+ */
+
+
+if(!item.id)
+{
+  item.id="";
+}
+%>
 
 <%
 
@@ -14,9 +38,23 @@
 <oi-select
 
   class="w3-input"
-  oi-options="item<% if(item.saveId){%>.id<%}%> as item.<%= item.shownData %> for item in <%= JSON.stringify(item.options) %>"
   ng-model="<%= form.model %>.<%= item.attribute %>"
   multiple="<%= item.multiple %>"
+  <%
+  if(typeof item.oiOptions !== "undefined" && item.oiOptions)
+  {
+    %>
+
+  oi-select-options="<%= JSON.stringify(item.oiOptions) %>"
+  <%
+  }
+    else
+  {
+    %>
+  oi-options="item<% if(item.saveId){%>.id<%}%> as item.<%= item.shownData %> for item in <%= JSON.stringify(item.options) %>"
+  <%
+  }
+  %>
 
 ></oi-select>
 

@@ -68,6 +68,10 @@
   "stream.noUrl":"No se especifico la url de la transmisión",
   "stream.errorListar":"Error al listar las transmisiones",
   "stream.diasActiva":"Días que se activa la transmisión",
+  "stream.errorTransmitir":"Error al iniciar transmisión",
+
+
+  "stream.url":"Dirección del streaming (cámara ip, archivo,etc)",
 
   "eliminar":"Eliminar",
   "editar":"Editar",

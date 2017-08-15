@@ -13,12 +13,19 @@ module.exports=
      },
     cmd:
     {
-      type:'text',
+      type:'json',
+      required:true
+    },
+    url:
+    {
+      type:'string',
       required:true
     },
     startStreamingSpan:
     {
       type:'json'
+      ,
+      required:true
     }
   }
 }
