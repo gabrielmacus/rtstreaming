@@ -128,6 +128,25 @@ module.exports=
 
         }
       );
+    },
+  
+  getLevels:function (req) {
+
+
+    var userLevels=[];
+
+    for (k in sails.config.userLevels)
+    {
+      var level={};
+
+      level.nombre = req.__("usuarios.niveles."+k);
+      level.id=req.__(sails.config.userLevels[k]);
+
+      userLevels.push(level);
     }
+
+    
+    return userLevels;
+  }
 
 }

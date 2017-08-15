@@ -45,8 +45,11 @@ module.exports.routes = {
   'GET /admin/streamings':{controller:'PagesController',action:'transmisiones',permissions:'streaming'},
   'GET /admin/streaming':{controller:'PagesController',action:'transmision',permissions:'streaming'},
   'GET /admin/streaming/:id':{controller:'PagesController',action:'transmision',permissions:'streaming'},
+  //TODO setear permisos
   'GET /admin/start/streaming/:id':{controller:'StreamingController',action:'start',permissions:'streaming'},
- // 'GET /streaming/:ts':{controller:'StreamingController',action:'index'},
+  'GET /admin/stop/streaming/:id':{controller:'StreamingController',action:'stop',permissions:'streaming'},
+  'GET /admin/live/streamings':{controller:'StreamingController',action:'getLiveStreamingList',permissions:'streaming'},
+  'GET /get/streaming/:id/:file':{controller:'StreamingController',action:'getStreaming'},
 
   /** **/
 

@@ -3,25 +3,23 @@
  */
 
 
-//var http = require('http');
-  /*
-var fs = require('fs');
+
 var url = require('url');
-var path = require('path');*/
 var zlib = require('zlib');
-//const cmd=require('node-cmd');
-var ffmpeg = require('fluent-ffmpeg');
-var streamingProcesses = {};
+var fs = require('fs');
 var path = require('path');
 module.exports = {
 
 
-/*
-  index:function (req,res) {
+
+  getStreaming:function (req,res) {
 
    // var streamingUrl = 'rtsp://jmarti.info.tm:555/user=admin&password=&channel=1&stream=0.sdp';
 
-    filename ="C:\\Users\\Gabriel\\Downloads\\tests\\"+req.param("ts");
+    var streamingId= req.param("id");
+    var file = req.param('file');
+    var filename =path.join(process.cwd(),"/assets/streaming/"+streamingId+"/"+file);
+
 
     fs.exists(filename, function (exists) {
 
@@ -68,95 +66,57 @@ module.exports = {
 
     });
 
-  }*/
+  },
 
   start: function (req, res) {
 
 
     var streamingId =req.param("id");
 
-    Streaming.find(
+    StreamingService.start(streamingId,function (result) {
+
+      if(result.error)
       {
-        id:[streamingId]
+        return res.json(result.code,res.__(result.error));
       }
-    ).exec(
-      function (err, results) {
 
-        if(err || !results.length)
-        {
-        return  res.__("stream.errorTransmitir");
-        }
-
-        var streaming = results[0];
-
-        try
-        {
-          if(   streamingProcesses[streaming.id])
-          {
-            streamingProcesses[streaming.id].kill();
-          }
-
-        }
-        catch(e)
-        {
-
-        }
+      return res.json(result);
 
 
-
-
-        var proc = new ffmpeg({ source: streaming.url });
-
-        var savePath=path.join(process.cwd()+"/assets/streaming/",streaming.id+'.m3u8');
-
-        for(k in streaming.cmd){
-
-          var commmand = streaming.cmd[k];
-
-          commmand= commmand.split(" ");
-          proc.addOption(commmand[0], commmand[1]);
-
-        }
-
-          proc.on('start', function(commandLine) {
-            //console.log('Spawned Ffmpeg with command: ' + commandLine);
-            sails.log.info("Transmision "+streaming.id+" comenzada");
-          });
-          proc.on('error', function () {
-
-            sails.log.info("Transmision "+streaming.id+" finalizada");
-
-          });
-          proc.save(savePath);
-
-
-        streamingProcesses[streaming.id]=proc;
-
-
-
-        res.ok();
-      }
-    );
-
-
-    /*
-    var proc = new ffmpeg({ source: "rtsp://jmarti.info.tm:555/user=admin&password=&channel=1&stream=0.sdp" })
-      .addOption('-rtsp_transport', 'tcp')
-      .addOption('-hls_time','10')
-      .addOption('-hls_list_size','6')
-      .addOption('-hls_wrap','10')
-      .addOption('-start_number','1')
-      .on('start', function(commandLine) {
-      //console.log('Spawned Ffmpeg with command: ' + commandLine);
     })
-      .on('error', function () {
 
-      })
-      .save('out.m3u8');
+  },
+  stop: function (req,res) {
 
-    */
+    var streamingId =req.param("id");
+
+    StreamingService.stop(streamingId,function (result) {
+
+      if(result.error)
+      {
+        return res.json(result.code,res.__(result.error));
+      }
+
+      return res.json(result);
+
+
+    })
+
+  },
+  getLiveStreamingList:function (req,res) {
+
+    StreamingService.getLiveStreamingList(function (result) {
+
+
+      if(result.error)
+      {
+        return res.json(result.code,res.__(result.error));
+      }
+
+      return res.json(result);
+
+    });
 
 
   }
-
 }

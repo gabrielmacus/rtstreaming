@@ -11,11 +11,15 @@ module.exports=
        size:60,
        required:true
      },
-    cmd:
+    inputCmd:
     {
-      type:'json',
-      required:true
+      type:'json'
     },
+outputCmd:{
+
+  type:'json',
+  required:true
+},
     url:
     {
       type:'string',
@@ -25,6 +29,11 @@ module.exports=
     {
       type:'json'
       ,
+      required:true
+    },
+    level:
+    {
+      type:'integer',
       required:true
     }
   }

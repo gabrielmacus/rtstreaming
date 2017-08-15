@@ -93,17 +93,6 @@ module.exports = {
       bottom:'objetos/guardar/bottom.ejs',
       active:'usuarios'
     };*/
-    var userLevels=[];
-
-    for (k in sails.config.userLevels)
-    {
-      var level={};
-
-      level.nombre = req.__("usuarios.niveles."+k);
-      level.id=req.__(sails.config.userLevels[k]);
-
-      userLevels.push(level);
-    }
 
     var templateData=
     {
@@ -176,7 +165,7 @@ module.exports = {
           },
           {
             element: 'select',
-            options:userLevels,
+            options:UserService.getLevels(req),
             shownData:'nombre',
             label: req.__("usuarios.niveles"),
             attribute: "level",
@@ -320,14 +309,25 @@ module.exports = {
               },
               {
                 element: 'select',
-                label: req.__("comandos"),
-                attribute: "cmd",
+                label: req.__("comandos.entrada"),
+                attribute: "inputCmd",
                 multiple:true,
                 oiOptions:{
                   newItem: true
                 }
               },
 
+              {
+
+                element: 'select',
+                label: req.__("comandos.salida"),
+                attribute: "outputCmd",
+                multiple:true,
+                oiOptions:{
+                  newItem: true
+                }
+
+              },
               {
                 element: 'input',
                 type:'text',
@@ -350,6 +350,15 @@ module.exports = {
                 shownData:'dia',
                 label: req.__("stream.diasActiva"),
                 attribute: "startStreamingSpan"
+              }
+              ,
+              {
+                element: 'select',
+                multiple:false,
+                options:UserService.getLevels(req),
+                shownData:'nombre',
+                label: req.__("stream.level"),
+                attribute: "level"
               }
 
 

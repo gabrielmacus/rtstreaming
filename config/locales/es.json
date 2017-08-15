@@ -36,7 +36,9 @@
 
   "save":"Guardar",
 
-  "comandos":"Comandos",
+  "comandos.entrada":"Comandos de entrada",
+
+  "comandos.salida":"Comandos de salida",
 
   "creating":"Creando %s",
 
@@ -69,9 +71,13 @@
   "stream.errorListar":"Error al listar las transmisiones",
   "stream.diasActiva":"Días que se activa la transmisión",
   "stream.errorTransmitir":"Error al iniciar transmisión",
+  "stream.transmisionNoEjecutandose":"Se intentó parar una transmisión que no se está ejecutando",
+  "stream.errorListingLive":"Error al recuperar las transmisiones en curso",
 
+  "invalidParameter":"Se envió un parámetro inválido",
 
-  "stream.url":"Dirección del streaming (cámara ip, archivo,etc)",
+  "stream.url":"Dirección de la transmisión (cámara ip, archivo,etc)",
+  "stream.level":"Nivel mínimo de acceso",
 
   "eliminar":"Eliminar",
   "editar":"Editar",
