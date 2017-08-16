@@ -56,7 +56,12 @@ module.exports=
 
           var cmd='ffmpeg';
 
-          cmd+= ' '+streaming.inputCmd.join(" ");
+          if(streaming.inputCmd && streaming.inputCmd.length)
+          {
+
+            cmd+= ' '+streaming.inputCmd.join(" ");
+
+          }
 
           cmd+=' -i "'+streaming.url+'"';
 

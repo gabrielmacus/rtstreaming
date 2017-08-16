@@ -11,7 +11,14 @@
 
 module.exports.bootstrap = function(cb) {
 
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+  // add the lines from here
+  var schedule = require('node-schedule');
+  Object.keys(sails.config.crontab).forEach(function(key) {
+    var val = sails.config.crontab[key];
+    schedule.scheduleJob(key, val);
+  });
+  // add the lines until here
+
+
   cb();
 };

@@ -92,6 +92,9 @@
   "sab":"Sábado",
   "dom":"Domingo",
 
+  "day":"Día",
+  "time.from":"Desde",
+  "time.to":"Hasta",
   "aceptar":"Aceptar",
   "cancelar":"Cancelar",
 

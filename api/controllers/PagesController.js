@@ -254,7 +254,15 @@ module.exports = {
 
   },
   transmisiones: function (req,res) {
-
+var d=    {
+  1:res.__("lun"),
+  2:res.__("mar"),
+  3:res.__("mie"),
+  4:res.__("jue"),
+  5:res.__("vie"),
+  6:res.__("sab"),
+  7:res.__("dom")
+  };
 
     Streaming.find().exec(
       function(err,results){
@@ -287,7 +295,7 @@ module.exports = {
             days =results[k].startStreamingSpan.map(
               function (el) {
 
-                return el.dia+",";
+                return d[el.day]+" ";
               }
             );
           }
@@ -373,6 +381,14 @@ module.exports = {
                 label: req.__("stream.url"),
                 attribute: "url"
               },
+
+              {
+                element: 'period',
+                label: req.__( "stream.diasActiva"),
+                attribute: "startStreamingSpan"
+              }
+              ,
+              /*
               {
                 element: 'select',
                 multiple:true,
@@ -389,7 +405,7 @@ module.exports = {
                 shownData:'dia',
                 label: req.__("stream.diasActiva"),
                 attribute: "startStreamingSpan"
-              }
+              }*/
 
             ]
 

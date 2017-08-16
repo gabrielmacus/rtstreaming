@@ -1,0 +1,131 @@
+
+<%
+/**
+ * Componente Input
+ *
+ * @param id : Id del elemento
+ * @param classes : Array de clases del elemento
+ * @param label : Label del elemento
+ * @param type : Atributo type del elemento
+ * @param attribute : Atributo del modelo del elemento, tiene que coincidir con el modelo del servidor
+ * @param ngIf : Condicional if que muestra o no el elemento, segun la condicion
+ * @param readOnly : Indico si el campo es de solo lectura
+ *
+ */
+
+
+if(!item.id)
+{
+  item.id="";
+}
+%>
+<script>
+
+  app.controller('periodController',function ($rootScope,$http) {
+
+
+    /*
+
+    $rootScope.$watchCollection('<%= item.attribute %>',function () {
+
+      $rootScope['<%= form.model %>']['<%= item.attribute%>']= $rootScope['<%= item.attribute %>'];
+
+    });*/
+
+    $rootScope.days=  [
+      {dia:"<%= __("lun")%>",id:1},
+      {dia:"<%= __("mar")%>",id:2},
+      {dia:"<%= __("mie")%>",id:3},
+      {dia:"<%= __("jue")%>",id:4},
+      {dia:"<%= __("vie")%>",id:5},
+      {dia:"<%= __("sab")%>",id:6},
+      {dia:"<%= __("dom")%>",id:7}
+    ];
+
+    $rootScope.removePeriod=function (k,collection) {
+
+
+      collection.splice(k,1);
+
+    }
+
+    $rootScope.addPeriod=function(object,model,collection)
+    {
+      if(!$rootScope[model][collection])
+      {
+        $rootScope[model][collection]=[];
+      }
+
+
+      object=angular.copy(object);
+
+      object.day  = object.day.id;
+
+      $rootScope[model][collection].push(object)
+
+
+    }
+
+    $rootScope.getDay
+     = function (day) {
+
+        day = $rootScope.days.filter(function (el) {
+          return el.id==day
+        });
+
+
+        return day[0].dia;
+
+      }
+
+
+  });
+
+</script>
+<div class="form-block  w3-col  <%  if(typeof item.classes !== "undefined" && item.classes){%>  <%= item.classes.join(" ") %> <% } %>"  <% if(typeof item.ngIf  !== "undefined" ){%>data-ng-if="<%= item.ngIf %>"<%}%>>
+<div class="w3-row">
+  <label for="<%= item.id %>"><%= __(item.label) %></label>
+
+</div>
+ <div data-ng-controller="periodController" class="w3-row w3-margin-top">
+   <div class="w3-col s12 m4 ">
+     <label><%= __("day")%></label>
+     <select class="w3-select" type="text"  data-ng-model="_<%= item.attribute %>.day" data-ng-options="d.dia for d in days track by d.id"></select>
+   </div>
+   <div class="w3-col s12 m3 ">
+     <label><%= __("time.from")%></label>
+     <input placeholder="hh:mm" class="w3-input" data-ng-model="_<%= item.attribute %>.from" type="text" >
+   </div>
+
+   <div class="w3-col s12 m3 ">
+     <label><%= __("time.to")%></label>
+     <input placeholder="hh:mm" class="w3-input" data-ng-model="_<%= item.attribute %>.to" type="text" >
+   </div>
+
+
+   <div class="w3-col s12  m2 ">
+     <button type="button" data-ng-click="addPeriod(_<%= item.attribute %>,'<%= form.model %>','<%= item.attribute%>')" class="w3-btn" style="margin: auto;display:flex;position: relative;top:10px">+</button>
+     </div>
+
+
+ </div>
+
+
+
+  <ul class="w3-ul">
+    <li data-ng-repeat="(k,p) in <%= form.model %>.<%= item.attribute %>">
+
+     <span class="day" data-ng-bind="getDay(p.day)"></span>  <span class="time">{{p.from}} hs - {{p.to}} hs</span>
+
+      <span data-ng-click="removePeriod(k,<%= form.model%>.<%= item.attribute%>)" class="delete w3-right">
+           <i class="material-icons">&#xE14C;</i>
+      </span>
+    </li>
+  </ul>
+
+</div>
+
+<%
+
+item=null;
+%>

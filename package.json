@@ -27,6 +27,7 @@
     "jsonwebtoken": "^7.4.2",
     "node-cmd": "^3.0.0",
     "node-rtsp-stream": "0.0.3",
+    "node-schedule": "^1.2.4",
     "ps-tree": "^1.1.0",
     "rc": "1.0.1",
     "sails": "~0.12.13",
