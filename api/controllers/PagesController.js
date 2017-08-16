@@ -9,7 +9,45 @@ module.exports = {
 
   index: function(req,res){
 
-    res.view('home/cuerpo', {layout: 'layouts/layout', bodyClasses: ["home"],user:req.session.user});
+    var templateData={layout: 'layouts/layout', bodyClasses: ["home"],user:req.session.user};
+    var s= req.param("s");
+
+    templateData.streaming=false;
+
+
+    async.waterfall([
+
+      function(callback){
+
+        StreamingService.getLiveStreamingList(
+          function (results) {
+
+
+              if(s && results.length && results.findIndex(function (el) {
+                  return el.id= s;
+                })>-1)
+              {
+                templateData.streaming= s;
+              }
+            else if(!s && results && results.length )
+              {
+                templateData.streaming=results[0].id;
+              }
+            callback();
+
+          }
+        );
+
+      },
+      function () {
+        console.log(templateData);
+        return     res.view('home/cuerpo', templateData);
+      }
+
+    ]);
+
+
+
    },
   login: function(req,res)
   {
@@ -240,6 +278,7 @@ module.exports = {
           transmision.p1= results[k].title || "&nbsp;";
           transmision.p2= "&nbsp;";
 
+
           var days="&nbsp;";
 
           if(results[k].startStreamingSpan && results[k].startStreamingSpan.length)
@@ -271,7 +310,7 @@ module.exports = {
           bodyClasses: ["admin-usuarios","listado","streaming"],
           user:req.session.user,
           top:'../templates/listado/top.ejs',
-          cuerpo:'../templates/listado/cuerpo.ejs',
+          cuerpo:'../templates/listado-streamings/cuerpo.ejs',
           bottom:'../templates/listado/bottom.ejs',
           active:'transmision',
           items:transmisiones,
@@ -351,16 +390,6 @@ module.exports = {
                 label: req.__("stream.diasActiva"),
                 attribute: "startStreamingSpan"
               }
-              ,
-              {
-                element: 'select',
-                multiple:false,
-                options:UserService.getLevels(req),
-                shownData:'nombre',
-                label: req.__("stream.level"),
-                attribute: "level"
-              }
-
 
             ]
 

@@ -2,7 +2,6 @@
  * Created by Gabriel on 07/08/2017.
  */
 
-var exec = require('child_process').exec;
 var path = require('path');
 const fs = require('fs-extra')
 
@@ -12,6 +11,7 @@ module.exports=
 {
   start:function(streamingId,callback)
   {
+    var exec = require('child_process').exec;
     Streaming.find(
       {
         id:[streamingId]
@@ -64,16 +64,21 @@ module.exports=
 
           cmd+= ' '+savePath+'out.m3u8';
 
-
           var child = exec(cmd);
           child.stdout.on('data', function(data) {
             //console.log('stdout: ' + data);
           });
           child.stderr.on('data', function(data) {
-            //console.log('stdout: ' + data);
+          // console.log('stdout: ' + data);
           });
           child.on('close', function(code) {
+
             console.log('Killing Streaming'+streaming.id+'. Closing code: ' + code);
+
+            if( streamingProcesses[streamingId])
+            {
+              delete streamingProcesses[streamingId];
+            }
 
             try
             {
@@ -100,12 +105,12 @@ module.exports=
   stop:function(streamingId,callback)
   {
 
-    console.log(streamingProcesses);
+    console.log('Stopping');
     if(streamingProcesses[streamingId])
     {
       CommandService.kill(   streamingProcesses[streamingId].pid);
 
-      delete streamingProcesses[streamingId];
+
 
       return  callback(true);
 

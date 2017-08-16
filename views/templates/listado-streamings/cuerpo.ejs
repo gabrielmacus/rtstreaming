@@ -1,0 +1,59 @@
+<%
+ /**
+  * Template de listado
+  * */
+
+ console.log(typeof items !== "undefined" && items.length > 0);
+  if(typeof items !== "undefined" && items.length > 0)
+  {
+    %>
+<%-   partial('objetos/list.ejs') %>
+<%
+
+
+
+  }
+else
+{
+ %>
+<%-  partial('../listado/objetos/empty.ejs') %>
+<%
+
+}%>
+    <script>
+    app.controller('listStreamingController', function($rootScope,$http) {
+
+      $rootScope.streamingList={};
+
+      $http.get('/admin/live/streamings').
+        then(function (res) {
+
+          for(var k in res.data)
+          {
+            $rootScope.streamingList[res.data[k].id]=true;
+          }
+
+        },error);
+
+
+      $rootScope.toggleStreaming=function(start,id)
+      {
+        var state="start";
+        if(!start)
+        {
+          state="stop";
+        }
+
+
+        $http.get('/admin/'+state+'/streaming/'+id)
+          .then(function(res) {
+
+
+            $rootScope.streamingList[id]=start;
+
+          }, error);
+      }
+
+  });
+
+</script>

@@ -23,6 +23,9 @@ module.exports = {
 
     fs.exists(filename, function (exists) {
 
+      if(exists)
+      {
+
         switch (path.extname(filename)) {
           case '.m3u8':
             fs.readFile(filename, function (err, contents) {
@@ -63,6 +66,11 @@ module.exports = {
             res.writeHead(500);
             res.end();
         }
+      }
+      else
+      {
+        res.notFound();
+      }
 
     });
 

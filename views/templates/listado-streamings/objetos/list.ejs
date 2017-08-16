@@ -1,0 +1,82 @@
+<div data-ng-controller="listController" class="w3-col s12 listado">
+  <% for(var k in items)
+  {
+    var item=items[k];
+  %>
+  <a href="/?s=<%= item.id %>">
+  <article  class="item  <%  if(item.class) {%> <%= item.class.join(" ") %> <% }%>">
+
+
+
+
+    <span class="p1"><%- item.p1 %></span>
+    <span class="p2"><%- item.p2 %></span>
+
+    <span class="p3"><%- item.p3 %></span>
+
+
+    <div class="actions" data-ng-controller="listStreamingController">
+
+
+
+
+
+      <% if(user.level >= sails.config.minimumLevels.create[item.type])
+      {%>
+      <a title="<%= __("editar") %>" href="/admin/<%= item.type %>/<%= item.id %>" class="edit">
+        <i class="material-icons">&#xE254;</i>
+      </a>
+      <%}%>
+
+      <%if(user.level >= sails.config.minimumLevels.delete[item.type])
+      {%>
+
+
+      <a  title="<%= __("eliminar") %>" class="delete"
+
+          data-ng-click="showModal('<%- __('stream.deletePrompt') %>','<%- __( "stream.areYouSure",item) %>','delete(\'<%= item.id %>\',\'<%= item.type %>\')')"
+
+      >
+        <i class="material-icons">&#xE872;</i>
+      </a>
+      <%}%>
+
+
+      <%if( !sails.config.minimumLevels.read[item.type] || user.level >= sails.config.minimumLevels.read[item.type]   )
+      {%>
+
+
+      <a data-ng-if="!streamingList['<%= item.id%>']" class="play"
+
+         data-ng-click="toggleStreaming(true,'<%= item.id%>')"
+
+        >
+        <i class="material-icons">&#xE037;</i>
+      </a>
+      <%}%>
+
+
+      <%if( !sails.config.minimumLevels.read[item.type] || user.level >= sails.config.minimumLevels.read[item.type]   )
+      {%>
+
+
+      <a data-ng-if="streamingList['<%= item.id%>']" class="stop"
+
+         data-ng-click="toggleStreaming(false,'<%= item.id%>')"
+        >
+        <i class="material-icons">&#xE047;</i>
+      </a>
+      <%}%>
+
+
+
+    </div>
+
+  </article>
+    </a>
+  <%
+  }
+  %>
+
+
+</div>

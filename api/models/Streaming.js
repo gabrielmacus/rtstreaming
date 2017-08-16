@@ -30,11 +30,6 @@ outputCmd:{
       type:'json'
       ,
       required:true
-    },
-    level:
-    {
-      type:'integer',
-      required:true
     }
   }
 }

@@ -65,7 +65,7 @@
   "usuarios.diaABuscar":"Día a buscar...",
   "usuarios.nadaSeleccionado":"Ningun día seleccionado",
   "usuarios.deletePrompt":"Confirmar eliminación de usuario",
-  "usuarios.areYouSure":"¿Seguro que desea eliminar el usuario {{username}}?",
+  "usuarios.areYouSure":"¿Seguro que desea eliminar el usuario {{p3}}?",
 
   "stream.noUrl":"No se especifico la url de la transmisión",
   "stream.errorListar":"Error al listar las transmisiones",
@@ -78,6 +78,9 @@
 
   "stream.url":"Dirección de la transmisión (cámara ip, archivo,etc)",
   "stream.level":"Nivel mínimo de acceso",
+  "stream.noAvailable":"En estos momentos no hay ninguna transmisión disponible",
+  "stream.deletePrompt":"Confirmar eliminación de transmisión",
+  "stream.areYouSure":"¿Seguro que desea eliminar la transmisión {{p1}}?",
 
   "eliminar":"Eliminar",
   "editar":"Editar",
