@@ -10,7 +10,7 @@ module.exports.crontab = {
    * so in the example below it will run every minute
    */
 
-  '*/3 * * * *': function(){
+  '*/1 * * * *': function(){
     require('../crontab/streaming.js').run();
   }
 };

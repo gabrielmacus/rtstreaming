@@ -28,8 +28,6 @@ outputCmd:{
     startStreamingSpan:
     {
       type:'json'
-      ,
-      required:true
     }
   }
 }

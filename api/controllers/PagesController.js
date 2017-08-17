@@ -22,17 +22,24 @@ module.exports = {
         StreamingService.getLiveStreamingList(
           function (results) {
 
+            var idx=results.findIndex(function (el) {
+              return el.id== s;
+            });
 
-              if(s && results.length && results.findIndex(function (el) {
-                  return el.id= s;
-                })>-1)
+
+
+              if(s && results.length && idx>-1 )
               {
-                templateData.streaming= s;
+                 templateData.streaming= s;
               }
             else if(!s && results && results.length )
               {
+
                 templateData.streaming=results[0].id;
               }
+
+
+
             callback();
 
           }
