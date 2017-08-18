@@ -43,63 +43,76 @@ module.exports=
 
         var savePath=path.join(process.cwd()+"/assets/streaming/",streaming.id+'/');
 
+        var fileName='out.m3u8';
 
 
-        fs.ensureDir(savePath, err => {
 
-          if(err)
-          {
-            sails.config.err(err);
-            return  callback({error:"stream.errorTransmitir",code:500});
-          }
+        fs.remove(savePath,function(err) {
+          if (err) return sails.log.error(err)
 
 
-          var cmd='ffmpeg';
+          fs.ensureDir(savePath, function(err) {
 
-          if(streaming.inputCmd && streaming.inputCmd.length)
-          {
-
-            cmd+= ' '+streaming.inputCmd.join(" ");
-
-          }
-
-          cmd+=' -i "'+streaming.url+'"';
-
-          cmd+=' '+streaming.outputCmd.join(" ");
-
-          cmd+= ' '+savePath+'out.m3u8';
-
-          var child = exec(cmd);
-          child.stdout.on('data', function(data) {
-            //console.log('stdout: ' + data);
-          });
-          child.stderr.on('data', function(data) {
-          // console.log('stdout: ' + data);
-          });
-          child.on('close', function(code) {
-
-            console.log('Killing Streaming'+streaming.id+'. Closing code: ' + code);
-
-            if( streamingProcesses[streamingId])
+            if(err)
             {
-              delete streamingProcesses[streamingId];
+              sails.config.err(err);
+              return  callback({error:"stream.errorTransmitir",code:500});
             }
 
-            try
+            var cmd='ffmpeg';
+
+            if(streaming.inputCmd && streaming.inputCmd.length)
             {
-              fs.remove(savePath);
+
+              cmd+= ' '+streaming.inputCmd.join(" ");
+
             }
-            catch(e)
-            {}
+
+            cmd+=' -i "'+streaming.url+'"';
+
+            cmd+=' '+streaming.outputCmd.join(" ");
+
+            cmd+= ' '+savePath+fileName;
+
+            var child = exec(cmd);
+
+            child.stdout.on('data', function(data) {
+              //console.log('stdout: ' + data);
+            });
+
+            child.stderr.on('data', function(data) {
+              // console.log('stdout: ' + data);
+            });
+
+            child.on('close', function(code) {
+
+              console.log('Killing Streaming'+streaming.id+'. Closing code: ' + code);
+
+              if( streamingProcesses[streamingId])
+              {
+                delete streamingProcesses[streamingId];
+              }
+
+              try
+              {
+                fs.remove(savePath);
+              }
+              catch(e)
+              {}
 
 
-          });
+            });
+
+            streamingProcesses[streaming.id]=child;
+
+            return callback(true);
+          })
 
 
-          streamingProcesses[streaming.id]=child;
-
-          return callback(true);
         })
+
+
+
 
 
 

@@ -75,6 +75,10 @@ module.exports.policies = {
     create:['isLogged','canCreate'],
     update:['isLogged','canCreate'],
     find:['isLogged','canRead'],
-    
+    getStreaming:['isLogged','canRead'],
+    start:['isLogged','canCreate'],
+    stop:['isLogged','canDelete'],
+    getLiveStreamingList:['isLogged','canRead']
+
   }
 };
