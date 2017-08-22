@@ -60,7 +60,7 @@ module.exports = {
 
           if(streaming.startStreamingSpan  )
           {
-            sails.log.info("streaming span here");
+            //sails.log.info("streaming span here");
             for(var j in streaming.startStreamingSpan)
             {
               try
