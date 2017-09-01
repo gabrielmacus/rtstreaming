@@ -41,7 +41,8 @@ module.exports=
 
         }
 
-        var savePath=path.join(process.cwd()+"/assets/streaming/",streaming.id+'/');
+        var savePath=path.join("assets/streaming/",streaming.id+'/');
+        //var savePath=streaming.id+'/';
 
         var fileName='out.m3u8';
 
@@ -55,7 +56,7 @@ module.exports=
 
             if(err)
             {
-              sails.config.err(err);
+              sails.log.err(err);
               return  callback({error:"stream.errorTransmitir",code:500});
             }
 
