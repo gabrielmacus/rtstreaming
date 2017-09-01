@@ -32,18 +32,14 @@
     <link rel="stylesheet" href="/styles/importer.css">
     <link rel="stylesheet" href="/styles/select.css">
     <!--STYLES END-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
-  <script>
 
-    var app = angular.module('app', []);
-  </script>
   <script
     src="http://code.jquery.com/jquery-1.12.4.min.js"
     integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
     crossorigin="anonymous"></script>
 </head>
 
-<body  class="<%= bodyClasses.join(' ') %>" data-ng-app="app">
+<body data-ng-app="app"  class="<%= bodyClasses.join(' ') %>" >
 
 
 
@@ -96,15 +92,6 @@
 
 -->
 
-<!--SCRIPTS-->
-<script src="/js/dependencies/sails.io.js"></script>
-<script src="/js/controllers/ListController.js"></script>
-<script src="/js/controllers/SaveController.js"></script>
-<script src="/js/select-tpls.min.js"></script>
-<script src="/js/utils.js"></script>
-<!--SCRIPTS END-->
-
-
 
 
 <section>
@@ -113,5 +100,6 @@
 
 </section>
 
+<script src="/js/utils.js"></script>
 </body>
 </html>
