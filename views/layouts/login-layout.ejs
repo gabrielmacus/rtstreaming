@@ -32,13 +32,18 @@
     <link rel="stylesheet" href="/styles/importer.css">
     <link rel="stylesheet" href="/styles/select.css">
     <!--STYLES END-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+  <script>
+
+    var app = angular.module('app', []);
+  </script>
   <script
     src="http://code.jquery.com/jquery-1.12.4.min.js"
     integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
     crossorigin="anonymous"></script>
 </head>
 
-<body  class="<%= bodyClasses.join(' ') %>">
+<body  class="<%= bodyClasses.join(' ') %>" data-ng-app="app">
 
 
 
