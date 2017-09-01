@@ -76,6 +76,8 @@ module.exports=
 
             var child = exec(cmd);
 
+            sails.config.info(cmd);
+
             child.stdout.on('data', function(data) {
               //console.log('stdout: ' + data);
             });
@@ -86,7 +88,8 @@ module.exports=
 
             child.on('close', function(code) {
 
-              console.log('Killing Streaming'+streaming.id+'. Closing code: ' + code);
+
+              console.log('Killing Streaming '+ streaming.id+'. Closing code: ' + code);
 
               if( streamingProcesses[streamingId])
               {
