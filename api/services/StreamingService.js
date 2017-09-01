@@ -76,7 +76,7 @@ module.exports=
 
             var child = exec(cmd);
 
-            sails.config.info(cmd);
+            sails.log.info(cmd);
 
             child.stdout.on('data', function(data) {
               //console.log('stdout: ' + data);
