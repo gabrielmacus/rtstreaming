@@ -112,7 +112,15 @@ module.exports.sockets = {
   //
   //   // (`false` would reject the connection)
   // },
+  beforeConnect: function(handshake, cb) {
 
+      console.log(handshake);
+
+      // `true` allows the connection
+       return cb(null, true);
+       // (`false` would reject the connection)
+
+  },
 
   /***************************************************************************
   *                                                                          *
