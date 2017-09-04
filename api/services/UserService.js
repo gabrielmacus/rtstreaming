@@ -79,8 +79,8 @@ module.exports=
             return el.id == userId;
           }
         )[0];
-        
-        
+
+
         var connectionChanged= false;
         if(connected && !connectedUsers[me.id])
         {
@@ -95,7 +95,7 @@ module.exports=
           delete connectedUsers[me.id];
           connectionChanged = true;
         }
-        
+
 
 
       if(connectionChanged)
@@ -112,11 +112,46 @@ module.exports=
 
         }
       }
-        
-        
+
+
 
       }
     );
+  },
+
+  getTokenFromHeader:function (header) {
+
+    userTk=false;
+    if(header)
+    {
+      userTk = header.split(";");
+
+      userTk = userTk.map(function (el) {
+
+        var split = el.split("=");
+
+        return {key:split[0],value:split[1]};
+
+      });
+
+      userTk = userTk.filter(function (el) {
+        return el.key == 'user_tk';
+      });
+
+      if(userTk && userTk.length >0)
+      {
+        userTk = userTk[0].value;
+      }
+    }
+    return userTk;
+
+  },
+
+  getConnectedUsers:function () {
+
+  
+    return connectedUsers;
+
   },
 
   getLevels:function (req) {
@@ -134,7 +169,7 @@ module.exports=
       userLevels.push(level);
     }
 
-    
+
     return userLevels;
   }
 

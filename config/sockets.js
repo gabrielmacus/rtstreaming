@@ -114,11 +114,44 @@ module.exports.sockets = {
   // },
   beforeConnect: function(handshake, cb) {
 
-      console.log(handshake);
+     if(!handshake.headers['x-access-token'])
+     {
 
-      // `true` allows the connection
+      userTk= UserService.getTokenFromHeader(handshake.headers['cookie']);
+
+     }
+    else
+     {
+       userTk =handshake.headers['x-access-token'];
+     }
+
+    WebTokenService.verificarToken(userTk,function (err,res) {
+
+      if(err)
+      {
+        //Si no estoy logueado, no me conecto por sockets
+        return cb(null, false);
+      }
+
+
+     UserService.cambiarEstadoDeConexion(res.id,true,function (result) {
+
+       if(result.error)
+       {
+         return cb(null, false);
+       }
+
        return cb(null, true);
-       // (`false` would reject the connection)
+
+
+     })
+
+
+
+    });
+
+
+
 
   },
 
@@ -134,6 +167,21 @@ module.exports.sockets = {
   //   // By default: do nothing.
   //   return cb();
   // },
+
+  afterDisconnect: function(session, socket, cb) {
+    //   // By default: do nothing.
+
+    console.log(UserService.getConnectedUsers());
+
+    if(session.user)
+    {
+      UserService.cambiarEstadoDeConexion(session.user.id,false,function (result) {
+        console.log(UserService.getConnectedUsers());
+
+      })
+    }
+     return cb();
+     },
 
   /***************************************************************************
   *                                                                          *
