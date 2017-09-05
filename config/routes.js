@@ -51,6 +51,7 @@ module.exports.routes = {
   'GET /admin/live/streamings':{controller:'StreamingController',action:'getLiveStreamingList',permissions:'streaming'},
   'GET /get/streaming/:id/:file':{controller:'StreamingController',action:'getStreaming'},
 
+
   /** **/
 
   /** Users **/
@@ -61,15 +62,14 @@ module.exports.routes = {
 
   'GET /admin/user/':{controller:'PagesController',action:'usuario',permissions:'user'},
 
-  /** **/
+  'GET /online/users':{controller:'UserController',action:'usuariosOnline',permissions:'user'},
 
+  'POST /send/msg':{controller:'UserController',action:'enviarMensaje',permissions:'user'},
 
   'GET /salir':{controller:'UserController',action:'salir'},
 
-
-
   'POST /ingresar':{controller:'UserController',action:'login'}
-
+  /** **/
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

@@ -101,7 +101,8 @@
   "transmision.titulo":"Transmisión en vivo...",
   "transmision.errorEditar":"Error al ingresar a edición de transmisión",
   "titulo":"Título",
-
+  "chat.sinUsuarios":"Ningún usuario conectado",
+  "chat.writePlaceholder":"Escriba un mensaje...",
 
 
   "areYouSure":"¿Está seguro?"

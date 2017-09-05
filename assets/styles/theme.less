@@ -11,7 +11,12 @@
 @color4:rgba(43, 44, 44, 1);
 @color5:rgba(219, 223, 223, 1);
 @color6:rgba(0, 0, 0, 0.49);
-
+@color7:#4CAF50;
+@color8:#50b0d3;
+@color9:#58e292;
+@color10:#F5F5F5;
+@color11:#9E9E9E;
+@color12: #dbdfdf;
 @fontSize1:20px;
 @fontSize2:25px;
 
@@ -378,8 +383,8 @@ body > header nav > .wrapper
 
 h1,h2,h3,h4,h5,h6
 {
-  margin-top: @margin1;
-  font-weight: 300;
+  margin-top: @margin1!important;
+  font-weight: 300!important;
 }
 
 .no-line .line
@@ -493,4 +498,180 @@ oi-select
 oi-select .select-search-list-item_selection {
   cursor: pointer;
   background: #efefef !important;
+}
+
+.online-dot
+{
+  color: @color7;
+  position: relative;
+  top: 5px;
+}
+.chat h3
+{
+  margin: 0px!important;
+  font-size: 20px!important;
+}
+.chat li:first-child
+{
+  padding: 10px;
+
+  background-color: @color5;
+}
+.chat li.user:hover
+{
+  background-color: #EEEEEE;
+}
+.chat li.user
+{
+  border-bottom: 1px @color5 solid;
+  padding: 10px;
+  padding-top: 15px;
+  float: left;
+  width: 100%;
+  padding-bottom: 15px;
+  display: none;
+  color: @color1;
+  cursor: pointer;
+}
+.chat.expanded li.user
+{
+  display: block;
+}
+.chat
+{    position: fixed;
+  bottom: 0px;
+  right: 0;
+  width: 20%;
+
+}
+.chat .toggle-expand
+{
+  position: relative;
+  top: 6px;
+  -webkit-transition: all 300ms;
+  -moz-transition: all 300ms;
+  -ms-transition: all 300ms;
+  -o-transition: all 300ms;
+  transition: all 300ms;
+  left: 7px;
+}
+.chat.expanded .toggle-expand
+{
+  transform: scale(-1);
+
+}
+
+
+
+.chat .user .unread
+{
+  float: right;
+  color: @color7;
+  font-weight: 600;
+}
+.conversacion
+{
+
+  background-color: @color3;
+
+}
+
+.conversacion .me p
+{
+
+  background: @color9;
+
+}
+.conversacion .destinatary p
+{
+
+  background: @color8;
+  float: right;
+
+}
+.conversacion li:not(.header)
+{
+  float: left;
+  width: 100%;
+  padding: @margin1;
+  padding-bottom: 0px;
+
+}
+.conversacion li p
+{
+  display: inline-block;
+  padding: 10px;
+}
+.conversacion li:not(.write-box):last-of-type
+{
+  margin-bottom: @margin1;
+}
+.conversacion .back
+{
+  float: right;
+}
+.conversacion .time
+{
+  width: 100%;
+  float: left;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.conversacion ul
+{
+
+  overflow-y: scroll;
+  height: 300px!important;
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+
+.conversacion .seen
+{
+  float: right;
+  font-size: 20px!important;
+}
+
+
+.conversacion .write-box,.conversacion .write-box .text
+{
+  float: left;width: 100%;
+}
+.conversacion .write-box
+{
+  border: solid 1px @color12;
+}
+.conversacion .write-box .controls
+{
+  float: left;width: 100%;
+  padding-bottom: 3px;
+  padding-top: 3px;
+  background-color: @color10;
+
+}.conversacion .write-box .text .placeholder
+ {
+   color: @color11;
+ }
+
+.conversacion .write-box .text
+{
+  padding: 5px;
+  outline: none
+;
+}
+.conversacion .write-box .controls .enviar
+{
+  float: right;
+  position: relative;
+  right: 10px;
+  top: 3px;
+}
+.conversacion .write-box .enviar
+{
+  float: right;
+  position: relative;
+  right: 10px;
+  top: 3px;
 }

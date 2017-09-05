@@ -117,7 +117,7 @@ module.exports.sockets = {
      if(!handshake.headers['x-access-token'])
      {
 
-      userTk= UserService.getTokenFromHeader(handshake.headers['cookie']);
+      userTk= ParseService.getValueFromHeader(handshake.headers['cookie'],'user_tk');
 
      }
     else
@@ -125,7 +125,9 @@ module.exports.sockets = {
        userTk =handshake.headers['x-access-token'];
      }
 
+
     WebTokenService.verificarToken(userTk,function (err,res) {
+
 
       if(err)
       {
@@ -134,7 +136,13 @@ module.exports.sockets = {
       }
 
 
-     UserService.cambiarEstadoDeConexion(res.id,true,function (result) {
+
+
+      var sid = ParseService.getValueFromHeader(handshake.headers['cookie'],'sails.sid');
+
+
+
+     UserService.cambiarEstadoDeConexion(res,sid,true,function (result) {
 
        if(result.error)
        {
@@ -171,12 +179,14 @@ module.exports.sockets = {
   afterDisconnect: function(session, socket, cb) {
     //   // By default: do nothing.
 
-    console.log(UserService.getConnectedUsers());
+
+    var sid = ParseService.getValueFromHeader(socket.handshake.headers.cookie,'sails.sid');
 
     if(session.user)
     {
-      UserService.cambiarEstadoDeConexion(session.user.id,false,function (result) {
-        console.log(UserService.getConnectedUsers());
+      UserService.cambiarEstadoDeConexion(session.user,sid,false,function (result) {
+
+
 
       })
     }

@@ -1,0 +1,164 @@
+<ul class="chat w3-card-2" data-ng-controller="chatController">
+
+  <li class="header">
+    <h3>Contactos en linea <i class="material-icons toggle-expand expandir ">&#xE5CE;</i></h3>
+  </li>
+
+  <li class="user " data-ng-repeat="(k,user) in users" data-ng-click="chatWith(user)">
+    <span class="username">{{user.username}}</span>
+    <span class="unread">
+     {{user.unread}}
+    </span>
+  </li>
+  <li class="empty user "  data-ng-if="!users || isEmpty(users)">
+    <%= __("chat.sinUsuarios")%>
+  </li>
+</ul>
+
+<div class="conversacion chat w3-card-2" data-ng-if="chat">
+  <ul >
+    <li class="header">
+      <h3>{{chat.user.username}} <span class="back"><i class="material-icons">&#xE317;</i></span></h3>
+
+    </li>
+    <li  data-ng-class="msg.from == '<%= user.id %>' ? 'me' : 'destinatary'" data-ng-repeat="msg in chat.messages">
+
+      <p class="msg">
+        <span class="time">
+          <span class="username" data-ng-if="msg.from == '<%= user.id %>'">Yo</span>
+          <span class="username" data-ng-if="msg.from != '<%= user.id %>'" data-ng-bind="users[msg.from].username"></span>
+          -
+          {{msg.time}}
+          <i data-ng-if="msg.seen" class="material-icons seen" title="Visto {{msg.seen}}">&#xE417;</i></span>
+        {{msg.text}}
+      </p>
+    </li>
+
+  </ul>
+
+  <div class="write-box">
+    <div  class="text" contenteditable data-placeholder ="<%= __("chat.writePlaceholder") %>">
+
+    </div>
+    <span class="controls">
+      <span data-ng-click="sendMsg(chat.user)" class="enviar"><i class="material-icons">&#xE163;</i></span>
+    </span>
+  </div>
+</div>
+
+
+
+<script>
+
+  app.controller('chatController', function($rootScope,$http) {
+    $rootScope.users={};
+    $rootScope.chats ={};
+
+    $rootScope.chatWith=function (user) {
+
+      $rootScope.chat ={};
+      $rootScope.chat.user = user;
+
+    }
+    $rootScope.sendMsg=function(user){
+      var txt =$(".conversacion [contenteditable]").html();
+      io.socket.post('/send/msg', { text:txt,to:user.id }, function (resData, jwRes) {
+
+        console.log(jwRes.statusCode);
+
+
+      });
+
+    };
+$rootScope.isEmpty=function (obj) {
+
+  return empty(obj);
+}
+
+    // e.g. in the browser...
+    io.socket.on('user', function (event){
+
+      console.log(event);
+      if(event.data.type)
+      {
+        switch (event.data.type) {
+          case "online-users":
+
+
+            $.each(event.data.users,function (k,v) {
+
+              if(k != '<%= user.id%>')
+              {
+
+                $rootScope.users[v.user.id]= v.user;
+              }
+
+            });
+
+
+
+            break;
+
+          case "status":
+
+
+            if(event.data.status == true)
+            {
+              $rootScope.users[event.data.user.id] = event.data.user;
+
+            }
+            else
+            {      delete $rootScope.users[event.data.user.id] ;
+
+            }
+
+            break;
+
+          case "msg":
+
+
+           if(! $rootScope.chat.messages)
+           {
+             $rootScope.chat.messages=[];
+           }
+
+            $rootScope.chat.messages.push(event.data.data);
+
+
+                break;
+        }
+
+
+
+        $rootScope.$apply();
+      }
+
+
+// => see below
+    });
+
+
+  });
+
+
+
+  $(document).on("click",".conversacion .back",function () {
+    $(".conversacion").fadeOut();
+  });
+  $(document).on("click",".chat:not(.conversacion) .header",function () {
+
+    $(".chat .user").slideToggle(function () {
+
+      if($(".chat .user").is(":visible"))
+      {
+        $(".chat").addClass("expanded");
+      }
+      else
+      {
+        $(".chat").removeClass("expanded");
+      }
+
+    });
+
+  });
+</script>

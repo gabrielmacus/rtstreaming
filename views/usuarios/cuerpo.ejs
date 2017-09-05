@@ -24,3 +24,54 @@
   }%>
 
 </div>
+<script>
+
+  function setUserOnline(id) {
+    var html ='<i title="Usuario en linea" class=" online-dot material-icons">&#xE061;</i>';
+
+    $("[data-id='"+id+"'] .p3").after(html);
+  }
+    io.socket.on('user', function (event){
+
+    if(event.data.type)
+    {
+
+      switch (event.data.type)
+      {
+        case "status":
+
+          $(".listado [data-id='"+event.data.user.id+"'] .online-dot").remove();
+
+          if(event.data.status == true)
+          {
+           setUserOnline(event.data.user.id);
+          }
+
+          break;
+
+        case "online-users":
+
+          $(".listado [data-id] .online-dot").remove();
+          for (var k in event.data.users)
+          {
+            if(k!="<%= user.id %>")
+            {
+              setUserOnline(k);
+            }
+
+          }
+
+
+
+              break;
+
+
+      }
+
+
+
+    }
+
+  });
+
+</script>

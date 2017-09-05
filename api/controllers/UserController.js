@@ -7,7 +7,43 @@
 
 module.exports = {
 
+  enviarMensaje:function (req,res) {
 
+    if(req.isSocket)
+    {
+
+
+
+   var data  =req.allParams();
+
+      User.message(data.to,{text:data.text,to:data.to,from:req.session.user.id,type:'msg',time:Date.now()});
+
+      return res.ok();
+
+    }
+    else {
+      return res.badRequest();
+    }
+  }
+  ,
+  usuariosOnline:function (req,res) {
+
+    if(req.isSocket)
+    {
+
+      var _users = UserService.getConnectedUsers();
+
+
+
+      User.message(req.session.user.id,{type:'online-users',users:_users});
+
+      return res.ok();
+
+    }
+    else {
+      return res.badRequest();
+    }
+  },
   login:function (req,res) {
 
 
@@ -44,8 +80,16 @@ module.exports = {
   },
   salir:function(req,res)
   {
-    res.clearCookie("user_tk");
-    res.redirect("/");
+
+   var sid = ParseService.getValueFromHeader(req.headers.cookie,'sails.sid');
+
+
+    UserService.cambiarEstadoDeConexion(req.session.user,sid,false,function () {
+      res.clearCookie("user_tk");
+      return res.redirect("/");
+
+
+    })
   },
   connect:function(req,res)
   {

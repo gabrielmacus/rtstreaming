@@ -3,7 +3,7 @@
   {
     var item=items[k];
   %>
-  <article class="item <%  if(item.class) {%> <%= item.class.join(" ") %> <% }%>">
+  <article data-id="<%= item.id%>" class="item <%  if(item.class) {%> <%= item.class.join(" ") %> <% }%>">
 
 
 

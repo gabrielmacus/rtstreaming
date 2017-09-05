@@ -36,12 +36,17 @@ module.exports = function(req, res, next) {
 
     }
 
-    var clientIp=req.connection.remoteAddress;
 
-    if(clientIp != result.ip)
+    if(!req.isSocket)
     {
+      var clientIp=req.connection.remoteAddress;
 
-      return res.forbidden(req.__("usuario.noAutenticado"));
+      if(clientIp != result.ip)
+      {
+
+        return res.forbidden(req.__("usuario.noAutenticado"));
+      }
+
     }
 
 

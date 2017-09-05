@@ -61,95 +61,84 @@ module.exports=
    * @param connected Indico si mi estado es conectado/desconectado (true/false)
    * @param callback
      */
-  cambiarEstadoDeConexion:function (userId,connected,callback) {
+  cambiarEstadoDeConexion:function (user,sessionId,connected,callback) {
     //Busco todos los usuarios, me sirve para mas adelante, si tengo amigos por ej, solo enviarle el msg de conexion a ellos y no a todos los sockets
-    User.find( {}).exec(
-      function (err,result) {
-        if(err)
-        {
-          sails.log.error(err);
-          callback({error:'usuario.errorConectar',code:500});
-
-        }
-        var type = (connected)?'connected':'disconnected';
 
 
-        var me  = result.filter(
-          function (el) {
-            return el.id == userId;
-          }
-        )[0];
+   var  userId = user.id;
 
 
-        var connectionChanged= false;
-        if(connected && !connectedUsers[me.id])
-        {
-          //Si me estoy conectando
-           connectedUsers[me.id] = me;
-           connectionChanged = true;
-        }
+    var connectionChanged= false;
 
-        if(!connected && connectedUsers[me.id])
-        {
-          //si me estoy desconectando
-          delete connectedUsers[me.id];
-          connectionChanged = true;
-        }
-
-
-
-      if(connectionChanged)
-      {
-        for(var k in result)
-        {//Notifico a los usuarios pertinentes de mi conexion (excepto a mi)
-          var user  = result[k];
-
-          if(user.id != userId)
-          {
-
-            User.message(user.id, {type:type,user:userId});
-          }
-
-        }
-      }
-
-
-
-      }
-    );
-  },
-
-  getTokenFromHeader:function (header) {
-
-    userTk=false;
-    if(header)
+    if(connected)
     {
-      userTk = header.split(";");
+      //Si me estoy conectando
 
-      userTk = userTk.map(function (el) {
-
-        var split = el.split("=");
-
-        return {key:split[0],value:split[1]};
-
-      });
-
-      userTk = userTk.filter(function (el) {
-        return el.key == 'user_tk';
-      });
-
-      if(userTk && userTk.length >0)
+      if(!connectedUsers[userId])
       {
-        userTk = userTk[0].value;
+        connectedUsers[userId]={};
+      }
+
+      if(!connectedUsers[userId]["sessions"]) {
+        connectedUsers[userId]["sessions"] = [];
+      }
+
+      delete user.password;
+      connectedUsers[userId]["user"]=user;
+      connectedUsers[userId]["sessions"].push({date:Date.now(),id:sessionId});
+
+      connectionChanged = true;
+    }
+    else if(connectedUsers[userId] &&  connectedUsers[userId]["sessions"] )
+    {
+      //si me estoy desconectando
+
+      var _session =  connectedUsers[userId]["sessions"].findIndex(function (el) {
+
+        return el.id == sessionId;
+      });
+
+      if(_session > -1)
+      {
+        connectedUsers[userId]["sessions"].splice(_session,1);
+      }
+
+      if( connectedUsers[userId]["sessions"].length ==0)
+      {
+        //No estoy conectado en ninguna otra sesion
+        delete  connectedUsers[userId];
+
+        connectionChanged = true;
+      }
+
+
+    }
+
+    if(connectionChanged)
+    {
+      for(var u in connectedUsers)
+      {//Notifico a los usuarios pertinentes de mi conexion (excepto a mi)
+
+        if(u != userId)
+        {
+
+          User.message(user, {type:'status',user:user,status:connected});
+        }
+
       }
     }
-    return userTk;
+
+    if(typeof callback === "function"){
+      return callback(true);
+    }
+
 
   },
+
 
   getConnectedUsers:function () {
 
-  
+
     return connectedUsers;
 
   },
