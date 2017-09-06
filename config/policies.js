@@ -67,7 +67,9 @@ module.exports.policies = {
     create:['isLogged','canCreate','isLessLevel'],
     update:['isLogged','canCreate','isLessLevel'],
     find:['isLogged','canRead'],
-    connect:['isLogged']
+    connect:['isLogged'],
+    enviarMensaje:['isLogged','canCreate'],
+    marcarLeido:['isLogged','canCreate']
   },
   StreamingController:
   {

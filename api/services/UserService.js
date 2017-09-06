@@ -85,7 +85,7 @@ module.exports=
 
       delete user.password;
       connectedUsers[userId]["user"]=user;
-      connectedUsers[userId]["sessions"].push({date:Date.now(),id:sessionId});
+      connectedUsers[userId]["sessions"].push({date:TimeService.now(),id:sessionId});
 
       connectionChanged = true;
     }
@@ -122,7 +122,7 @@ module.exports=
         if(u != userId)
         {
 
-          User.message(user, {type:'status',user:user,status:connected});
+          User.message(u, {type:'status',user:user,status:connected});
         }
 
       }

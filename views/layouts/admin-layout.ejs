@@ -43,9 +43,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-multi-select/4.0.0/isteven-multi-select.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-animate.js"></script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-sanitize.js"></script>
   <script>
 
-    var app = angular.module('app', [ "isteven-multi-select",'oi.select','ngAnimate' ]);
+    var app = angular.module('app', [ "isteven-multi-select",'oi.select','ngAnimate','ngSanitize' ]);
   </script>
 </head>
 
@@ -130,11 +132,17 @@
 
 <script>
 
+  angular.element(document).ready(function () {
+
+   setTimeout(function () {
+     io.socket.get('/online/users');
+
+   },1500)
+    io.socket.get('/user/<%= user.id %>');
+  });
 
 
-  io.socket.get('/user')
 
-  io.socket.get('/online/users')
 
 </script>
 

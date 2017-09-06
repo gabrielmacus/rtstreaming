@@ -12,11 +12,13 @@ module.exports = {
     if(req.isSocket)
     {
 
+      var data  =req.allParams();
+      
+      var msg={id:Date.now(),text:data.text,to:data.to,from:req.session.user.id,type:'msg',time:TimeService.now()};
+      User.message(data.to,msg);
+      User.message(req.session.user.id,msg);
 
 
-   var data  =req.allParams();
-
-      User.message(data.to,{text:data.text,to:data.to,from:req.session.user.id,type:'msg',time:Date.now()});
 
       return res.ok();
 
@@ -26,6 +28,25 @@ module.exports = {
     }
   }
   ,
+  marcarLeido:function (req,res) {
+
+    if(req.isSocket)
+    {
+
+      var data  =req.allParams();
+
+      var msg={seen:data.seen,to:data.to,from:req.session.user.id,type:'seen',time:TimeService.now()};
+      User.message(data.to,msg);
+  
+      return res.ok();
+
+    }
+    else {
+      return res.badRequest();
+    }
+    
+    
+  },
   usuariosOnline:function (req,res) {
 
     if(req.isSocket)
@@ -33,6 +54,11 @@ module.exports = {
 
       var _users = UserService.getConnectedUsers();
 
+      sails.log.info("--- Enviando usuarios en linea "+req.session.user.id+" ---");
+
+      console.log(_users);
+
+      sails.log.info("----------------------------------------------------------");
 
 
       User.message(req.session.user.id,{type:'online-users',users:_users});

@@ -64,7 +64,9 @@ module.exports.routes = {
 
   'GET /online/users':{controller:'UserController',action:'usuariosOnline',permissions:'user'},
 
-  'POST /send/msg':{controller:'UserController',action:'enviarMensaje',permissions:'user'},
+  'POST /send/msg':{controller:'UserController',action:'enviarMensaje',permissions:'chat'},
+
+  'POST /mark/seen':{controller:'UserController',action:'marcarLeido',permissions:'chat'},
 
   'GET /salir':{controller:'UserController',action:'salir'},
 

@@ -1,13 +1,13 @@
 <ul class="chat w3-card-2" data-ng-controller="chatController">
 
   <li class="header">
-    <h3>Contactos en linea <i class="material-icons toggle-expand expandir ">&#xE5CE;</i></h3>
+
+    <h3><%= __("chat.onlineContacts") %> <i class="material-icons toggle-expand expandir ">&#xE5CE;</i>     <i data-ng-if="unseenMsgs() > 0" class="material-icons msg-badge scale-fade-in">&#xE0E1;</i></h3>
   </li>
 
   <li class="user " data-ng-repeat="(k,user) in users" data-ng-click="chatWith(user)">
     <span class="username">{{user.username}}</span>
-    <span class="unread">
-     {{user.unread}}
+    <span class="unread" data-ng-if="getUnreadMsgs(user) > 0" data-ng-bind="getUnreadMsgs(user)">
     </span>
   </li>
   <li class="empty user "  data-ng-if="!users || isEmpty(users)">
@@ -15,35 +15,36 @@
   </li>
 </ul>
 
-<div class="conversacion chat w3-card-2" data-ng-if="chat">
-  <ul >
-    <li class="header">
-      <h3>{{chat.user.username}} <span class="back"><i class="material-icons">&#xE317;</i></span></h3>
+<div class="conversacion chat w3-card-2 slide-top" data-ng-if="chat">
+  <header class="header">
+    <h3>{{chat.user.username}} <span data-ng-click="backToContacts()" class="back"><i class="material-icons">&#xE317;</i></span></h3>
 
-    </li>
-    <li  data-ng-class="msg.from == '<%= user.id %>' ? 'me' : 'destinatary'" data-ng-repeat="msg in chat.messages">
+  </header>
+  <ul >
+    <li class="scale-fade"   data-ng-class="msg.from == '<%= user.id %>' ? 'me' : 'destinatary'" data-ng-repeat="msg in chat.messages">
 
       <p class="msg">
         <span class="time">
           <span class="username" data-ng-if="msg.from == '<%= user.id %>'">Yo</span>
           <span class="username" data-ng-if="msg.from != '<%= user.id %>'" data-ng-bind="users[msg.from].username"></span>
           -
-          {{msg.time}}
+          <span class="date" data-ng-bind="getTimeFormated(msg.time)"></span>
           <i data-ng-if="msg.seen" class="material-icons seen" title="Visto {{msg.seen}}">&#xE417;</i></span>
-        {{msg.text}}
+
+        <span data-ng-bind-html="msg.text"></span>
       </p>
     </li>
 
   </ul>
 
-  <div class="write-box">
+  <footer class="write-box">
     <div  class="text" contenteditable data-placeholder ="<%= __("chat.writePlaceholder") %>">
 
     </div>
     <span class="controls">
       <span data-ng-click="sendMsg(chat.user)" class="enviar"><i class="material-icons">&#xE163;</i></span>
     </span>
-  </div>
+  </footer>
 </div>
 
 
@@ -53,11 +54,76 @@
   app.controller('chatController', function($rootScope,$http) {
     $rootScope.users={};
     $rootScope.chats ={};
+$rootScope.unseenMsgs=function () {
+  var unseenMsg= 0;
+  for (var k in $rootScope.chats)
+  {
+    unseenMsg+=$rootScope.getUnreadMsgs({id:k});
+  }
+  return unseenMsg;
+
+}
+    $rootScope.getTimeFormated=function (time) {
+      var date = new Date(time*1000);
+
+      return date.toLocaleString();
+
+    }
+    $rootScope.getUnreadMsgs=function (user) {
+
+      if($rootScope.chats[user.id])
+      {
+        return  $rootScope.chats[user.id].messages.filter(function (el) {
+          return (!el.seen || el.seen == false);
+        }).length;
+      }
+      return 0;
+
+    }
+    $rootScope.backToContacts=function () {
+
+      $rootScope.chat=null;
+
+    }
 
     $rootScope.chatWith=function (user) {
 
-      $rootScope.chat ={};
-      $rootScope.chat.user = user;
+      if(!$rootScope.chats[user.id] )
+      {
+        $rootScope.chats[user.id]={messages:[],user:user};
+      }
+      $rootScope.chat = $rootScope.chats[user.id];
+
+      goToChatBottom();
+      //clavo el visto
+      $rootScope.markAsSeen($rootScope.chat);
+
+    }
+
+    $rootScope.markAsSeen=function (msgs) {
+
+      var seen=[];
+
+      for(var k in msgs)
+      {
+        if(!msgs[k].seen && msgs[k].from != '<%= user.id %>')
+        {
+          seen.push(msgs[k].id);
+          msgs[k].seen=true;
+        }
+
+      }
+
+      if(seen.length > 0)
+      {
+        io.socket.post('/mark/seen', { seen:seen ,to:msgs.user.id}, function (resData, jwRes) {
+
+          console.log(jwRes.statusCode);
+
+
+        });
+      }
+
 
     }
     $rootScope.sendMsg=function(user){
@@ -115,14 +181,44 @@ $rootScope.isEmpty=function (obj) {
             break;
 
           case "msg":
+            if(!$rootScope.chats[event.data.from] )
+            {
+              $rootScope.chats[event.data.from]={messages:[],user:$rootScope.users[event.data.from]};
+            }
+
+            var user=event.data.from;
+            if(user == '<%= user.id %>')
+            {
+              user = event.data.to;
+            }
+            $rootScope.chats[user].messages.push(event.data);
 
 
-           if(! $rootScope.chat.messages)
-           {
-             $rootScope.chat.messages=[];
-           }
+            goToChatBottom();
 
-            $rootScope.chat.messages.push(event.data.data);
+
+
+            break;
+          case "seen":
+
+
+            for (var k in event.data.seen)
+            {
+
+             var idx= $rootScope.chats[event.data.from].messages.findIndex(
+                function (el) {
+
+                  return el.id == k;
+
+                }
+              );
+              if(idx > -1)
+              {
+                $rootScope.chats[event.data.from].messages[idx].seen = event.data.time;
+              }
+            }
+
+
 
 
                 break;
@@ -137,14 +233,20 @@ $rootScope.isEmpty=function (obj) {
 // => see below
     });
 
-
   });
 
+  function goToChatBottom() {
+    setTimeout(function () {
+
+      $('.conversacion ul').scrollTop($('.conversacion ul')[0].scrollHeight);
+    })
+  }
 
 
+  /*
   $(document).on("click",".conversacion .back",function () {
     $(".conversacion").fadeOut();
-  });
+  });*/
   $(document).on("click",".chat:not(.conversacion) .header",function () {
 
     $(".chat .user").slideToggle(function () {

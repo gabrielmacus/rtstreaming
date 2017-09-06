@@ -32,7 +32,8 @@ module.exports = {
   //Niveles minimos segun modelo
     minimumLevels:
     {
-      create:{user:6,streaming:10},
+
+      create:{user:6,streaming:10,chat:4},
       read:{user:6,panel:4,streaming:4},
       delete:{user:10,streaming:10}
     },
