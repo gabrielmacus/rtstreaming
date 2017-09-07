@@ -13,7 +13,7 @@ module.exports = {
     {
 
       var data  =req.allParams();
-      
+
       var msg={id:Date.now(),text:data.text,to:data.to,from:req.session.user.id,type:'msg',time:TimeService.now()};
       User.message(data.to,msg);
       User.message(req.session.user.id,msg);
@@ -37,15 +37,15 @@ module.exports = {
 
       var msg={seen:data.seen,to:data.to,from:req.session.user.id,type:'seen',time:TimeService.now()};
       User.message(data.to,msg);
-  
+
       return res.ok();
 
     }
     else {
       return res.badRequest();
     }
-    
-    
+
+
   },
   usuariosOnline:function (req,res) {
 
@@ -108,14 +108,12 @@ module.exports = {
   {
 
    var sid = ParseService.getValueFromHeader(req.headers.cookie,'sails.sid');
+    
+    UserService.desconectarSesiones(req.session.user);
 
+    res.clearCookie("user_tk");
 
-    UserService.cambiarEstadoDeConexion(req.session.user,sid,false,function () {
-      res.clearCookie("user_tk");
-      return res.redirect("/");
-
-
-    })
+    return res.redirect("/");
   },
   connect:function(req,res)
   {

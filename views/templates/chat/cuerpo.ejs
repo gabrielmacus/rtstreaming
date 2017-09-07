@@ -29,7 +29,7 @@
           <span class="username" data-ng-if="msg.from != '<%= user.id %>'" data-ng-bind="users[msg.from].username"></span>
           -
           <span class="date" data-ng-bind="getTimeFormated(msg.time)"></span>
-          <i data-ng-if="msg.seen" class="material-icons seen" title="Visto {{msg.seen}}">&#xE417;</i></span>
+          <i data-ng-if="msg.seen && msg.from == '<%= user.id %>'" class="material-icons seen scale-fade" ng-attr-title="Visto {{getTimeFormated(msg.seen)}}">&#xE417;</i></span>
 
         <span data-ng-bind-html="msg.text"></span>
       </p>
@@ -38,7 +38,7 @@
   </ul>
 
   <footer class="write-box">
-    <div  class="text" contenteditable data-placeholder ="<%= __("chat.writePlaceholder") %>">
+    <div  data-ng-keypress="sendMsg(chat.user,$event)" class="text" contenteditable data-placeholder ="<%= __("chat.writePlaceholder") %>">
 
     </div>
     <span class="controls">
@@ -51,7 +51,9 @@
 
 <script>
 
+  var scope;
   app.controller('chatController', function($rootScope,$http) {
+    scope = $rootScope;
     $rootScope.users={};
     $rootScope.chats ={};
 $rootScope.unseenMsgs=function () {
@@ -99,43 +101,69 @@ $rootScope.unseenMsgs=function () {
       $rootScope.markAsSeen($rootScope.chat);
 
     }
+    document.addEventListener("visibilitychange",function(){
 
-    $rootScope.markAsSeen=function (msgs) {
-
-      var seen=[];
-
-      for(var k in msgs)
+      if($rootScope.chat)
       {
-        if(!msgs[k].seen && msgs[k].from != '<%= user.id %>')
+        $rootScope.markAsSeen($rootScope.chat);
+        goToChatBottom();
+      }
+
+    });
+
+    $rootScope.markAsSeen=function (chat) {
+
+      if(chat.messages)
+      {
+        var msgs = chat.messages;
+        var seen=[];
+
+        for(var k in msgs)
         {
-          seen.push(msgs[k].id);
-          msgs[k].seen=true;
+          if(!msgs[k].seen && msgs[k].from != '<%= user.id %>')
+          {
+            seen.push(msgs[k].id);
+            msgs[k].seen=true;
+          }
+
         }
 
+        if(seen.length > 0)
+        {
+          io.socket.post('/mark/seen', { seen:seen ,to:chat.user.id}, function (resData, jwRes) {
+
+            console.log(jwRes.statusCode);
+
+
+          });
+        }
       }
 
-      if(seen.length > 0)
-      {
-        io.socket.post('/mark/seen', { seen:seen ,to:msgs.user.id}, function (resData, jwRes) {
 
-          console.log(jwRes.statusCode);
-
-
-        });
-      }
 
 
     }
-    $rootScope.sendMsg=function(user){
-      var txt =$(".conversacion [contenteditable]").html();
-      io.socket.post('/send/msg', { text:txt,to:user.id }, function (resData, jwRes) {
+    $rootScope.sendMsg=function(user,event){
 
-        console.log(jwRes.statusCode);
+      if(!event || event.which == 13)
+      {
+        var ce = $(".conversacion [contenteditable]");
+        var txt =ce.html();
+        io.socket.post('/send/msg', { text:txt,to:user.id }, function (resData, jwRes) {
+          console.log(jwRes.statusCode);
+
+        });
+        ce.empty();
+        event.preventDefault();
+
+      }
 
 
-      });
 
     };
+
+
+
 $rootScope.isEmpty=function (obj) {
 
   return empty(obj);
@@ -196,6 +224,12 @@ $rootScope.isEmpty=function (obj) {
 
             goToChatBottom();
 
+            //Si tengo el chat abierto, clavo el visto
+            if(!isHidden() && $rootScope.chat)
+            {
+
+              $rootScope.markAsSeen($rootScope.chat);
+            }
 
 
             break;
@@ -205,6 +239,7 @@ $rootScope.isEmpty=function (obj) {
             for (var k in event.data.seen)
             {
 
+              k = event.data.seen[k];
              var idx= $rootScope.chats[event.data.from].messages.findIndex(
                 function (el) {
 
@@ -212,6 +247,7 @@ $rootScope.isEmpty=function (obj) {
 
                 }
               );
+
               if(idx > -1)
               {
                 $rootScope.chats[event.data.from].messages[idx].seen = event.data.time;
@@ -238,7 +274,12 @@ $rootScope.isEmpty=function (obj) {
   function goToChatBottom() {
     setTimeout(function () {
 
-      $('.conversacion ul').scrollTop($('.conversacion ul')[0].scrollHeight);
+      try{
+        $('.conversacion ul').scrollTop($('.conversacion ul')[0].scrollHeight);
+      }
+      catch(e)
+      {}
+
     })
   }
 
@@ -263,4 +304,27 @@ $rootScope.isEmpty=function (obj) {
     });
 
   });
+
+  function getHiddenProp(){
+    var prefixes = ['webkit','moz','ms','o'];
+
+    // if 'hidden' is natively supported just return it
+    if ('hidden' in document) return 'hidden';
+
+    // otherwise loop over all the known prefixes until we find one
+    for (var i = 0; i < prefixes.length; i++){
+      if ((prefixes[i] + 'Hidden') in document)
+        return prefixes[i] + 'Hidden';
+    }
+
+    // otherwise it's not supported
+    return null;
+  }
+
+  function isHidden() {
+    var prop = getHiddenProp();
+    if (!prop) return false;
+
+    return document[prop];
+  }
 </script>

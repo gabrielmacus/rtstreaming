@@ -105,6 +105,7 @@ module.exports=
 
       if( connectedUsers[userId]["sessions"].length ==0)
       {
+        sails.log.info("No estoy en ninguna otra sesión");
         //No estoy conectado en ninguna otra sesion
         delete  connectedUsers[userId];
 
@@ -135,6 +136,22 @@ module.exports=
 
   },
 
+  desconectarSesiones:function (user) {
+
+    delete connectedUsers[user.id];
+
+    for(var u in connectedUsers)
+    {//Notifico a los usuarios pertinentes de mi conexion (excepto a mi)
+
+      if(u != user.id)
+      {
+
+        User.message(u, {type:'status',user:user,status:false});
+      }
+
+    }
+
+  },
 
   getConnectedUsers:function () {
 
