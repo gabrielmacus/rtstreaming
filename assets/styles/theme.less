@@ -764,9 +764,10 @@ oi-select .select-search-list-item_selection {
   }
   .conversacion .header
   {
-    height: 8%;
     display: flex;
     align-items: center;
+    position: fixed;
+    width: 100%;
   }
   .conversacion .header h3
   {
@@ -774,7 +775,11 @@ oi-select .select-search-list-item_selection {
   }
   .conversacion ul
   {
-    height: 72%!important;
+    height: 80%!important;
+  }
+  .conversacion li:first-child
+  {
+    margin-top: 63px;
   }
   .conversacion .write-box
   {
