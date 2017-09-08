@@ -233,6 +233,9 @@ $rootScope.isEmpty=function (obj) {
 
               $rootScope.markAsSeen($rootScope.chat);
             }
+            else {
+              var notification = new Notification($rootScope.users[event.data.from].username,{body:event.data.text});
+            }
 
 
             break;

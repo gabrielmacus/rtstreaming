@@ -71,9 +71,11 @@ module.exports=
 
             cmd+=' -i "'+streaming.url+'"';
 
-            cmd+=' '+streaming.outputCmd.join(" ");
+            cmd+='  -timeout '+sails.config.streamingTimeout+' '+streaming.outputCmd.join(" ");
 
             cmd+= ' '+savePath+fileName;
+
+            sails.log.debug(cmd);
 
             var child = exec(cmd);
 

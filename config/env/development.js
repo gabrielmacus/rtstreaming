@@ -54,7 +54,8 @@ module.exports = {
       "usuarios":{text:"navbar.gestionUsuarios",level:6,url:'/admin/users'},
       "salir":{text:"navbar.salir",level:1,url:'/salir'}
 
-    }
+    },
+  streamingTimeout:30
 
 
 
