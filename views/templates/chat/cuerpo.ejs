@@ -2,7 +2,7 @@
 
   <li class="header">
 
-    <h3><%= __("chat.onlineContacts") %> <i class="material-icons toggle-expand expandir ">&#xE5CE;</i>     <i data-ng-if="unseenMsgs() > 0" class="material-icons msg-badge scale-fade-in">&#xE0E1;</i></h3>
+    <h3><span class="text"><%= __("chat.onlineContacts") %></span> <span class="icon"><i class="material-icons">&#xE853;</i></span> <i class="material-icons toggle-expand expandir">&#xE5CE;</i>     <i data-ng-if="unseenMsgs() > 0" class="material-icons msg-badge scale-fade-in">&#xE0E1;</i></h3>
   </li>
 
   <li class="user " data-ng-repeat="(k,user) in users" data-ng-click="chatWith(user)">
@@ -60,7 +60,10 @@ $rootScope.unseenMsgs=function () {
   var unseenMsg= 0;
   for (var k in $rootScope.chats)
   {
-    unseenMsg+=$rootScope.getUnreadMsgs({id:k});
+
+      unseenMsg+=$rootScope.getUnreadMsgs({id:k});
+
+
   }
   return unseenMsg;
 
@@ -76,7 +79,7 @@ $rootScope.unseenMsgs=function () {
       if($rootScope.chats[user.id])
       {
         return  $rootScope.chats[user.id].messages.filter(function (el) {
-          return (!el.seen || el.seen == false);
+          return (!el.seen || el.seen == false ) && el.from != '<%= user.id %>';
         }).length;
       }
       return 0;
@@ -290,19 +293,8 @@ $rootScope.isEmpty=function (obj) {
   });*/
   $(document).on("click",".chat:not(.conversacion) .header",function () {
 
-    $(".chat .user").slideToggle(function () {
-
-      if($(".chat .user").is(":visible"))
-      {
-        $(".chat").addClass("expanded");
-      }
-      else
-      {
-        $(".chat").removeClass("expanded");
-      }
-
-    });
-
+    $(".chat .user").slideToggle();
+    $(".chat").toggleClass("expanded");
   });
 
   function getHiddenProp(){
