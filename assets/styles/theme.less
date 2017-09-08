@@ -783,24 +783,28 @@ oi-select .select-search-list-item_selection {
   }
   .conversacion .write-box
   {
-    height: 20%;
+    position: fixed;
+    bottom: 0;
+    height: 80px;
   }
   .conversacion .write-box [contenteditable]
   {
-    height: 65%;
+    height: 55%;
   }
   .conversacion .write-box .controls
   {
     display: flex;
-    height: 35%;
+    height: 45%;
     align-items: center;
     position: relative;
   }
   .conversacion .write-box .controls .enviar
   {
     position: absolute;
-    padding-top: 2.3%;
-    right: 3%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    align-items: center
   }
   .chat .msg-badge
   {
