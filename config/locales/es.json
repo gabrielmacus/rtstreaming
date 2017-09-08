@@ -78,7 +78,7 @@
 
   "stream.url":"Dirección de la transmisión (cámara ip, archivo,etc)",
   "stream.level":"Nivel mínimo de acceso",
-  "stream.noAvailable":"En estos momentos no hay ninguna transmisión disponible",
+  "stream.noAvailable":"En estos momentos la transmisión no esta disponible",
   "stream.deletePrompt":"Confirmar eliminación de transmisión",
   "stream.areYouSure":"¿Seguro que desea eliminar la transmisión {{p1}}?",
 
