@@ -2,7 +2,7 @@
  * Created by Gabriel on 07/08/2017.
  */
 
-var path = require('path');
+const path = require('path');
 const fs = require('fs-extra')
 
 var streamingProcesses = {};
@@ -56,7 +56,7 @@ module.exports=
 
             if(err)
             {
-              sails.log.err(err);
+              sails.log.error(err);
               return  callback({error:"stream.errorTransmitir",code:500});
             }
 
@@ -69,30 +69,31 @@ module.exports=
 
             }
 
+            var outFile =path.join(savePath,fileName);
+
             cmd+=' -i "'+streaming.url+'"';
 
             cmd+='  -timeout '+sails.config.streamingTimeout+' '+streaming.outputCmd.join(" ");
 
-            cmd+= ' '+savePath+fileName;
+            cmd+= ' '+outFile;
 
             sails.log.debug(cmd);
 
             var child = exec(cmd);
 
-            sails.log.info(cmd);
-
             child.stdout.on('data', function(data) {
-              //console.log('stdout: ' + data);
+             // console.log('stdout: ' + data);
             });
 
             child.stderr.on('data', function(data) {
-              // console.log('stdout: ' + data);
+              //npm install chokidar --save
+             //console.log('stdout: ' + data);
             });
 
             child.on('close', function(code) {
 
 
-              console.log('Killing Streaming '+ streaming.id+'. Closing code: ' + code);
+              sails.log.debug('Killing Streaming '+ streaming.id+'. Closing code: ' + code);
 
               if( streamingProcesses[streamingId])
               {
@@ -106,6 +107,13 @@ module.exports=
               catch(e)
               {}
 
+
+            });
+
+
+            FileService.watch('exists',outFile,(sails.config.streamingTimeout+10),function () {
+
+              
 
             });
 
