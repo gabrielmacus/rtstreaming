@@ -322,4 +322,8 @@ $rootScope.isEmpty=function (obj) {
 
     return document[prop];
   }
+
+  $(document).on("keypress","[contenteditable]", function () {
+    $(this).scrollTop($(this)[0].scrollHeight);
+  });
 </script>

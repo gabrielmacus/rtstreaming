@@ -640,10 +640,13 @@ oi-select .select-search-list-item_selection {
 .conversacion .write-box,.conversacion .write-box .text
 {
   float: left;width: 100%;
+
 }
+
 .conversacion .write-box
-{
+{    background-color: white;
   border: solid 1px @color12;
+
 }
 .conversacion .write-box .controls
 {
@@ -783,6 +786,7 @@ oi-select .select-search-list-item_selection {
   }
   .conversacion .write-box
   {
+
     position: fixed;
     bottom: 0;
     height: 80px;
@@ -820,20 +824,13 @@ oi-select .select-search-list-item_selection {
 
 
 .video-container
-{
-  height: 600px;
+{    position: relative;
+  height: 400px;
   background-color: black;
 }
 
-.video-container video
-{
 
-  height: 100%;
-
-  opacity:0;
-}
-
-.video-container .streaming-loading
+.video-container .streaming-loading,.video-container video
 {
   height: 100%;
   align-items: center;
@@ -843,5 +840,15 @@ oi-select .select-search-list-item_selection {
   color:white;
   position: absolute;
   top: 0;
+  width: 100%;
   right: 0;
+}
+.video-container .streaming-loading .wrapper
+{
+  margin: auto;
+
+}
+[contenteditable]
+{
+  overflow-y: scroll;
 }
