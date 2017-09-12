@@ -30,7 +30,7 @@ else
 
           for(var k in res.data)
           {
-            $rootScope.streamingList[res.data[k].id]=true;
+            $rootScope.streamingList[res.data[k].id]=res.data[k].status;
           }
 
         },error);
@@ -44,15 +44,31 @@ else
           state="stop";
         }
 
-
         $http.get('/admin/'+state+'/streaming/'+id)
           .then(function(res) {
 
-
-            $rootScope.streamingList[id]=start;
+            //$rootScope.streamingList[id]=start;
 
           }, error);
       }
+
+
+
+      io.socket.get('/streaming');
+      // e.g. in the browser...
+      io.socket.on('streaming', function (event){
+
+        if(event.data.status)
+        {
+          $rootScope.streamingList[event.data.streaming.id]=event.data.status;
+          $rootScope.$apply();
+
+        }
+
+      });
+
+
+
 
   });
 

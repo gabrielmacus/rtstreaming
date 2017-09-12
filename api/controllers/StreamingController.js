@@ -113,12 +113,20 @@ module.exports = {
   },
   getLiveStreamingList:function (req,res) {
 
+
     StreamingService.getLiveStreamingList(function (result) {
 
 
       if(result.error)
       {
         return res.json(result.code,res.__(result.error));
+      }
+
+      if(req.param("id"))
+      {
+       result = result.filter(function(el){
+          return el.id==req.param("id");
+        });
       }
 
       return res.json(result);

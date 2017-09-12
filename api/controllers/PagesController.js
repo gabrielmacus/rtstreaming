@@ -11,48 +11,9 @@ module.exports = {
 
     var templateData={layout: 'layouts/layout', bodyClasses: ["home"],user:req.session.user};
     var s= req.param("s");
+    templateData.s = s;
 
-    templateData.streaming=false;
-
-
-    async.waterfall([
-
-      function(callback){
-
-        StreamingService.getLiveStreamingList(
-          function (results) {
-
-            var idx=results.findIndex(function (el) {
-              return el.id== s;
-            });
-
-
-
-              if(s && results.length && idx>-1 )
-              {
-                 templateData.streaming= s;
-              }
-            else if(!s && results && results.length )
-              {
-
-                templateData.streaming=results[0].id;
-              }
-
-
-
-            callback();
-
-          }
-        );
-
-      },
-      function () {
-        console.log(templateData);
-        return     res.view('home/cuerpo', templateData);
-      }
-
-    ]);
-
+    return     res.view('home/cuerpo', templateData);
 
 
    },

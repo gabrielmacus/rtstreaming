@@ -46,7 +46,7 @@
       {%>
 
 
-      <a data-ng-if="!streamingList['<%= item.id%>']" class="play"
+      <a data-ng-if="!streamingList['<%= item.id%>'] || streamingList['<%= item.id%>'] =='stopped'" class="play"
 
          data-ng-click="toggleStreaming(true,'<%= item.id%>')"
 
@@ -56,11 +56,18 @@
       <%}%>
 
 
+      <a data-ng-if="streamingList['<%= item.id%>'] == 'loading'">
+        <h4>Cargando...</h4>
+      </a>
+
+
+
+
       <%if( !sails.config.minimumLevels.read[item.type] || user.level >= sails.config.minimumLevels.read[item.type]   )
       {%>
 
 
-      <a data-ng-if="streamingList['<%= item.id%>']" class="stop"
+      <a data-ng-if="streamingList['<%= item.id%>'] == 'playing'" class="stop"
 
          data-ng-click="toggleStreaming(false,'<%= item.id%>')"
         >

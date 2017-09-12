@@ -1,11 +1,6 @@
-<% if(!streaming)
-{
-  %>
-<div class="w3-col s12">
+
+<div class="w3-col s12" data-ng-if="!streaming || streaming.status == 'stopped'">
 
   <h3><%= __("stream.noAvailable") %></h3>
 </div>
-
-<%
-}%>
 

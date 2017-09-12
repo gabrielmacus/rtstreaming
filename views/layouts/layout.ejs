@@ -119,25 +119,7 @@
     </section>
 
     <%- partial('../modal/cuerpo.ejs') %>
-    <script>
 
-
-      angular.element(document).ready(function () {
-
-        <% if(streaming)
-        {
-          %>
-
-        io.socket.get('/streaming/<%= streaming %>');
-        <%
-        }%>
-
-      });
-
-
-
-
-    </script>
 
 
 

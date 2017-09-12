@@ -81,13 +81,14 @@ module.exports=
 
             var child = exec(cmd);
 
+            streamingProcesses[streaming.id]={pid:child.pid,status:'loading'};
+
+            Streaming.message(streaming.id,{streaming:streaming,status:'loading'});
+
             child.stdout.on('data', function(data) {
-             // console.log('stdout: ' + data);
             });
 
             child.stderr.on('data', function(data) {
-              //npm install chokidar --save
-             //console.log('stdout: ' + data);
             });
 
             child.on('close', function(code) {
@@ -97,6 +98,8 @@ module.exports=
 
               if( streamingProcesses[streamingId])
               {
+
+                Streaming.message(streaming.id,{streaming:streaming,status:'stopped'});
                 delete streamingProcesses[streamingId];
               }
 
@@ -113,11 +116,14 @@ module.exports=
 
             FileService.watch('exists',outFile,(sails.config.streamingTimeout+10),function () {
 
-              
+
+                Streaming.message(streaming.id,{streaming:streaming,status:'playing'});
+                streamingProcesses[streaming.id].status='playing';
+
 
             });
 
-            streamingProcesses[streaming.id]=child;
+
 
             return callback(true);
           })
@@ -141,8 +147,6 @@ module.exports=
     if(streamingProcesses[streamingId])
     {
       CommandService.kill(   streamingProcesses[streamingId].pid);
-
-
 
       return  callback(true);
 
@@ -169,6 +173,12 @@ module.exports=
         {       sails.log.error(err);
           callback({error:"stream.errorListingLive",code:500});
         }
+
+        for(var k in results)
+        {
+          results[k].status = streamingProcesses[results[k].id].status;
+        }
+
 
         callback(results);
 
