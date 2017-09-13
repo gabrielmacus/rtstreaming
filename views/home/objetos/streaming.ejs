@@ -16,26 +16,20 @@
   app.controller('streamingController', function($rootScope,$http) {
 
 
-    io.socket.get('/streaming');
+    io.socket.get('/streaming/<%= s %>');
 
     // e.g. in the browser...
     io.socket.on('streaming', function (event){
 
       console.log(event);
+      $rootScope.streaming=event.data.streaming;
+      $rootScope.streaming.status =event.data.status;
 
-     /* if(event.data.status && $rootScope.streaming && event.data.streaming.id == $rootScope.streaming.id)
+      if(event.data.status == 'playing')
       {
-        $rootScope.streaming=event.data.streaming;
-        $rootScope.streaming.status =event.data.status;
-
-        if(event.data.status == 'playing')
-        {
-          showStreaming($rootScope.streaming.id);
-        }
-        $rootScope.$apply();
-
-      }*/
-
+        showStreaming($rootScope.streaming.id);
+      }
+      $rootScope.$apply();
     });
 
 
