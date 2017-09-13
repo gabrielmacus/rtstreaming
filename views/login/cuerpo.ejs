@@ -19,9 +19,16 @@
         method:'post',
         dataType:'json',
         data:$("#login-form").serialize(),
-        success:function () {
+        success:function (e) {
 
-          location.reload();
+          if(e.redirect)
+          {
+            location.href =e.redirect;
+          }
+          else
+          {
+            location.reload();
+          }
 
         },
         error:error

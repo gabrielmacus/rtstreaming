@@ -34,7 +34,7 @@ module.exports = {
     {
 
       create:{user:6,streaming:10,chat:4},
-      read:{user:6,panel:4,streaming:4},
+      read:{user:6,panel:4,streaming:1},
       delete:{user:10,streaming:10}
     },
     //Niveles de usuario existentes

@@ -21,15 +21,19 @@ module.exports = function(req, res, next) {
       }
       else
       {
+        
+       res.cookie('_r',req.path );
+        
+        var path= req.path.split("/")[1];
 
-        if(req.path=='/')
+        if(path=='admin')
         {
+          return      res.redirect("/admin/ingresar");
 
-          return      res.redirect("/ingresar");
         }
         else
         {
-          return      res.redirect("/admin/ingresar");
+          return      res.redirect("/ingresar");
         }
       }
 

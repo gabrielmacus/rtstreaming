@@ -2,7 +2,17 @@
 <div class="main-container" data-ng-controller="streamingController">
   <%- partial("objetos/header.ejs") %>
 
-  <%- partial("objetos/streaming.ejs")%>
+  <div class="video-container w3-col s12 ">
+    <div  data-ng-if="!streaming || streaming.status == 'stopped'" class="no-streaming">
+      <%- partial("objetos/no-streaming.ejs")%>
+    </div>
 
-  <%- partial("objetos/no-streaming.ejs")%>
+    <div data-ng-if="streaming && streaming.status != 'stopped'" class="streaming">
+      <%- partial("objetos/streaming.ejs")%>
+
+    </div>
+
+
+
+    </div>
 </div>

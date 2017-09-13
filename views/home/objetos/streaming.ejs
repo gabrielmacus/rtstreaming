@@ -1,6 +1,6 @@
 
 
-<div class="video-container w3-col s12 " data-ng-if="streaming && streaming.status != 'stopped'">
+
 
   <div class="streaming-loading"   data-ng-if="streaming.status == 'loading'" >
 
@@ -8,7 +8,7 @@
   </div>
 
   <video  data-ng-if="streaming.status == 'playing'"  class="w3-col s12 " id="video"></video>
-</div>
+
 
 <script>
 
@@ -16,12 +16,12 @@
   app.controller('streamingController', function($rootScope,$http) {
 
 
-    io.socket.get('/streaming/<%= s %>');
+    io.socket.get('/streaming/<%= s.id %>');
 
     // e.g. in the browser...
     io.socket.on('streaming', function (event){
 
-      console.log(event);
+
       $rootScope.streaming=event.data.streaming;
       $rootScope.streaming.status =event.data.status;
 
@@ -38,9 +38,7 @@
     $rootScope.streaming={status:'loading'};
 
 
-    $http.get('/admin/live/streamings?<%= (s)?'id='+s:''%>').then(function(res){
-
-      console.log(res);
+    $http.get('/live/streamings?id=<%= s.id %>').then(function(res){
 
       if(res.data.length)
       {

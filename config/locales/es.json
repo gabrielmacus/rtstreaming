@@ -81,6 +81,9 @@
   "stream.noAvailable":"En estos momentos la transmisión no esta disponible",
   "stream.deletePrompt":"Confirmar eliminación de transmisión",
   "stream.areYouSure":"¿Seguro que desea eliminar la transmisión {{p1}}?",
+  "stream.noStreamingSelected":"No se selecciono una transmisión para ver",
+  "stream.noExists":"La transmisión seleccionada no existe",
+  "stream.errorWatching":"Error al intentar visualizar la transmisión",
 
   "eliminar":"Eliminar",
   "editar":"Editar",

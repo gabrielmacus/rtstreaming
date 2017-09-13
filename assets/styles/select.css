@@ -127,7 +127,7 @@ oi-select:not(.multiple) .select-search-list-item_selection {
   text-align: left;
 }
 oi-select:not(.multiple) .select-search-list-item_selection:not(:active) {
-  background: none;
+  background: none!important;
 }
 oi-select:not(.multiple):not(.cleanMode) .select-search-list-item_selection-remove {
   display: none;

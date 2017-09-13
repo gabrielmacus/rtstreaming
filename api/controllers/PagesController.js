@@ -11,9 +11,35 @@ module.exports = {
 
     var templateData={layout: 'layouts/layout', bodyClasses: ["home"],user:req.session.user};
     var s= req.param("s");
-    templateData.s = s;
 
-    return     res.view('home/cuerpo', templateData);
+    var query={id:s};
+
+    if(!s)
+    {
+      //Si no seleccione una transmisión, recupero la ultima
+      query={};
+    // return  res.badRequest(res.i18n("stream.noStreamingSelected"));
+    }
+    Streaming.find(query).exec(
+      function (err,results) {
+
+        if(err)
+        {
+          return res.serverError(res.__("stream.errorWatching"));
+        }
+
+        if(!results.length)
+        {
+         return res.notFound(res.__("stream.noExists"));
+        }
+        templateData.s = results[0];
+
+        return     res.view('home/cuerpo', templateData);
+
+
+      }
+    );
+
 
 
    },

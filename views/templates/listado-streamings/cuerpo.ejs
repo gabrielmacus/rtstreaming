@@ -25,7 +25,7 @@ else
 
       $rootScope.streamingList={};
 
-      $http.get('/admin/live/streamings').
+      $http.get('/live/streamings').
         then(function (res) {
 
           for(var k in res.data)

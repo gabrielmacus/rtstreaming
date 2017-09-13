@@ -95,10 +95,12 @@ module.exports = {
       res.cookie('user_tk',token);
 
 
+      var redirect=(req.cookies['_r'])?req.cookies['_r']:false;
+
+        res.clearCookie("_r");
 
 
-
-      return res.json(result);
+      return res.json({user:result,redirect:redirect});
 
 
     })
@@ -108,7 +110,7 @@ module.exports = {
   {
 
    var sid = ParseService.getValueFromHeader(req.headers.cookie,'sails.sid');
-    
+
     UserService.desconectarSesiones(req.session.user);
 
     res.clearCookie("user_tk");
