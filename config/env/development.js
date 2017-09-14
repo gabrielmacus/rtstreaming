@@ -21,10 +21,6 @@ module.exports = {
   //   connection: 'someMongodbServer'
   // }
 
-  model:
-  {
-    connection:'sails-mongo'
-  },
   port:2000,
   hashAlgo:'sha256',
   salt:'qwerty',

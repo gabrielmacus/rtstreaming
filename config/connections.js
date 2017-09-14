@@ -75,7 +75,18 @@ module.exports.connections = {
     wlNext: {
       caseSensitive: true
     }
+  },
+  mongodMem:
+{
+  adapter: 'sails-mongo',
+  host: 'localhost',
+  port: 27018,
+  database: 'streaming_db', //optional
+
+  wlNext: {
+    caseSensitive: true
   }
+}
   /***************************************************************************
   *                                                                          *
   * PostgreSQL is another officially supported relational database.          *
