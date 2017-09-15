@@ -12,7 +12,7 @@ module.exports=
     },
     userId:
     {
-      type:'objectid',
+      type:'string',
       required:true
     },
     connections:

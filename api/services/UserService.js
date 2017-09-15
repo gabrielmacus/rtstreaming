@@ -3,7 +3,7 @@
  */
 
 var connectedUsers={};
-var ObjectID = require('mongodb').ObjectID;
+//var ObjectID = require('mongodb').ObjectID;
 var async = require('async');
 const crypto = require('crypto');
 module.exports=
@@ -77,9 +77,27 @@ module.exports=
 
     async.waterfall([
       function (callback) {
-        Session.findOrCreate({userId:userId},{userId:new ObjectId(userId),connections:[]}).exec(
+        Session.findOrCreate({userId:userId},{userId: userId,connections:[]}).exec(
           function (err,result) {
 
+            if(err)
+            {
+
+              if(typeof callback === "function"){
+
+                console.log("Function called");
+
+                return callback({error:"usuarios.sessionError",code:500});
+              }
+              else
+              {
+                return false;
+              }
+
+            }
+
+
+            console.log(result);
 
             var fetchedSession = result[0];
 
@@ -98,7 +116,18 @@ module.exports=
               Session.update({id: fetchedSession.id},fetchedSession).exec(
                 function (err,result) {
 
-                  sails.log.debug(err);
+                  if(err)
+                  {
+
+                    if(typeof callback === "function"){
+                      return callback({error:"usuarios.sessionError",code:500});
+                    }
+                    else
+                    {
+                      return false;
+                    }
+
+                  }
 
                   callback();
 
@@ -121,7 +150,22 @@ module.exports=
 
                 Session.update({id: fetchedSession.id},fetchedSession).exec(
                   function (err,result) {
-                    sails.log.debug(err);
+
+
+                    if(err)
+                    {
+
+                      if(typeof callback === "function"){
+                        return callback({error:"usuarios.sessionDisconnectError",code:500});
+                      }
+                      else
+                      {
+                        return false;
+                      }
+
+                    }
+
+
                     callback();
 
                   }
@@ -136,7 +180,20 @@ module.exports=
 
                 Session.destroy({id: fetchedSession.id}).exec(
                   function (err,result) {
-                    sails.log.debug(err);
+
+                    if(err)
+                    {
+
+                      if(typeof callback === "function"){
+                        return callback({error:"usuarios.sessionDisconnectError",code:500});
+                      }
+                      else
+                      {
+                        return false;
+                      }
+
+                    }
+
                     callback();
 
                   }
@@ -161,7 +218,22 @@ module.exports=
         var filter={};//Aca deberia filtrar por mis contactos o amigos
         Session.find(filter).exec(
           function (err,result) {
-            sails.log.debug(err);
+
+
+            if(err)
+            {
+
+              if(typeof callback === "function"){
+                return callback({error:"usuarios.sessionError",code:500});
+              }
+              else
+              {
+                return false;
+              }
+
+            }
+
+
 
             if(result.length)
             {

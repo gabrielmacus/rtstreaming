@@ -66,6 +66,8 @@
   "usuarios.nadaSeleccionado":"Ningun día seleccionado",
   "usuarios.deletePrompt":"Confirmar eliminación de usuario",
   "usuarios.areYouSure":"¿Seguro que desea eliminar el usuario {{p3}}?",
+  "usuarios.sessionError":"Error de conexión al servidor",
+  "usuarios.sessionDisconnectError":"Error al desconectarse del servidor",
 
   "stream.noUrl":"No se especifico la url de la transmisión",
   "stream.errorListar":"Error al listar las transmisiones",
