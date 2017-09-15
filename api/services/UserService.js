@@ -71,121 +71,53 @@ module.exports=
     //Busco todos los usuarios, me sirve para mas adelante, si tengo amigos por ej, solo enviarle el msg de conexion a ellos y no a todos los sockets
 
 
-    var  userId = user.id;
-    var connectionChanged= false;
-    var session={};
+      var  userId = user.id;
+      var connectionChanged= false;
+      var session={};
 
-    async.waterfall([
-      function (callback) {
-        Session.findOrCreate({userId:userId},{userId: userId,connections:[]}).exec(
-          function (err,result) {
+      async.waterfall([
+        function (callback) {
+          Session.findOrCreate({userId:userId},{userId: userId,connections:[]}).exec(
+            function (err,result) {
 
-            if(err)
-            {
-
-              if(typeof callback === "function"){
-
-                console.log("Function called");
-
-                return callback({error:"usuarios.sessionError",code:500});
-              }
-              else
+              if(err)
               {
-                return false;
-              }
 
-            }
+                if(callback){
 
+                  console.log("Function called");
 
-            console.log(result);
-
-            var fetchedSession = result[0];
-
-            if(connected)
-            {
-              //Si me estoy conectando
-
-              delete user.password;
-
-
-              fetchedSession["user"]=user;
-              fetchedSession["connections"].push({date:TimeService.now(),id:sessionId});
-              connectionChanged = true;
-
-
-              Session.update({id: fetchedSession.id},fetchedSession).exec(
-                function (err,result) {
-
-                  if(err)
-                  {
-
-                    if(typeof callback === "function"){
-                      return callback({error:"usuarios.sessionError",code:500});
-                    }
-                    else
-                    {
-                      return false;
-                    }
-
-                  }
-
-                  callback();
-
+                  return callback({error:"usuarios.sessionError",code:500});
                 }
-              );
+                else
+                {
+                  return false;
+                }
 
-            }
-            else
-            {
-              //si me estoy desconectando
+              }
 
-              var _session = fetchedSession["connections"].findIndex(function (el) {
 
-                return el.id == sessionId;
-              });
+              var fetchedSession = (typeof result == 'object')?result : result[0];
 
-              if(_session > -1)
+              if(connected)
               {
-                fetchedSession["sessions"].splice(_session,1);
+                //Si me estoy conectando
+
+                delete user.password;
+
+                fetchedSession["user"]=user;
+                fetchedSession["connections"].push({date:TimeService.now(),id:sessionId});
+                connectionChanged = true;
+
 
                 Session.update({id: fetchedSession.id},fetchedSession).exec(
                   function (err,result) {
 
-
                     if(err)
                     {
 
-                      if(typeof callback === "function"){
-                        return callback({error:"usuarios.sessionDisconnectError",code:500});
-                      }
-                      else
-                      {
-                        return false;
-                      }
-
-                    }
-
-
-                    callback();
-
-                  }
-                );
-
-
-              }
-
-              if( fetchedSession["sessions"].length ==0)
-              {
-                //No estoy conectado en ninguna otra sesion
-
-                Session.destroy({id: fetchedSession.id}).exec(
-                  function (err,result) {
-
-                    if(err)
-                    {
-
-                      if(typeof callback === "function"){
-                        return callback({error:"usuarios.sessionDisconnectError",code:500});
+                      if(callback){
+                        return callback({error:"usuarios.sessionError",code:500});
                       }
                       else
                       {
@@ -199,68 +131,133 @@ module.exports=
                   }
                 );
 
-                connectionChanged = true;
-              }
-
-
-            }
-
-
-
-
-
-          }
-        );
-
-      },
-      function () {
-
-        var filter={};//Aca deberia filtrar por mis contactos o amigos
-        Session.find(filter).exec(
-          function (err,result) {
-
-
-            if(err)
-            {
-
-              if(typeof callback === "function"){
-                return callback({error:"usuarios.sessionError",code:500});
               }
               else
               {
-                return false;
+                //si me estoy desconectando
+
+                var _session = fetchedSession["connections"].findIndex(function (el) {
+
+                  return el.id == sessionId;
+                });
+
+                if(_session > -1)
+                {
+                  fetchedSession["sessions"].splice(_session,1);
+
+                  Session.update({id: fetchedSession.id},fetchedSession).exec(
+                    function (err,result) {
+
+
+                      if(err)
+                      {
+
+                        if(callback){
+                          return callback({error:"usuarios.sessionDisconnectError",code:500});
+                        }
+                        else
+                        {
+                          return false;
+                        }
+
+                      }
+
+
+                      callback();
+
+                    }
+                  );
+
+
+                }
+
+                if( fetchedSession["sessions"].length ==0)
+                {
+                  //No estoy conectado en ninguna otra sesion
+
+                  Session.destroy({id: fetchedSession.id}).exec(
+                    function (err,result) {
+
+                      if(err)
+                      {
+
+                        if(callback){
+                          return callback({error:"usuarios.sessionDisconnectError",code:500});
+                        }
+                        else
+                        {
+                          return false;
+                        }
+
+                      }
+
+                      callback();
+
+                    }
+                  );
+
+                  connectionChanged = true;
+                }
+
+
               }
 
+
+
+
+
             }
+          );
+
+        },
+        function () {
+
+          var filter={};//Aca deberia filtrar por mis contactos o amigos
+          Session.find(filter).exec(
+            function (err,result) {
 
 
+              if(err)
+              {
 
-            if(result.length)
-            {
-              for(var u in result)
-              {//Notifico a los usuarios pertinentes de mi conexion (excepto a mi)
-
-                var r = result[u];
-                if(r.userId != userId)
+                if( callback){
+                  return callback({error:"usuarios.sessionError",code:500});
+                }
+                else
                 {
-
-                  User.message(r.userId, {type:'status',user:user,status:connected});
+                  return false;
                 }
 
               }
+
+
+
+              if(result.length)
+              {
+                for(var u in result)
+                {//Notifico a los usuarios pertinentes de mi conexion (excepto a mi)
+
+                  var r = result[u];
+                  if(r.userId != userId)
+                  {
+
+                    User.message(r.userId, {type:'status',user:user,status:connected});
+                  }
+
+                }
+              }
+
+              if(callback){
+                return callback(true);
+              }
+
+
             }
-
-            if(typeof callback === "function"){
-              return callback(true);
-            }
+          )
 
 
-          }
-        )
-
-
-      }
-    ]);
+        }
+      ]);
 
 
 
