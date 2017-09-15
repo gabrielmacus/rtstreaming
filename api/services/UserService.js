@@ -2,7 +2,6 @@
  * Created by Gabriel on 04/08/2017.
  */
 
-var connectedUsers={};
 //var ObjectID = require('mongodb').ObjectID;
 var async = require('async');
 const crypto = require('crypto');
@@ -76,7 +75,7 @@ module.exports=
       var session={};
 
       async.waterfall([
-        function (callback) {
+        function (cb) {
           Session.findOrCreate({userId:userId},{userId: userId,connections:[]}).exec(
             function (err,result) {
 
@@ -126,7 +125,7 @@ module.exports=
 
                     }
 
-                    callback();
+                    cb();
 
                   }
                 );
@@ -143,7 +142,7 @@ module.exports=
 
                 if(_session > -1)
                 {
-                  fetchedSession["sessions"].splice(_session,1);
+                  fetchedSession["connections"].splice(_session,1);
 
                   Session.update({id: fetchedSession.id},fetchedSession).exec(
                     function (err,result) {
@@ -163,7 +162,7 @@ module.exports=
                       }
 
 
-                      callback();
+                      return cb();
 
                     }
                   );
@@ -171,7 +170,7 @@ module.exports=
 
                 }
 
-                if( fetchedSession["sessions"].length ==0)
+                if( fetchedSession["connections"].length ==0)
                 {
                   //No estoy conectado en ninguna otra sesion
 
@@ -212,8 +211,8 @@ module.exports=
         },
         function () {
 
-          var filter={};//Aca deberia filtrar por mis contactos o amigos
-          Session.find(filter).exec(
+          
+          UserService.getConnectedUsers(
             function (err,result) {
 
 
@@ -253,7 +252,9 @@ module.exports=
 
 
             }
-          )
+          );
+          
+         
 
 
         }
@@ -356,10 +357,22 @@ module.exports=
 
   },
 
-  getConnectedUsers:function () {
+  getConnectedUsers:function (callback) {
 
 
-    return connectedUsers;
+    var filter={};//Aca deberia filtrar por mis contactos o amigos
+    Session.find(filter).exec(
+      function (err,results) {
+        
+        if(callback)
+        {
+         return callback(err,results);
+        }
+        
+      }
+    );
+    
+   
 
   },
 

@@ -52,23 +52,31 @@ module.exports = {
     if(req.isSocket)
     {
 
-      var _users = UserService.getConnectedUsers();
+  UserService.getConnectedUsers(function (err,_users) {
 
-      sails.log.info("--- Enviando usuarios en linea "+req.session.user.id+" ---");
+    if(err)
+    {
+      _users=[];
+    }
+    sails.log.info("--- Enviando usuarios en linea "+req.session.user.id+" ---");
 
-      console.log(_users);
+    console.log(_users);
 
-      sails.log.info("----------------------------------------------------------");
+    sails.log.info("----------------------------------------------------------");
 
 
-      User.message(req.session.user.id,{type:'online-users',users:_users});
+    User.message(req.session.user.id,{type:'online-users',users:_users});
 
-      return res.ok();
+    return res.ok();
+
+      });
+
+
 
     }
     else {
       return res.badRequest();
-    }
+  }
   },
   login:function (req,res) {
 
