@@ -211,7 +211,7 @@ module.exports=
         },
         function () {
 
-          
+
           UserService.getConnectedUsers(
             function (err,result) {
 
@@ -251,10 +251,10 @@ module.exports=
               }
 
 
-            }
+            },user.id
           );
-          
-         
+
+
 
 
         }
@@ -342,37 +342,64 @@ module.exports=
 
   desconectarSesiones:function (user) {
 
-    delete connectedUsers[user.id];
+    User.destroy({userId:user.id}).exec(
+      function (err,result) {
 
-    for(var u in connectedUsers)
-    {//Notifico a los usuarios pertinentes de mi conexion (excepto a mi)
+        if(err)
+        {
+          sails.log.error(err);
+        }
 
-      if(u != user.id)
-      {
+        UserService.getConnectedUsers(
+          function(err,results){
 
-        User.message(u, {type:'status',user:user,status:false});
+            if(!err)
+            {
+              for(var u in results)
+              {//Notifico a los usuarios pertinentes de mi conexion (excepto a mi)
+
+                if(results[u].id != user.id)
+                {
+
+                  User.message(results[u].id, {type:'status',user:user,status:false});
+                }
+
+              }
+
+            }
+
+          },user.id
+        );
+
+
       }
+    );
 
-    }
 
   },
 
-  getConnectedUsers:function (callback) {
+  getConnectedUsers:function (callback,me) {
 
 
-    var filter={};//Aca deberia filtrar por mis contactos o amigos
+
+    var filter={ };//Aca deberia filtrar por mis contactos o amigos
+
+    if(me)
+    {
+      filter.userId =  { '!' : me };
+    }
     Session.find(filter).exec(
       function (err,results) {
-        
+
         if(callback)
         {
          return callback(err,results);
         }
-        
+
       }
     );
-    
-   
+
+
 
   },
 
