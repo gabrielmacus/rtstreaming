@@ -75,9 +75,9 @@ module.exports.routes = {
 
   /*** Files**/
 
-    /*
-  'POST /file':{controller:'FileController',action:'tmpUpload'},
-  'GET /file/:name':{controller:'FileController',action:'getTmpFile'}*/
+
+  'POST /file':{controller:'ArchivoController',action:'tmpUpload'},
+  'GET /file/:name':{controller:'ArchivoController',action:'getTmpFile'}
 
   /*** ***/
   /***************************************************************************

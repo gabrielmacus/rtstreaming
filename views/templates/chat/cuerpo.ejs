@@ -31,7 +31,7 @@
           <span class="date" data-ng-bind="getTimeFormated(msg.time)"></span>
           <i data-ng-if="msg.seen && msg.from == '<%= user.id %>'" class="material-icons seen scale-fade" ng-attr-title="Visto {{getTimeFormated(msg.seen)}}">&#xE417;</i></span>
 
-        <span data-ng-bind-html="msg.text"></span>
+        <span data-ng-bind-html="msg.text | unsafe"></span>
       </p>
     </li>
 
@@ -45,7 +45,7 @@
 
       <div class="w3-left">
         <span class="control file">
-          <input type="file" id="file-send">
+          <input type="file" multiple name="file" id="file-send">
           <i class="material-icons">&#xE2C3;</i>
         </span>
       </div>
@@ -81,8 +81,84 @@ $rootScope.unseenMsgs=function () {
 }
     $(document).on("change","#file-send", function () {
 
-     console.log( $(this).files);
+  var _files=$(this)[0].files;
+      var files=[];
+
+      angular.forEach(_files,function (v,k) {
+
+        files.push({file:v,name:v.name});
+      });
+
+
+      var fileUpload=function () {
+        if(files.length==0)
+        {
+          return false;
+        }
+
+        var formdata = new FormData();
+        var file =files.shift();
+        //console.log(file);
+        formdata.append('file', file.file);
+        //formdata.append('name', );
+
+        var request = {
+          method: 'POST',
+          url: '/file?name='+file.name,
+          data: formdata,
+          headers: {
+            'Content-Type': undefined
+          }
+        };
+
+        $http(request)
+          .then(function (res) {
+            console.log(res);
+
+            var html="<br><div class='file-preview'>";
+
+            switch (res.data[0].type)
+            {
+              case 'image':
+                html+= "<img src='/file/"+res.data[0].url+"'>";
+                html+="<span class='name'>"+res.data[0].name+"</span>"
+                html+="<div class='icons'>";
+                html+="<a target='_blank' class='download' download href='/file/"+res.data[0].url+"'><i class='material-icons'>&#xE2C4;</i></a>";
+                html+="</div>"
+                    break;
+              case 'video':
+                html+= "<video controls src='/file/"+res.data[0].url+"'></video>";
+                html+="<span class='name'>"+res.data[0].name+"</span>"
+                html+="<div class='icons'>";
+                html+="<a target='_blank' class='download' download href='/file/"+res.data[0].url+"'><i class='material-icons'>&#xE2C4;</i></a>";
+                html+="</div>"
+                    break;
+              default:
+
+                html+="<span class='name'>"+res.data[0].name;
+                html+="<div class='icons default'>";
+                html+="<a target='_blank' class='download' download href='/file/"+res.data[0].url+"'><i class='material-icons'>&#xE2C4;</i></a>";
+                html+="</div>"
+                html+"</span>";
+                    break;
+            }
+             html+="</div>";
+            document.getElementById("file-send").value = "";
+
+            $("[contenteditable]").append(html);
+
+            fileUpload();
+          },error);
+
+      }
+
+      fileUpload();
+
+
     });
+
+
+
     $rootScope.getTimeFormated=function (time) {
       var date = new Date(time*1000);
 

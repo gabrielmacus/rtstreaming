@@ -131,7 +131,11 @@
 <%- partial('../modal/cuerpo.ejs') %>
 
 <script>
-
+  app.filter('unsafe', ['$sce', function ($sce) {
+    return function (val) {
+      return $sce.trustAsHtml(val);
+    };
+  }]);
   angular.element(document).ready(function () {
 
    setTimeout(function () {

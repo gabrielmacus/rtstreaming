@@ -53,8 +53,38 @@ module.exports= {
 
 
   },
-  uploadTmp: function (files, callback) {
-    files.upload({
+  getType:function (name) {
+    var ext =path.extname(name).toLowerCase();
+    switch (ext){
+      case ".jpg":
+      case ".jpeg":
+      case ".gif":
+      case ".png":
+      case ".svg":
+
+        return "image";
+            break;
+      case ".wav":
+      case ".mp3":
+
+        return "audio";
+
+            break;
+      case ".mp4":
+      case ".webm":
+            return "video";
+      break;
+      default:
+
+        return "binary";
+            break;
+
+
+    }
+  },
+  uploadTmp: function (file,name, callback) {
+
+    file.upload({
       maxBytes: sails.config.maxFileSize
     }, function (err, uploadedFiles) {
       if (err) {
@@ -74,7 +104,9 @@ module.exports= {
       for(var k in uploadedFiles)
       {
         var file = uploadedFiles[k];
-        uploaded.push(path.basename(file.fd));
+        var urlName=path.basename(file.fd);
+        name= (name)?name: urlName;
+        uploaded.push({name:name,url:urlName,type:ArchivoService.getType(urlName)});
       }
      return callback(uploaded);
 

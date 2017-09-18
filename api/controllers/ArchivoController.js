@@ -6,7 +6,8 @@ module.exports=
 {
   tmpUpload: function (req, res) {
 
-    FileService.uploadTmp(req.file("file"),function (result) {
+
+    ArchivoService.uploadTmp(req.file("file"),req.param("name"),function (result) {
 
       if(result.error)
       {

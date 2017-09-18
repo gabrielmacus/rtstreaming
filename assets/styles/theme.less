@@ -596,11 +596,13 @@ oi-select .select-search-list-item_selection {
   width: 100%;
   padding: @margin1;
   padding-bottom: 0px;
+  word-break: break-word;
+
   min-width: 177px!important;
 
 }
 .conversacion li p
-{
+{    max-width: 100%;
   display: inline-block;
   padding: 10px;
 }
@@ -674,7 +676,12 @@ oi-select .select-search-list-item_selection {
   top: 3px;
 }
 
-
+.conversacion .write-box .control.file input
+{
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+}
 .conversacion .write-box .controls .w3-left .control
 {
 
@@ -684,6 +691,42 @@ oi-select .select-search-list-item_selection {
 }
 
 
+.conversacion .file-preview
+{
+  width: 100%;
+  position: relative;
+  float: left;
+}
+
+.conversacion .file-preview .name
+{
+  padding: 5px;
+  width: 100%;
+  display: block;
+  background-color: @color10;
+}
+
+.conversacion  .file-preview img,.conversacion .file-preview video
+{
+  width: 100%;
+  object-fit: contain;
+  background-color: @color3;
+}
+
+.conversacion .write-box .file-preview .icons
+{
+ display: none;
+}
+.conversacion .file-preview .icons
+{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.conversacion .file-preview .icons.default
+{
+  position: static;
+}
 
 .conversacion .write-box .enviar
 {

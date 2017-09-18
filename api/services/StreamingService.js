@@ -114,7 +114,7 @@ module.exports=
             });
 
 
-            FileService.watch('exists',outFile,(sails.config.streamingTimeout+10),function () {
+            ArchivoService.watch('exists',outFile,(sails.config.streamingTimeout+10),function () {
 
 
                 Streaming.message(streaming.id,{streaming:streaming,status:'playing'});
