@@ -25,7 +25,7 @@
 
       <p class="msg">
         <span class="time">
-          <span class="username" data-ng-if="msg.from == '<%= user.id %>'">Yo</span>
+          <span class="username" data-ng-if="msg.from == '<%= user.id %>'"><%= __('me') %></span>
           <span class="username" data-ng-if="msg.from != '<%= user.id %>'" data-ng-bind="users[msg.from].username"></span>
           -
           <span class="date" data-ng-bind="getTimeFormated(msg.time)"></span>
@@ -42,7 +42,18 @@
 
     </div>
     <span class="controls">
-      <span data-ng-click="sendMsg(chat.user)" class="enviar"><i class="material-icons">&#xE163;</i></span>
+
+      <div class="w3-left">
+        <span class="control file">
+          <input type="file" id="file-send">
+          <i class="material-icons">&#xE2C3;</i>
+        </span>
+      </div>
+
+      <div class="w3-right">
+        <span data-ng-click="sendMsg(chat.user)" class="enviar control"><i class="material-icons">&#xE163;</i></span>
+      </div>
+
     </span>
   </footer>
 </div>
@@ -68,6 +79,10 @@ $rootScope.unseenMsgs=function () {
   return unseenMsg;
 
 }
+    $(document).on("change","#file-send", function () {
+
+     console.log( $(this).files);
+    });
     $rootScope.getTimeFormated=function (time) {
       var date = new Date(time*1000);
 

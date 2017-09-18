@@ -9,6 +9,7 @@ module.exports = {
 
   enviarMensaje:function (req,res) {
 
+    //TODO
     if(req.isSocket)
     {
 
@@ -69,7 +70,7 @@ module.exports = {
 
     return res.ok();
 
-      });
+      },req.session.user.id);
 
 
 

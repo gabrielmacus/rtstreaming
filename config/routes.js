@@ -70,8 +70,16 @@ module.exports.routes = {
 
   'GET /salir':{controller:'UserController',action:'salir'},
 
-  'POST /ingresar':{controller:'UserController',action:'login'}
+  'POST /ingresar':{controller:'UserController',action:'login'},
   /** **/
+
+  /*** Files**/
+
+    /*
+  'POST /file':{controller:'FileController',action:'tmpUpload'},
+  'GET /file/:name':{controller:'FileController',action:'getTmpFile'}*/
+
+  /*** ***/
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

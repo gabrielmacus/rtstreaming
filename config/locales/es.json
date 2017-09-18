@@ -102,6 +102,7 @@
   "time.to":"Hasta",
   "aceptar":"Aceptar",
   "cancelar":"Cancelar",
+  "me":"Yo",
 
   "transmision.titulo":"Transmisión en vivo...",
   "transmision.errorEditar":"Error al ingresar a edición de transmisión",
@@ -111,5 +112,9 @@
   "chat.onlineContacts":"Usuarios en línea",
 
 
-  "areYouSure":"¿Está seguro?"
+  "areYouSure":"¿Está seguro?",
+
+  "file.tmpUploadError":"Error al subir el archivo temporal",
+  "file.noFilesUploaded":"Ningún archivo fue subido",
+  "file.notTmpName":"No se especificó el nombre del archivo temporal"
 }

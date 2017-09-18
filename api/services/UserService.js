@@ -84,8 +84,6 @@ module.exports=
 
                 if(callback){
 
-                  console.log("Function called");
-
                   return callback({error:"usuarios.sessionError",code:500});
                 }
                 else
@@ -105,7 +103,7 @@ module.exports=
                 delete user.password;
 
                 fetchedSession["user"]=user;
-                fetchedSession["connections"].push({date:TimeService.now(),id:sessionId});
+                fetchedSession["connections"].push({date:new Date(),id:sessionId});
                 connectionChanged = true;
 
 
@@ -342,7 +340,7 @@ module.exports=
 
   desconectarSesiones:function (user) {
 
-    User.destroy({userId:user.id}).exec(
+    Session.destroy({userId:user.id}).exec(
       function (err,result) {
 
         if(err)
@@ -358,11 +356,8 @@ module.exports=
               for(var u in results)
               {//Notifico a los usuarios pertinentes de mi conexion (excepto a mi)
 
-                if(results[u].id != user.id)
-                {
+                  User.message(results[u].userId, {type:'status',user:user,status:false});
 
-                  User.message(results[u].id, {type:'status',user:user,status:false});
-                }
 
               }
 
@@ -379,8 +374,6 @@ module.exports=
   },
 
   getConnectedUsers:function (callback,me) {
-
-
 
     var filter={ };//Aca deberia filtrar por mis contactos o amigos
 

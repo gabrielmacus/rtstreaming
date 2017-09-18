@@ -51,7 +51,10 @@ module.exports = {
       "salir":{text:"navbar.salir",level:1,url:'/salir'}
 
     },
-  streamingTimeout:30
+  streamingTimeout:30,
+
+  // don't allow the total upload size to exceed ~10MB
+  maxFileSize:10000000
 
 
 
