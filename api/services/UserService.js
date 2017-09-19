@@ -552,6 +552,9 @@ module.exports=
 
 
 
+  },
+  markAsSeen:function (to,msgId) {
+    
   }
 
 }
