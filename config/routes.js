@@ -68,6 +68,8 @@ module.exports.routes = {
 
   'POST /mark/seen':{controller:'UserController',action:'marcarLeido',permissions:'chat'},
 
+  'GET /chats':{controller:'UserController',action:'getConversaciones'},
+
   'GET /salir':{controller:'UserController',action:'salir'},
 
   'POST /ingresar':{controller:'UserController',action:'login'},

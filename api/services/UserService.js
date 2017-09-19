@@ -5,6 +5,8 @@
 //var ObjectID = require('mongodb').ObjectID;
 var async = require('async');
 const crypto = require('crypto');
+var asyncLoop = require('node-async-loop');
+
 module.exports=
 {
     ingresar:function(userEmail,password,callback)
@@ -413,6 +415,143 @@ module.exports=
 
 
     return userLevels;
+  },
+
+  /**
+   *
+   * @param userId
+   * @param to
+   * @param data
+   * @param type En memoria 1/En disco 2
+   * @param callback
+   */
+  saveConversation: function (userId,to,data,type,callback) {
+
+    c = (type && type == 2)?Conversation:_Conversation;
+
+    c.findOrCreate({or:[{user1:userId},{user2:userId}]}, {data:[],user1:userId,user2:to})
+      .exec(function (err, results){
+        if(err)
+        {
+          sails.log.debug(err);
+          return callback({error:"chat.errorSaving",code:500});
+        }
+        var conversation = (results.length)?results[0]:results;
+
+        if(data.length)
+        {
+          conversation.data=conversation.data.concat(data);
+        }
+        else
+        {
+          conversation.data.push(data);
+        }
+
+
+
+
+        c.update({id:conversation.id},conversation).exec(
+          function (err,result) {
+
+            console.log(result);
+            if(err)
+            {      sails.log.debug(err);
+              return callback({error:"chat.errorSaving",code:500});
+            }
+            if(callback)
+            {
+              return callback(result)
+            }
+          }
+        );
+
+      });
+  },
+  loadConversations: function (userId,callback) {
+
+    var filter ={or:[{user1:userId},{user2:userId}]};
+
+    _Conversation.find(filter)
+      .exec(function(err,results)
+    {
+
+
+      if(err)
+      {
+        sails.log.debug(err);
+      return  callback({error:"chat.errorRetrievingChats",code:500});
+      }
+
+
+      async.waterfall(
+        [
+          function (callback) {
+
+            if(results.length)
+            {
+              asyncLoop(results, function (item, next)
+                {
+
+                  var to = (item.user1==userId)?item.user2:item.user1;
+                  UserService.saveConversation(userId,to,item.data,2, function (result) {
+
+                    if(result.error)
+                    {
+                      return  callback({error:"chat.errorRetrievingChats",code:500});
+                    }
+
+                    next();
+
+
+                  });
+
+                },
+                function (err) {
+                  if(err)
+                  {
+                    return  callback({error:"chat.errorRetrievingChats",code:500});
+                  }
+
+                  callback();
+
+                });
+            }
+            else
+            {
+              callback();
+            }
+
+          },
+          function () {
+            Conversation.find(filter)
+              .exec(
+              function (err,results) {
+                if(err)
+                {
+                  return  callback({error:"chat.errorRetrievingChats",code:500});
+                }
+
+                _Conversation.destroy(filter).exec(
+                  function () {
+                    return callback(results);
+                  }
+                );
+
+              }
+            );
+
+          }
+        ]
+      );
+
+
+
+
+
+    });
+
+
+
   }
 
 }

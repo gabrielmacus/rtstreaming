@@ -110,6 +110,8 @@
   "chat.sinUsuarios":"Ningún usuario conectado",
   "chat.writePlaceholder":"Escriba un mensaje...",
   "chat.onlineContacts":"Usuarios en línea",
+  "chat.errorRetrievingChats":"Error al recuperar las conversaciones",
+  "chat.errorSaving":"Error guardando la conversación",
 
 
   "areYouSure":"¿Está seguro?",

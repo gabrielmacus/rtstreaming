@@ -69,7 +69,8 @@ module.exports.policies = {
     find:['isLogged','canRead'],
     connect:['isLogged'],
     enviarMensaje:['isLogged','canCreate'],
-    marcarLeido:['isLogged','canCreate']
+    marcarLeido:['isLogged','canCreate'],
+    getConversaciones:['isLogged']
   },
   StreamingController:
   {

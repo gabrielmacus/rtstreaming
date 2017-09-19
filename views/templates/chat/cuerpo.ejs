@@ -67,6 +67,30 @@
     scope = $rootScope;
     $rootScope.users={};
     $rootScope.chats ={};
+
+
+    $rootScope.loadChats= function () {
+      $http.get("/chats").then(
+        function(response){
+          // success callback
+          for(var k in response.data)
+          {
+            var data = response.data[k];
+            var user = (data.user1 == '<%= user.id %>')?data.user2:data.user1;
+
+            if(! $rootScope.chats[user])
+            {
+              $rootScope.chats[user]={};
+            }
+            $rootScope.chats[user].messages= data.data;
+            $rootScope.chats[user].user= $rootScope.users[user];
+
+          }
+        },
+        error
+      );
+    }
+
 $rootScope.unseenMsgs=function () {
   var unseenMsg= 0;
   for (var k in $rootScope.chats)
@@ -283,7 +307,7 @@ $rootScope.isEmpty=function (obj) {
 
             });
 
-
+            $rootScope.loadChats();
 
             break;
 

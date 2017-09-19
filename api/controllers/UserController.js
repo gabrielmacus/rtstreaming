@@ -7,6 +7,17 @@
 
 module.exports = {
 
+  getConversaciones: function (req,res) {
+
+    UserService.loadConversations(req.session.user.id, function (result) {
+
+      if(result.error)
+      {
+        return res.json(result.code,res.i18n(result.error));
+      }
+      return res.json(result);
+    });
+  },
   enviarMensaje:function (req,res) {
 
     //TODO
@@ -16,10 +27,11 @@ module.exports = {
       var data  =req.allParams();
 
       var msg={id:Date.now(),text:data.text,to:data.to,from:req.session.user.id,type:'msg',time:TimeService.now()};
+
+      UserService.saveConversation(req.session.user.id,data.to,msg);
+
       User.message(data.to,msg);
       User.message(req.session.user.id,msg);
-
-
 
       return res.ok();
 
