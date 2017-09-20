@@ -45,8 +45,7 @@ module.exports = {
    },
   login: function(req,res)
   {
-
-      res.view('login/cuerpo',{layout: 'layouts/login-layout', bodyClasses: ["login"],form:'objetos/login-form.ejs'})
+   return   res.view('login/cuerpo',{layout: 'layouts/login-layout', bodyClasses: ["login"],form:'objetos/login-form.ejs'})
   },
   loginAdmin: function(req,res)
   {

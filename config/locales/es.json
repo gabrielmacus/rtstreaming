@@ -112,6 +112,7 @@
   "chat.onlineContacts":"Usuarios en línea",
   "chat.errorRetrievingChats":"Error al recuperar las conversaciones",
   "chat.errorSaving":"Error guardando la conversación",
+  "chat.errorSeen":"Error marcando mensaje como leído",
 
 
   "areYouSure":"¿Está seguro?",

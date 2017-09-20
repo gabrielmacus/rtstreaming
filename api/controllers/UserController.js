@@ -39,8 +39,7 @@ module.exports = {
     else {
       return res.badRequest();
     }
-  }
-  ,
+  },
   marcarLeido:function (req,res) {
 
     if(req.isSocket)
@@ -48,10 +47,24 @@ module.exports = {
 
       var data  =req.allParams();
 
-      var msg={seen:data.seen,to:data.to,from:req.session.user.id,type:'seen',time:TimeService.now()};
-      User.message(data.to,msg);
 
-      return res.ok();
+      if(data.seen)
+      {
+        return res.ok();
+      }
+
+      UserService.markAsSeen(req.session.user.id,data.to,data.id,
+        function (result) {
+
+          var msg={seen:data.seen,to:data.to,from:req.session.user.id,type:'seen',time:TimeService.now()};
+          User.message(data.to,msg);
+
+          return res.ok();
+
+        })
+
+
+
 
     }
     else {
@@ -127,8 +140,7 @@ module.exports = {
     })
 
   },
-  salir:function(req,res)
-  {
+  salir:function(req,res) {
 
    var sid = ParseService.getValueFromHeader(req.headers.cookie,'sails.sid');
 
@@ -138,8 +150,7 @@ module.exports = {
 
     return res.redirect("/");
   },
-  connect:function(req,res)
-  {
+  connect:function(req,res) {
     // Make sure this is a socket request (not traditional HTTP)
     if (!req.isSocket) {
       return res.badRequest();

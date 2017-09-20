@@ -553,8 +553,58 @@ module.exports=
 
 
   },
-  markAsSeen:function (to,msgId) {
-    
+  markAsSeen:function (userId,to,msgId,callback) {
+var queryCallback = function (err, results, c) {
+
+    if(err)
+    {
+      callback({error:"chat.errorSeen",code:500});
+    }
+
+    if(results.length)
+    {
+     var idx= results[0].data.findIndex(function (el) {
+        return el.id == msgId;
+      })
+
+      results[0].data[idx].seen = TimeService.now();
+
+      c.update({id:results[0].id},results[0]).
+        exec(
+        function (err,results2) {
+
+          if(err)
+          {
+            callback({error:"chat.errorSeen",code:500});
+          }
+
+          return callback(results2);
+        }
+      );
+
+
+    }
+
+
+}
+    var filter = {or:[{user1:to,user2:userId},{user1:userId,user2:to}]};
+    _Conversation.find(filter)
+      .exec(
+      function(err,results)
+      {
+        queryCallback(err,results,_Conversation);
+
+      }
+    );
+
+    Conversation.find(filter)
+      .exec(
+      function(err,results)
+      {
+        queryCallback(err,results,Conversation);
+
+      }
+    );
   }
 
 }
