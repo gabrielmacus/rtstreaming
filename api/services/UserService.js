@@ -584,7 +584,10 @@ var queryCallback = function (err, results, c) {
 
 
     }
-
+  else
+    {
+      callback({});
+    }
 
 }
     var filter = {or:[{user1:to,user2:userId},{user1:userId,user2:to}]};

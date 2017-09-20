@@ -21,17 +21,17 @@
 
   </header>
   <ul >
-    <li class="scale-fade"   data-ng-class="msg.from == '<%= user.id %>' ? 'me' : 'destinatary'" data-ng-repeat="msg in chat.messages">
+    <li class="scale-fade "   data-ng-class="msg.from == '<%= user.id %>' ? 'me' : 'destinatary'" data-ng-repeat="msg in chat.messages">
 
       <p class="msg">
-        <span class="time">
+        <span class="time w3-col s12">
           <span class="username" data-ng-if="msg.from == '<%= user.id %>'"><%= __('me') %></span>
           <span class="username" data-ng-if="msg.from != '<%= user.id %>'" data-ng-bind="users[msg.from].username"></span>
           -
           <span class="date" data-ng-bind="getTimeFormated(msg.time)"></span>
           <i data-ng-if="msg.seen && msg.from == '<%= user.id %>'" class="material-icons seen scale-fade" ng-attr-title="Visto {{getTimeFormated(msg.seen)}}">&#xE417;</i></span>
 
-        <span data-ng-bind-html="msg.text | unsafe"></span>
+        <span class="w3-col s12" data-ng-bind-html="msg.text | unsafe"></span>
       </p>
     </li>
 

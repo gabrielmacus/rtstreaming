@@ -53,6 +53,7 @@ module.exports = {
         return res.ok();
       }
 
+      console.log(data);
       UserService.markAsSeen(req.session.user.id,data.to,data.id,
         function (result) {
 
