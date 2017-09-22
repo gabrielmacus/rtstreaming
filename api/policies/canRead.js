@@ -2,10 +2,8 @@
  * Created by Puers on 06/08/2017.
  */
 module.exports = function(req, res, next) {
-
-
-
-  var permissions = req.options.model || req.options.permissions || false;
+  
+  var permissions =  req.options.permissions || req.options.model  || false;
 
   if(!permissions || req.session.user && req.session.user.level >= sails.config.minimumLevels.read[permissions])
   {

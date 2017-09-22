@@ -7,13 +7,13 @@ module.exports = function(req, res, next) {
 
   var token =req.cookies.user_tk ||req.headers['x-access-token'];
 
-  console.log(token);
 
   WebTokenService.verificarToken(token,function(err,result) {
 
-    console.log(err);
+
     req.session.user=result;
 
+    sails.log.error(err);
 
     if(err)
     {

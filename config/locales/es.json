@@ -113,6 +113,7 @@
   "chat.errorRetrievingChats":"Error al recuperar las conversaciones",
   "chat.errorSaving":"Error guardando la conversación",
   "chat.errorSeen":"Error marcando mensaje como leído",
+  "chat.msgNotFound":"Mensaje no encontrado",
 
 
   "areYouSure":"¿Está seguro?",

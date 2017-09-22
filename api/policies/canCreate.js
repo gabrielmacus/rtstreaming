@@ -4,8 +4,12 @@
 module.exports = function(req, res, next) {
 
 
-  var permissions = req.options.model || req.options.permissions || false;
+  var permissions =  req.options.permissions || req.options.model  || false;
 
+  /*
+  console.log(permissions);
+  console.log(req.session.user);
+  console.log( sails.config.minimumLevels.create[permissions]);*/
   if(!permissions || req.session.user && req.session.user.level >= sails.config.minimumLevels.create[permissions])
   {
     return  next();

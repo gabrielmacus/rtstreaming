@@ -561,11 +561,14 @@ var queryCallback = function (err, results, c) {
      return callback({error:"chat.errorSeen",code:500});
     }
 
+  console.log(results);
     if(results.length)
     {
      var idx= results[0].data.findIndex(function (el) {
         return inArray(msgId,el.id);//el.id == msgId;
       });
+
+
 
       results[0].data[idx].seen = TimeService.now();
 
