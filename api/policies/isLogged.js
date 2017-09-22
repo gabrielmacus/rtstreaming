@@ -1,4 +1,4 @@
-/**
+0/**
  * Created by Gabriel on 04/08/2017.
  */
 
@@ -7,8 +7,11 @@ module.exports = function(req, res, next) {
 
   var token =req.cookies.user_tk ||req.headers['x-access-token'];
 
+  console.log(token);
+
   WebTokenService.verificarToken(token,function(err,result) {
 
+    console.log(err);
     req.session.user=result;
 
 
@@ -21,9 +24,9 @@ module.exports = function(req, res, next) {
       }
       else
       {
-        
+
        res.cookie('_r',req.path );
-        
+
         var path= req.path.split("/")[1];
 
         if(path=='admin')
@@ -41,6 +44,7 @@ module.exports = function(req, res, next) {
     }
 
 
+    /*
     if(!req.isSocket)
     {
       var clientIp=req.connection.remoteAddress;
@@ -51,7 +55,7 @@ module.exports = function(req, res, next) {
         return res.forbidden(req.__("usuario.noAutenticado"));
       }
 
-    }
+    }*/
 
 
 

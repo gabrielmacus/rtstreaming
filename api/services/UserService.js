@@ -6,7 +6,7 @@
 var async = require('async');
 const crypto = require('crypto');
 var asyncLoop = require('node-async-loop');
-
+var inArray = require('in-array');
 module.exports=
 {
     ingresar:function(userEmail,password,callback)
@@ -558,14 +558,14 @@ var queryCallback = function (err, results, c) {
 
     if(err)
     {
-      callback({error:"chat.errorSeen",code:500});
+     return callback({error:"chat.errorSeen",code:500});
     }
 
     if(results.length)
     {
      var idx= results[0].data.findIndex(function (el) {
-        return el.id == msgId;
-      })
+        return inArray(msgId,el.id);//el.id == msgId;
+      });
 
       results[0].data[idx].seen = TimeService.now();
 
@@ -575,7 +575,7 @@ var queryCallback = function (err, results, c) {
 
           if(err)
           {
-            callback({error:"chat.errorSeen",code:500});
+            return callback({error:"chat.errorSeen",code:500});
           }
 
           return callback(results2);
@@ -586,7 +586,7 @@ var queryCallback = function (err, results, c) {
     }
   else
     {
-      callback({});
+      return callback({});
     }
 
 }
@@ -595,19 +595,28 @@ var queryCallback = function (err, results, c) {
       .exec(
       function(err,results)
       {
-        queryCallback(err,results,_Conversation);
+
+
+        if(results.length)
+        {
+          return  queryCallback(err,results,_Conversation);
+        }
+
+
+        Conversation.find(filter)
+          .exec(
+          function(err,results)
+          {
+            return queryCallback(err,results,Conversation);
+
+          }
+        );
+
 
       }
     );
 
-    Conversation.find(filter)
-      .exec(
-      function(err,results)
-      {
-        queryCallback(err,results,Conversation);
 
-      }
-    );
   }
 
 }

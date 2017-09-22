@@ -24,8 +24,9 @@ module.exports = {
     if(req.isSocket)
     {
 
-      var data  =req.allParams();
 
+      var data  =req.allParams();
+      sails.log.info("De "+req.session.user.id+" a "+data.to);
       var msg={id:Date.now(),text:data.text,to:data.to,from:req.session.user.id,type:'msg',time:TimeService.now()};
 
       UserService.saveConversation(req.session.user.id,data.to,msg);
@@ -47,14 +48,7 @@ module.exports = {
 
       var data  =req.allParams();
 
-
-      if(data.seen)
-      {
-        return res.ok();
-      }
-
-      console.log(data);
-      UserService.markAsSeen(req.session.user.id,data.to,data.id,
+      UserService.markAsSeen(req.session.user.id,data.to,data.seen,
         function (result) {
 
           var msg={seen:data.seen,to:data.to,from:req.session.user.id,type:'seen',time:TimeService.now()};
